@@ -13,7 +13,7 @@ function output_header()
 
   <body>
     <header>
-      <h1><a href="index.php">Restaurant</a></h1>
+      <h1><a href="../index.php">Restaurant</a></h1>
       <a href="login.php">Login</a>
     </header>
 
