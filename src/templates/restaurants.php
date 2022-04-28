@@ -5,7 +5,7 @@ declare(strict_types=1); ?>
 <?php
 function output_restaurant_card_nano(int $id)
 { ?>
-  <a href="../pages/restaurant_page.php" id="restaurant">
+  <a href="../pages/restaurant.php" id="restaurant">
     <img src="https://picsum.photos/id/10<?php echo $id ?>/300/300" alt="">
     <h3>Restaurant</h3>
     <h4>Location</h4>
@@ -28,7 +28,7 @@ function output_restaurant_slide()
 <?php
 function output_restaurant_card_mini(int $id)
 { ?>
-  <a href="../pages/restaurant_page.php" id="restaurant">
+  <a href="../pages/restaurant.php" id="restaurant">
     <img src="https://picsum.photos/id/10<?php echo $id ?>/300/300" alt="">
     <h3>Restaurant</h3>
     <h4>Location</h4>
