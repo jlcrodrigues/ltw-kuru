@@ -5,7 +5,7 @@ declare(strict_types=1); ?>
 <?php
 function output_restaurant_card_nano(int $id)
 { ?>
-  <a href="../pages/restaurant.php" id="restaurant">
+  <a href="../pages/restaurant.php" class="restaurant">
     <img src="https://picsum.photos/id/10<?php echo $id ?>/300/300" alt="">
     <h3>Restaurant</h3>
     <h4>Location</h4>
@@ -15,7 +15,7 @@ function output_restaurant_card_nano(int $id)
 function output_restaurant_slide()
 {
 ?>
-  <section id="slide">
+  <section class="slide">
     <?php
     for ($i = 0; $i < 5; $i++) {
       output_restaurant_card_nano($i);
@@ -28,7 +28,7 @@ function output_restaurant_slide()
 <?php
 function output_restaurant_card_mini(int $id)
 { ?>
-  <a href="../pages/restaurant.php" id="restaurant">
+  <a href="../pages/restaurant.php" class="restaurant">
     <img src="https://picsum.photos/id/10<?php echo $id ?>/300/300" alt="">
     <h3>Restaurant</h3>
     <h4>Location</h4>
@@ -41,7 +41,7 @@ function output_restaurant_card_mini(int $id)
 <?php
 function output_restaurant_search()
 { ?>
-  <section id="restaurants">
+  <section class="restaurants">
     <?php
     for ($i = 0; $i < 5; $i++) {
       output_restaurant_card_mini($i);
@@ -75,7 +75,7 @@ function output_review($id)
 <?php
 function output_restaurant_card(int $id)
 { ?>
-  <section id="restaurant">
+  <section class="restaurant">
     <header>
       <img src="https://picsum.photos/500/300" alt="">
       <h3>Restaurant</h3>

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 function output_search_bar()
 { ?>
-  <form>
+  <form method="post" id="search-box">
     <input type="text" name="search" placeholder="Search">
   </form>
-
 <?php
 }
+
 function output_search_filter()
 { ?>
   <form action="search_filter.php" method="post">

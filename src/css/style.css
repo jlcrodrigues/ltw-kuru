@@ -1,0 +1,46 @@
+:root {
+    --primary-color: #303633;
+    --secondary-color: #DEE2E6;
+    --accent-color: #1B998B;
+    --bg-color: #fff;
+}
+/* header */
+
+body > header {
+  background-color: var(--bg-color);
+  border-bottom: 0.15em solid var(--secondary-color);
+}
+
+body > header a {
+  color: var(--primary-color);
+  text-decoration: none;
+  margin: 0;
+}
+
+.material-icons.icon-4x {
+  font-size: 2em;
+}
+
+/* search box */
+
+#search-box {
+  padding: 2em;
+  width: 100%;
+  text-align: center;
+}
+
+input[name=search] {
+  padding: 1em;
+  width: 50%;
+  font-size: 1.2em;
+  background-color: var(--secondary-color);
+  border-radius: 2em;
+  border: 2em none var(--secondary-color);
+  outline: none;
+}
+
+input[name=search]:focus {
+  border-color: var(--accent-color);
+  border:0;
+  border-style: none;
+}

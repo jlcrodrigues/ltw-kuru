@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  max-width: 150em;
+  margin: 0 auto;
+}
+
+/* header */
+
+body > header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 90% auto;
+}
+
+body > header * {
+  margin: 1em;
+}
+
+.slide {
+  display: flex;
+}
