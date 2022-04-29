@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1); ?>
+<?php
+
+declare(strict_types=1); ?>
 
 <?php
 function output_header()
@@ -9,12 +11,15 @@ function output_header()
   <head>
     <title>Restaurant</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
 
   <body>
     <header>
       <h1><a href="../index.php">Restaurant</a></h1>
-      <a href="login.php">Login</a>
+      <a href="../pages/profile.php">
+        <i class="material-icons">account_circle</i>
+      </a>
     </header>
 
 
