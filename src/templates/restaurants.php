@@ -33,9 +33,9 @@ function output_restaurant_slide()
 <?php
 function output_restaurant_card_mini(int $id)
 { ?>
-  <a href="../pages/restaurant.php" class="restaurant">
-    <img src="https://picsum.photos/id/10<?php echo $id ?>/300/300" alt="">
-    <div class="restaurant-text">
+  <a href="../pages/restaurant.php" class="restaurant-mini">
+    <img src="https://picsum.photos/id/10<?php echo $id ?>/200/200" alt="">
+    <div class="mini-text">
       <h3>Restaurant</h3>
       <h4>Location</h4>
       <p>Adress</p>
@@ -48,7 +48,7 @@ function output_restaurant_card_mini(int $id)
 <?php
 function output_restaurant_search()
 { ?>
-  <section class="restaurants">
+  <section class="restaurants-search">
     <?php
     for ($i = 0; $i < 5; $i++) {
       output_restaurant_card_mini($i);

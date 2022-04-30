@@ -37,3 +37,16 @@ body > header * {
   justify-content: center;
   margin-bottom: 1em;
 }
+
+/* search page */
+
+#search {
+  display: grid;
+  grid-template-columns: 20% auto;
+  align-self: center;
+  width: 70%;
+}
+
+.restaurant-mini {
+  display: flex;
+}
