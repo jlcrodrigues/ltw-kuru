@@ -6,6 +6,9 @@ function output_search_bar()
 { ?>
   <form method="post" id="search-box">
     <input type="text" name="search" placeholder="Search">
+    <button type="submit">
+      <i class="material-icons icon-4x">search</i>
+    </button>
   </form>
 <?php
 }

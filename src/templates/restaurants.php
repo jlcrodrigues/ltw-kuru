@@ -5,10 +5,12 @@ declare(strict_types=1); ?>
 <?php
 function output_restaurant_card_nano(int $id)
 { ?>
-  <a href="../pages/restaurant.php" class="restaurant">
-    <img src="https://picsum.photos/id/10<?php echo $id ?>/300/300" alt="">
-    <h3>Restaurant</h3>
-    <h4>Location</h4>
+  <a href="../pages/restaurant.php" class="restaurant-nano">
+    <img src="https://picsum.photos/id/10<?php echo $id ?>/250/150" alt="">
+    <div class="nano-text">
+      <h3>Restaurant</h3>
+      <h4>Location</h4>
+    </div>
   </a>
 <?php }
 
@@ -16,11 +18,14 @@ function output_restaurant_slide()
 {
 ?>
   <section class="slide">
-    <?php
-    for ($i = 0; $i < 5; $i++) {
-      output_restaurant_card_nano($i);
-    }
-    ?>
+    <h2>Section Title</h2>
+    <div class="slide-content">
+      <?php
+      for ($i = 0; $i < 5; $i++) {
+        output_restaurant_card_nano($i);
+      }
+      ?>
+    </div>
   </section>
 <?php
 } ?>
@@ -30,11 +35,13 @@ function output_restaurant_card_mini(int $id)
 { ?>
   <a href="../pages/restaurant.php" class="restaurant">
     <img src="https://picsum.photos/id/10<?php echo $id ?>/300/300" alt="">
-    <h3>Restaurant</h3>
-    <h4>Location</h4>
-    <p>Adress</p>
-    <p>Rating</p>
-    <p>Preço</p>
+    <div class="restaurant-text">
+      <h3>Restaurant</h3>
+      <h4>Location</h4>
+      <p>Adress</p>
+      <p>Rating</p>
+      <p>Preço</p>
+    </div>
   </a>
 <?php } ?>
 
@@ -75,10 +82,12 @@ function output_review($id)
 <?php
 function output_restaurant_card(int $id)
 { ?>
-  <section class="restaurant">
+  <article class="restaurant">
     <header>
       <img src="https://picsum.photos/500/300" alt="">
-      <h3>Restaurant</h3>
+      <div class="restaurant-text">
+        <h3>Restaurant</h3>
+      </div>
     </header>
     <form action="" method="post">
       <button class="restaurant_section">Menu</button>
@@ -113,5 +122,5 @@ function output_restaurant_card(int $id)
     <section id="user_photos">
       <img src="https://picsum.photos/200/300" alt="">
     </section>
-  </section>
+  </article>
 <?php } ?>

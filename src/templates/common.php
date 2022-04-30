@@ -21,6 +21,7 @@ function output_header()
   <body>
     <header>
       <h1><a href="../index.php">Restaurant</a></h1>
+      <h3><a href="../pages/search.php">Restaurants</a></h1>
       <a href="../pages/profile.php">
         <i class="material-icons icon-4x">account_circle</i>
       </a>
