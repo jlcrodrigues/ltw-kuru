@@ -7,7 +7,8 @@
 
   output_header();
   output_search_bar();
-  output_restaurant_slide();
-  output_restaurant_slide();
+  for ($i = 0; $i < 10; $i++) {
+    output_restaurant_slide();
+  }
   output_footer();
 ?>

@@ -1,0 +1,52 @@
+body {
+  max-width: 150em;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+body > footer {
+  min-height: 4em;
+  margin-top: auto; 
+}
+
+/* header */
+
+body > header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100vw;
+  display: flex;
+  align-items: baseline;
+}
+
+body > header > a {
+  margin-left: auto;
+}
+
+body > header * {
+  margin: 1em;
+}
+
+/* sliders */
+
+.slide-content {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+/* search page */
+
+#search {
+  display: grid;
+  grid-template-columns: 20% auto;
+  align-self: center;
+  width: 70%;
+}
+
+.restaurant-mini {
+  display: flex;
+}

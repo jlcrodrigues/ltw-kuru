@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 function output_search_bar()
 { ?>
-  <form>
+  <form method="post" id="search-box">
     <input type="text" name="search" placeholder="Search">
+    <button type="submit">
+      <i class="material-icons icon-4x">search</i>
+    </button>
   </form>
-
 <?php
 }
+
 function output_search_filter()
 { ?>
-  <form action="search_filter.php" method="post">
+  <form id="search-filter" action="search_filter.php" method="post">
     <label for="price">Price range:<br></label>
     <label>
       <input type="checkbox" name="price">
