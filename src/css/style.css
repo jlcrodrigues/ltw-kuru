@@ -1,9 +1,10 @@
 :root {
     --primary-color: #303633;
-    --secondary-color: #DEE2E6;
-    --accent-color: #1B998B;
-    --bg-color: #fcfcfc;
-    --bg-secondary-color: #fff;
+    --secondary-color: #fff;
+    --accent-color: #F6BD60;
+    --bg-color: #f2f2f2;
+    --bg-secondary-color: #fafafa;
+    --shadow-color: #ddd;
 }
 
 body {
@@ -18,12 +19,12 @@ body {
 /* header */
 
 body > header {
-  background-color: var(--bg-secondary-color);
-  box-shadow: 0px 1px 12px var(--secondary-color);
+  background-color: var(--accent-color);
+  box-shadow: 0px 1px 12px var(--shadow-color);
 }
 
 body > header a {
-  color: var(--primary-color);
+  color: var(--secondary-color);
   text-decoration: none;
   margin: 0;
 }
@@ -49,7 +50,7 @@ input[name=search] {
   background-color: var(--bg-secondary-color);
   width: 50%;
   border: none;
-  box-shadow: 0px 1px 12px var(--secondary-color);
+  box-shadow: 0px 1px 12px var(--shadow-color);
 }
 
 input[name=search]:focus {
@@ -68,7 +69,7 @@ input[name=search]:focus {
 }
 
 .slide-content {
-  box-shadow: 0px 5px 15px var(--secondary-color);
+  box-shadow: 0px 5px 15px var(--shadow-color);
   border-radius: 0.5em;
   background-color: var(--bg-secondary-color);
 }
@@ -113,15 +114,17 @@ body > footer p {
 }
 
 #search-filter {
+  background-color: var(--bg-secondary-color);
   padding: 1em;
-  box-shadow: 0px 5px 15px var(--secondary-color);
+  box-shadow: 0px 5px 15px var(--shadow-color);
   margin-right: 1em;
   border-radius: 0.5em;
 }
 
 .restaurants-search {
+  background-color: var(--bg-secondary-color);
   padding: 0.5em;
-  box-shadow: 0px 5px 15px var(--secondary-color);
+  box-shadow: 0px 2px 15px var(--shadow-color);
   border-radius: 0.5em;
 }
 
