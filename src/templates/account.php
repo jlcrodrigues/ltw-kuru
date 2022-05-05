@@ -3,22 +3,37 @@ function output_profile(int $id)
 { ?>
   <section id="profile">
     <img src="https://picsum.photos/200" alt="profile photo">
-    <form action="" method="post">
-      <button class="profile_section_button">Profile</button>
-      <button class="profile_section_button">Reviews</button>
-      <button class="profile_section_button">Orders</button>
-      <button class="profile_section_button">Logout</button>
-    </form>
-    <section id="profile_info" class="profile_section">
+    <div id="tabs">
+      <button 
+        id="profile-button" 
+        class="profile-section-button" 
+        onclick="openProfileTab(event, 'profile-info')">
+        Profile
+      </button>
+      <button 
+        id="reviews-button" 
+        class="profile-section-button" 
+        onclick="openProfileTab(event, 'profile-reviews')">
+        Reviews
+      </button>
+      <button 
+        id="orders-button" 
+        class="profile-section-button" 
+        onclick="openProfileTab(event, 'profile-orders')">
+        Orders
+      </button>
+      <button id="logout-button" class="profile-section-button">Logout</button>
+    </div>
+    <section id="profile-info" class="profile-section">
       <h3>Name</h3>
       <p>username</p>
       <p>Location</p>
       <a href="">Change password</a>
     </section>
-    <section id="profile_reviews" class="profile_section">
+    <section id="profile-reviews" class="profile-section">
       <p>Review</p>
     </section>
-    <section id="profile_orders" class="profile_section">
+    <section id="profile-orders" class="profile-section">
       <p>Order</p>
     </section>
   </section>

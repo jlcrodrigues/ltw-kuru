@@ -1,29 +1,29 @@
 :root {
-    --primary-color: #303633;
-    --secondary-color: #fff;
-    --accent-color: #F6BD60;
-    --bg-color: #f2f2f2;
-    --bg-secondary-color: #fafafa;
-    --shadow-color: #ddd;
+  --primary-color: #303633;
+  --secondary-color: #fff;
+  --accent-color: #F6BD60;
+  --bg-color: #f2f2f2;
+  --bg-secondary-color: #fafafa;
+  --shadow-color: #ddd;
 }
 
 body {
   background-color: var(--bg-color);
 }
 
- a {
+a {
   color: var(--primary-color);
   text-decoration: none;
- }
+}
 
 /* header */
 
-body > header {
+body>header {
   background-color: var(--accent-color);
   box-shadow: 0px 1px 12px var(--shadow-color);
 }
 
-body > header a {
+body>header a {
   color: var(--secondary-color);
   text-decoration: none;
   margin: 0;
@@ -57,7 +57,7 @@ input[name=search]:focus {
   outline: none;
 }
 
-#search-box > button {
+#search-box>button {
   border: none;
   background: none;
 }
@@ -81,7 +81,7 @@ input[name=search]:focus {
 }
 
 .nano-text {
-  position:absolute;
+  position: absolute;
   bottom: 8px;
   left: 10px;
   text-shadow: 0.3em 0.3em 0.8em black;
@@ -97,13 +97,13 @@ input[name=search]:focus {
 
 /* footer */
 
-body > footer {
+body>footer {
   background-color: var(--primary-color);
   width: 100%;
   text-align: center;
 }
 
-body > footer p {
+body>footer p {
   color: var(--secondary-color)
 }
 
@@ -128,10 +128,75 @@ body > footer p {
   border-radius: 0.5em;
 }
 
-.restaurants-search * { 
+.restaurants-search * {
   margin: 0.3em;
 }
 
-.restaurants-search img { 
+.restaurants-search img {
   border-radius: 0.3em;
+}
+
+/* profile page */
+
+#profile {
+  background-color: var(--bg-secondary-color);
+  box-shadow: 0px 2px 15px var(--shadow-color);
+  border-radius: 0.5em;
+  margin: 2em;
+}
+
+#profile>img {
+  border-radius: 50%;
+  margin: 1em;
+}
+
+.profile-section {
+  margin: 1em;
+  animation: fadeEffect 0.5s;
+}
+
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+#profile-info {
+  display: block;
+}
+
+#profile-reviews {
+  display: none;
+}
+
+#profile-orders {
+  display: none;
+}
+
+.profile-section-button {
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  font-size: 1.4em;
+  padding: 0.5em;
+  padding-left: 1em;
+  color: #555;
+  vertical-align: middle;
+}
+.profile-section-button:hover {
+  color: var(--accent-color);
+  background-color: transparent;
+}
+
+.profile-section-button.active {
+  color: var(--accent-color);
+  background-color: #f2f2f2;
+}
+
+#logout-button {
+  justify-self: flex-end;
 }
