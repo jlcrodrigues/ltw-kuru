@@ -24,6 +24,39 @@
             $this->password = $password;
         }
 
+        function name() {
+            return $this->firstName . ' ' . $this->lastName;
+          }
+
+        function save($db) {
+        $stmt = $db->prepare('
+            UPDATE Customer SET FirstName = ?, LastName = ?
+            WHERE CustomerId = ?
+        ');
+    
+        $stmt->execute(array($this->firstName, $this->lastName, $this->id));
+        }
+
+        function isLoginCorrect($username, $password) {
+            global $dbh;
+            $stmt = $dbh->prepare('SELECT * FROM User WHERE username = ?');
+            $stmt->execute(array(strtolower($username)));
+            $user = $stmt->fetch();
+            return ($user !== false && password_verify($password, $user['password']));
+        }
+
+
+        function newUser(PDO $db, int $id, string $first_name, string $last_name, string $address, string $city, string $country, string $phone, string $email, string $password){
+            $stmt = $db->prepare('INSERT INTO User (idUser, fistName, lastName, address, city, country, phone, email, password) values(?, ?, ?, ?, ?, ?, ?, ?, ?)');
+            try {
+                  $stmt->execute(array($id, $first_name, $last_name, $address, $city, $country, $phone, $email, $password));
+                return true;
+            }
+            catch (Exception $e) {
+                return false;
+            }
+        }
+
         static function getUsers(PDO $db, int $count) : array {
             $stmt = $db->prepare(
                 'SELECT idUser, firstName, lastName, address, city, country, phone, email, password
