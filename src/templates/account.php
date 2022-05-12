@@ -48,7 +48,7 @@ function output_login()
     <input type="password" placeholder="password">
     <button class="login">Login</button>
   </form>
-  <a href="../pages/register.php">Register</a>
+  <a href="register.php">Register</a>
 
 <?php } ?>
 
@@ -61,6 +61,6 @@ function output_register()
     <input type="password" placeholder="password">
     <button class="login">Register</button>
   </form>
-  <a href="../pages/login.php">Login</a>
+  <a href="login.php">Login</a>
 
 <?php } ?>
