@@ -84,3 +84,12 @@ body > header * {
 #logout-button {
   justify-self: flex-end;
 }
+
+/* restaurant page */
+
+#restaurant {
+  align-self: center;
+  width: 70%;
+}
+
+

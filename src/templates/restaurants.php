@@ -82,33 +82,46 @@ function output_review($id)
 <?php
 function output_restaurant_card(int $id)
 { ?>
-  <article class="restaurant">
+  <article id="restaurant">
     <header>
       <img src="https://picsum.photos/500/300" alt="">
       <div class="restaurant-text">
         <h3>Restaurant</h3>
       </div>
     </header>
-    <form action="" method="post">
-      <button class="restaurant_section">Menu</button>
-      <button class="restaurant_section">Reviews</button>
-      <button class="restaurant_section">About</button>
-    </form>
-    <section id="menu">
+    <div id="tabs">
+      <button 
+        id="menu-button"
+        class="restaurant-button"
+        onclick="openRestaurantTab(event, 'restaurant-menu')">
+        Menu
+      </button>
+      <button
+        class="restaurant-button"
+        onclick="openRestaurantTab(event, 'restaurant-reviews')">
+        Reviews
+      </button>
+      <button 
+        class="restaurant-button"
+        onclick="openRestaurantTab(event, 'restaurant-about')">
+        About
+      </button>
+    </div>
+    <section id="restaurant-menu" class="restaurant-tab">
       <?php
       for ($i = 0; $i < 5; $i++) {
         output_meal($i);
       }
       ?>
     </section>
-    <section id="reviews">
+    <section id="restaurant-reviews" class="restaurant-tab">
       <?php
       for ($i = 0; $i < 5; $i++) {
         output_review($i);
       }
       ?>
     </section>
-    <section id="about">
+    <section id="restaurant-about" class="restaurant-tab">
       <h3>This is the about section</h3>
       <p>Address</p>
       <p>Optional text by the owner</p>

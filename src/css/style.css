@@ -200,3 +200,20 @@ body>footer p {
 #logout-button {
   justify-self: flex-end;
 }
+
+/* restaurant page */
+
+#restaurant {
+  background-color: var(--bg-secondary-color);
+  box-shadow: 0px 2px 15px var(--shadow-color);
+  border-radius: 0.5em;
+  margin: 2em;
+}
+
+.restaurant-tab {
+  display: none;
+}
+
+#restaurant-menu {
+  display: block;
+}
