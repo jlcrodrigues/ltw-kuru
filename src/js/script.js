@@ -1,7 +1,7 @@
-document.getElementById("profile-button").click();
+const button = document.getElementById("profile-button");
+if (button) button.click()
 
 function openProfileTab(evt, tab_id) {
-  console.log("#dkfj");
   const tabs = document.getElementsByClassName("profile-section");
   for (const tab of tabs) {
     tab.style.display = "none";
