@@ -14,7 +14,8 @@ function openProfileTab(evt, tab_id) {
   evt.currentTarget.className += " active";
 }
 
-document.getElementById("profile-button").click();
+const profile_button = document.getElementById("profile-button");
+if (profile_button) profile_button.click()
 
 function openRestaurantTab(evt, tab_id) {
   const tabs = document.getElementsByClassName("restaurant-tab");
@@ -32,4 +33,5 @@ function openRestaurantTab(evt, tab_id) {
   evt.currentTarget.className += " active";
 }
 
-document.getElementById("menu-button").click();
+const menu_button = document.getElementById("menu-button");
+if (menu_button) menu_button.click()

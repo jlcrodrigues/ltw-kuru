@@ -22,9 +22,9 @@ function output_header()
   <body>
     <header>
       <h1><a href="../index.php">Restaurant</a></h1>
-      <h3><a href="../pages/search.php">Search</a></h1>
+      <h3><a href="search.php">Search</a></h1>
       <h3><a href="">Favorites</a></h1>
-      <a href="../pages/profile.php">
+      <a href="profile.php">
         <i class="material-icons icon-4x">account_circle</i>
       </a>
     </header>

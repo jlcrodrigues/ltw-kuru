@@ -91,15 +91,18 @@ input[name=search]:focus {
   margin: 0.2em;
 }
 
+.nano-text > h4 {
+  font-weight: 400;
+}
+
 .restaurant-nano img {
   width: 100%;
 }
 
 /* footer */
 
-body>footer {
+body > footer {
   background-color: var(--primary-color);
-  width: 100%;
   text-align: center;
 }
 
@@ -145,7 +148,7 @@ body>footer p {
   margin: 2em;
 }
 
-#profile>img {
+#profile > img {
   border-radius: 50%;
   margin: 1em;
 }
