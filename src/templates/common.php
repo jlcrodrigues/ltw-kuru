@@ -13,6 +13,7 @@ function output_header()
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/text.css" rel="stylesheet">
     <link href="../css/layout.css" rel="stylesheet">

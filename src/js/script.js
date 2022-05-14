@@ -4,7 +4,7 @@ function openProfileTab(evt, tab_id) {
     tab.style.display = "none";
   }
 
-  const buttons = document.querySelector('#tabs').children;
+  const buttons = document.querySelector('#profile-tabs').children;
   for (const button of buttons) {
     console.log(button.className);
     button.className = button.className.replace(" active", "");
