@@ -54,7 +54,7 @@ function output_profile(int $id)
 function output_login()
 { ?>
   <form action="action_login.php" method="post">
-    <input type="email" name="email" placeholder="username">
+    <input type="email" name="email" placeholder="email">
     <input type="password" name="password" placeholder="password">
     <button class="login">Login</button>
   </form>

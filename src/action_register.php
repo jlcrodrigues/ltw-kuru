@@ -15,11 +15,12 @@
     if (User::emailInUse($db, $email)) {
         $referer = '../register.php';
     }
-    else {
-        if(User::newUser($db, $fist_name, $last_name, $email, $password)) {
-            $referer = '../login.php';} 
-        else {$referer = '../search.php';}
+    else if ($confirm_password != $password) {
+        $referer = '../register.php'; 
     }
+    else if (User::newUser($db, $fist_name, $last_name, $email, $password)) {
+            $referer = '../login.php';
+        } 
 
     header('Location: ' . $referer);
 ?>
