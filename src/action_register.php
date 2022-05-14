@@ -25,7 +25,7 @@
         exit();
     }
     else if (User::newUser($db, $fist_name, $last_name, $email, $password)) {
-            header('../login.php?login=regiser');
-            exit();
+        header('Location: ../login.php?login=register');            
+        exit();
         } 
 ?>
