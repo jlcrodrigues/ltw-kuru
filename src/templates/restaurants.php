@@ -85,7 +85,7 @@ function output_review(Review $review)
     <div class="review-title">
       <img src="https://picsum.photos/50/50" alt="">
       <h3><?php echo $user->first_name . " " . $user->last_name ?></h3>
-      <h4><?php echo $review->rating ?></h4>
+      <h4><?php echo $review->rating?></h4>
       <i class="material-symbols-rounded">star</i>
     </div>
     <p><?php echo $review->fullText ?></p>
