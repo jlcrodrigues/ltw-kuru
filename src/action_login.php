@@ -18,7 +18,7 @@
     }
 
     else if ($user == NULL) {
-      header('Location: ../login.php?login=password'); 
+      header('Location: ../login.php?login=failed'); 
       exit();
     }
 

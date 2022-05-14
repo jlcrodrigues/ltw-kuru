@@ -61,16 +61,24 @@ function output_login()
   <a href="register.php">Register</a>
 
   <?php
-    $fullUrl = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    if (!isset($_GET['login'])) {
+      exit();
+    }
+    else {
+      $loginCheck = $_GET['login'];
 
-    if (strpos($fullUrl, "login=empty") == true) {
-      echo "You have to fill in all fields.";
-    }
-    else if (strpos($fullUrl, "login=password") == true) {
-      echo "Wrong email or password.";
-    }
-    else if (strpos($fullUrl, "login=register") == true) {
-      echo "Sign up successful.";
+      if ($loginCheck == 'empty') {
+          echo "You have to fill in all fields.";
+          exit();
+      }
+      else if ($loginCheck == 'failed') {
+          echo "Wrong email or password.";
+          exit();
+      }
+      else if ($loginCheck == 'register') {
+          echo "Sign up successful."; 
+          exit();
+      }
     }
   ?>
 
@@ -90,17 +98,25 @@ function output_register()
   <a href="login.php">Login</a>
 
   <?php
-    $fullUrl = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+   if (!isset($_GET['register'])) {
+    exit();
+  }
+  else {
+    $registerCheck = $_GET['register'];
 
-    if (strpos($fullUrl, "register=empty") == true) {
-      echo "You have to fill in all fields.";
+    if ($registerCheck == 'empty') {
+        echo "You have to fill in all fields.";
+        exit();
     }
-   else if (strpos($fullUrl, "register=email") == true) {
-     echo "Email already in use.";
-   }
-   else if (strpos($fullUrl, "register=password") == true) {
-     echo "Passwords don't match.";
-   }
+    else if ($registerCheck == 'email') {
+        echo "Email already in use.";
+        exit();
+    }
+    else if ($registerCheck == 'password') {
+        echo "Passwords don't match."; 
+        exit();
+    }
+  }
   ?>
 
 <?php } ?>
