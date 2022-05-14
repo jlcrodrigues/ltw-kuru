@@ -56,9 +56,23 @@ function output_login()
   <form action="action_login.php" method="post">
     <input type="email" name="email" placeholder="email">
     <input type="password" name="password" placeholder="password">
-    <button class="login">Login</button>
+    <button type="submit" name="submit" class="login">Login</button>
   </form>
   <a href="register.php">Register</a>
+
+  <?php
+    $fullUrl = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+    if (strpos($fullUrl, "login=empty") == true) {
+      echo "You have to fill in all fields.";
+    }
+    else if (strpos($fullUrl, "login=password") == true) {
+      echo "Wrong email or password.";
+    }
+    else if (strpos($fullUrl, "login=register") == true) {
+      echo "Sign up successful.";
+    }
+  ?>
 
 <?php } ?>
 
@@ -66,13 +80,27 @@ function output_login()
 function output_register()
 { ?>
   <form action="action_register.php" method="post">
-    <input type="email" name="email"  placeholder="email">
     <input type="text" name="first_name" placeholder="First Name">
     <input type="text" name="last_name" placeholder="Last Name">
+    <input type="email" name="email"  placeholder="email">
     <input type="password" name="password" placeholder="password">
     <input type="password" name="confirm_password" placeholder="confirm password">
-    <button class="login">Register</button>
+    <button type="submit" name="submit" class="login">Register</button>
   </form>
   <a href="login.php">Login</a>
+
+  <?php
+    $fullUrl = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+    if (strpos($fullUrl, "register=empty") == true) {
+      echo "You have to fill in all fields.";
+    }
+   else if (strpos($fullUrl, "register=email") == true) {
+     echo "Email already in use.";
+   }
+   else if (strpos($fullUrl, "register=password") == true) {
+     echo "Passwords don't match.";
+   }
+  ?>
 
 <?php } ?>

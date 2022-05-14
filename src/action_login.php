@@ -1,19 +1,32 @@
 <?php
   declare(strict_types = 1);
 
-  session_start();
+  if (isset($_POST["submit"])) {
 
-  require_once('database/connection.db.php');
-  require_once('database/user.class.php');
+    session_start();
 
-  $db = getDatabaseConnection();
+    require_once('database/connection.db.php');
+    require_once('database/user.class.php');
 
-  $user = User::getUserWithPassword($db, $_POST['email'], $_POST['password']);
+    $db = getDatabaseConnection();
 
-  if ($user) {
-    $_SESSION['id'] = $user->id;
-    $_SESSION['name'] = $user->name;
+    $user = User::getUserWithPassword($db, $_POST['email'], $_POST['password']);
+
+    if (empty($_POST['email']) || empty($_POST['password'])) {
+      header('Location: ../login.php?login=empty');
+      exit();
+    }
+
+    else if ($user == NULL) {
+      header('Location: ../login.php?login=password'); 
+      exit();
+    }
+
+    else {
+      $_SESSION['id'] = $user->id;
+      $_SESSION['name'] = $user->name;
+    }
+
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
-
-  header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>

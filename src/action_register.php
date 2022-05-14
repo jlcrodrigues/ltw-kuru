@@ -11,16 +11,21 @@
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
 
-    
-    if (User::emailInUse($db, $email)) {
-        $referer = '../register.php';
+
+    if (empty($_POST['email']) || empty($_POST['first_name']) || empty($_POST['last_name']) || empty($_POST['password']) || empty($_POST['confirm_password'])) {
+        header('Location: ../register.php?register=empty');
+        exit();
+      }
+    else if (User::emailInUse($db, $email)) {
+        header('Location: ../register.php?register=email');
+        exit();
     }
     else if ($confirm_password != $password) {
-        $referer = '../register.php'; 
+        header('Location: ../register.php?register=password');
+        exit();
     }
     else if (User::newUser($db, $fist_name, $last_name, $email, $password)) {
-            $referer = '../login.php';
+            header('Location: ../login.php?login=register');
+            exit();
         } 
-
-    header('Location: ' . $referer);
 ?>
