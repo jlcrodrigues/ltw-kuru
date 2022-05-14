@@ -28,14 +28,19 @@
             return $this->firstName . ' ' . $this->lastName;
           }
 
-        function save($db) {
+        static function updateUser(PDO $db, string $email, string $first_name, string $last_name, string $address, string $city, string $country, string $phone, int $id) {
         $stmt = $db->prepare('
-            UPDATE Customer SET FirstName = ?, LastName = ?
-            WHERE CustomerId = ?
+            UPDATE USER SET email = ?, firstName = ?, lastName = ?, address = ?, city = ?, country = ?, phone = ?
+            WHERE idUser = ?
         ');
-    
-        $stmt->execute(array($this->firstName, $this->lastName, $this->id));
+        
+        try {
+            $stmt->execute(array($email, $first_name, $last_name, $address, $city, $country, $phone, $id));
+            return true;
+        } catch (PDOException $e) {
+            return false;
         }
+    }
 
     
         
@@ -104,27 +109,27 @@
         }
 
 
-        static function getUser(PDO $db, string $email, string $password) : User {
-            $stmt = $db->prepare(
-                'SELECT idUser, firstName, lastName, address, city, country, phone, email, password
-                 FROM Restaurant
-                 WHERE email = ?
-                 AND password = ?');
-            $stmt->execute(array($email,$password));
+        // static function getUser(PDO $db, string $email, string $password) : User {
+        //     $stmt = $db->prepare(
+        //         'SELECT idUser, firstName, lastName, address, city, country, phone, email, password
+        //          FROM Restaurant
+        //          WHERE email = ?
+        //          AND password = ?');
+        //     $stmt->execute(array($email,$password));
         
-            $user = $stmt->fetch();
+        //     $user = $stmt->fetch();
         
-            return new User(
-                $user['idUser'],
-                $user['firstName'],
-                $user['lastName'],
-                $user['address'],
-                $user['city'],
-                $user['country'],
-                $user['phone'],
-                $user['email'],
-                $user['password']);
-        }  
+        //     return new User(
+        //         $user['idUser'],
+        //         $user['firstName'],
+        //         $user['lastName'],
+        //         $user['address'],
+        //         $user['city'],
+        //         $user['country'],
+        //         $user['phone'],
+        //         $user['email'],
+        //         $user['password']);
+        // }  
 
         static function emailInUse(PDO $db, $email){
             $stmt = $db->prepare('SELECT * FROM User where email = ?');
