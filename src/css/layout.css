@@ -1,14 +1,11 @@
 body {
-  max-width: 150em;
-  height: 100vh;
+  max-width: 100em;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
 }
 
 body > footer {
-  min-height: 4em;
-  margin-top: auto; 
+  padding: 1em;
+  margin-top: 1em; 
 }
 
 /* header */
@@ -17,9 +14,9 @@ body > header {
   position: sticky;
   top: 0;
   z-index: 1;
-  width: 100vw;
   display: flex;
   align-items: baseline;
+  margin-bottom: 1em;
 }
 
 body > header > a {
@@ -27,7 +24,7 @@ body > header > a {
 }
 
 body > header * {
-  margin: 1em;
+  padding: 0.5em;
 }
 
 /* sliders */
@@ -43,7 +40,7 @@ body > header * {
 #search {
   display: grid;
   grid-template-columns: 20% auto;
-  align-self: center;
+  margin: 0 auto;
   width: 70%;
 }
 
@@ -57,7 +54,7 @@ body > header * {
   display: grid;
   grid-template-columns: auto 70%;
   grid-template-rows: auto 1fr;
-  align-self: center;
+  margin: 0 auto;
   width: 70%;
   min-height: 150%;
 }

@@ -28,11 +28,11 @@
   
         while ($dish = $stmt->fetch()) {
           $dishes[] = new Dish(
-            $dish['idDish'], 
-            $dish['idRestaurant'],
+            intval($dish['idDish']), 
+            intval($dish['idRestaurant']),
             $dish['name'],
             $dish['description'],
-            $dish['price'],
+            floatval($dish['price']),
             $dish['category']
           );
         }
