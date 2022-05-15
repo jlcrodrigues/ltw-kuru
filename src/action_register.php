@@ -1,4 +1,6 @@
 <?php
+    declare(strict_types = 1);
+
     require_once('database/user.class.php');
     require_once('database/connection.db.php');
 
@@ -25,7 +27,7 @@
         exit();
     }
     else if (User::newUser($db, $fist_name, $last_name, $email, $password)) {
-        header('Location: ../login.php?login=register');            
+        header('Location: ../login.php?login=register');
         exit();
-        } 
+    }
 ?>

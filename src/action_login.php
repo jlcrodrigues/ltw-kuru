@@ -1,8 +1,6 @@
 <?php
   declare(strict_types = 1);
 
-  if (isset($_POST["submit"])) {
-
     session_start();
 
     require_once('database/connection.db.php');
@@ -28,5 +26,4 @@
     }
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
-  }
 ?>
