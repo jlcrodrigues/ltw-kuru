@@ -108,29 +108,6 @@
                 $user['password']);
         }
 
-
-        // static function getUser(PDO $db, string $email, string $password) : User {
-        //     $stmt = $db->prepare(
-        //         'SELECT idUser, firstName, lastName, address, city, country, phone, email, password
-        //          FROM Restaurant
-        //          WHERE email = ?
-        //          AND password = ?');
-        //     $stmt->execute(array($email,$password));
-        
-        //     $user = $stmt->fetch();
-        
-        //     return new User(
-        //         $user['idUser'],
-        //         $user['firstName'],
-        //         $user['lastName'],
-        //         $user['address'],
-        //         $user['city'],
-        //         $user['country'],
-        //         $user['phone'],
-        //         $user['email'],
-        //         $user['password']);
-        // }  
-
         static function emailInUse(PDO $db, $email){
             $stmt = $db->prepare('SELECT * FROM User where email = ?');
             $stmt->execute(array(strtolower($email)));
