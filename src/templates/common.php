@@ -24,9 +24,18 @@ function output_header()
       <h1><a href="../index.php">Restaurant</a></h1>
       <h3><a href="search.php">Search</a></h1>
       <h3><a href="">Favorites</a></h1>
-      <a href="profile.php">
-        <i class="material-icons icon-4x">account_circle</i>
-      </a>
+      <?php 
+          if (isset($_SESSION['id'])) { ?>
+            <a href="profile.php">
+            <i class="material-icons icon-4x">account_circle</i>
+            </a>
+          <?php }
+          else { ?>
+            <a href="login.php">
+            <i class="material-icons icon-4x">account_circle</i>
+          </a>
+        <?php }
+      ?>
     </header>
 
 

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1); ?>
+declare(strict_types = 1); ?>
 
 <?php
   
@@ -80,7 +80,7 @@ function output_review(Review $review)
   ?>
   <h3><?php echo $user->first_name . " " . $user->last_name ?></h3>
   <h4><?php echo $review->rating ?></h4>
-  <p><?php echo $review->fullText ?></p>
+  < ><?php echo $review->fullText ?></p>
   <form action="" method="post">
     <button class="add_comment">Comment</button>
   </form>

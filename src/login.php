@@ -8,6 +8,11 @@
   require_once('templates/search.php');
 
   output_header();
-  output_login();
+  if (isset($_SESSION['id'])) { 
+    header('Location: ' . '../profile.php');
+  }
+  else { 
+    output_login();
+  }
   output_footer();
 ?>

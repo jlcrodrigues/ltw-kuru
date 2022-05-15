@@ -8,6 +8,6 @@
   require_once('templates/search.php');
 
   output_header();
-  output_profile(1);
+  output_profile($_SESSION['id']);
   output_footer();
 ?>
