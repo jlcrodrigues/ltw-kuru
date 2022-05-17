@@ -19,10 +19,11 @@
   $restaurant = Restaurant::getRestaurant($db, intval($id));
   $dishes = Dish::getRestaurantDishes($db, intval($id));
   $reviews = Review::getRestaurantReviews($db, intval($id));
+  $average = Restaurant::getAverage($db, intval($id));
   // $users = User::getUsers($db, );
 
 
   output_header();
-  output_restaurant_card($restaurant, $dishes, $reviews); 
+  output_restaurant_card($restaurant, $dishes, $reviews, $average); 
   output_footer();
 ?>

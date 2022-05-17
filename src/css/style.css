@@ -1,7 +1,8 @@
 :root {
   --primary-color: #303633;
   --secondary-color: #fff;
-  --accent-color: #F6BD60;
+  --tertiary-color: #f5bc5f;
+  --accent-color: #6a994e;
   --bg-color: #f2f2f2;
   --bg-secondary-color: #fafafa;
   --shadow-color: #ddd;
@@ -19,7 +20,7 @@ a {
 /* header */
 
 body>header {
-  background-color: var(--accent-color);
+  background-color: var(--tertiary-color);
   box-shadow: 0px 1px 12px var(--shadow-color);
 }
 
@@ -182,12 +183,12 @@ body>footer p {
 }
 
 .profile-section-button:hover {
-  color: var(--accent-color);
+  color: var(--tertiary-color);
   background-color: transparent;
 }
 
 .profile-section-button.active {
-  color: var(--accent-color);
+  color: var(--tertiary-color);
   background-color: #f2f2f2;
 }
 
@@ -211,13 +212,32 @@ body>footer p {
   animation: fadeEffect 0.5s;
 }
 
-#restaurant-menu {
-  display: block;
+#restaurant > header > img {
+  border-top-left-radius: 0.5em;
 }
 
-.restaurant-text {
+#restaurant-header-text {
+  margin-left: 1em;
+}
+
+#restaurant-header-text > h3 {
   font-size: xx-large;
-  margin-left: 0.5em;
+  display: inline-block;
+}
+
+#restaurant-header-text > h4 {
+  font-weight: 400;
+  font-size: x-large;
+  display: inline;
+  padding-left: 0.3em;
+}
+
+#restaurant-header-text > p {
+  display: inline;
+}
+
+#restaurant-menu {
+  display: block;
 }
 
 #tabs {
@@ -237,7 +257,7 @@ body>footer p {
 }
 
 .restaurant-button.active {
-  background-color: var(--accent-color);
+  background-color: var(--tertiary-color);
   color: white;
 }
 
@@ -247,12 +267,18 @@ body>footer p {
   height: 1.4em;
   width: 1.4em;
   font-size: x-large;
-  background-color: var(--accent-color);
+  background-color: var(--tertiary-color);
   color: white;
 }
 
 .meal h4 {
   font-weight: 400;
+}
+
+#restaurant-reviews > p{
+  text-align: center;
+  padding: 2em;
+  font-weight: 700;
 }
 
 .review {
@@ -279,6 +305,17 @@ body>footer p {
 
 #restaurant-about > iframe {
   width: 100%;
+}
+
+#promotion > p {
+  color: white;
+  text-align: center;
+  background-color: var(--accent-color);
+  padding: 1em;
+}
+
+#ratings {
+  text-align: center;
 }
 
 /* animations */

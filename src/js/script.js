@@ -6,7 +6,6 @@ function openProfileTab(evt, tab_id) {
 
   const buttons = document.querySelector('#profile-tabs').children;
   for (const button of buttons) {
-    console.log(button.className);
     button.className = button.className.replace(" active", "");
   }
 
@@ -25,7 +24,6 @@ function openRestaurantTab(evt, tab_id) {
 
   const buttons = document.querySelector('#tabs').children;
   for (const button of buttons) {
-    console.log(button.className);
     button.className = button.className.replace(" active", "");
   }
 

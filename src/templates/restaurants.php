@@ -68,6 +68,7 @@ function output_meal(Dish $dish)
       <h3><?php echo $dish->name ?></h3>
       <h4><?php echo $dish->description ?></h4>
     </div>
+    <p><?php echo $dish->price?>€</p>
     <form action="" method="post">
       <button class="add_to_cart">+</button>
     </form>
@@ -85,8 +86,9 @@ function output_review(Review $review)
     <div class="review-title">
       <img src="https://picsum.photos/50/50" alt="">
       <h3><?php echo $user->first_name . " " . $user->last_name ?></h3>
-      <h4><?php echo $review->rating?></h4>
+      <h4>	&#183; <?php echo $review->rating?></h4>
       <i class="material-symbols-rounded">star</i>
+      <p>&#183;</p>
     </div>
     <p><?php echo $review->fullText ?></p>
     <a class="add-comment">Comment</a>
@@ -94,13 +96,18 @@ function output_review(Review $review)
 <?php } ?>
 
 <?php
-function output_restaurant_card(Restaurant $restaurant, array $dishes, array $reviews)
+function output_restaurant_card(Restaurant $restaurant, array $dishes, array $reviews, float $average)
 { ?>
   <article id="restaurant">
     <header>
-      <img src="https://picsum.photos/500/300" alt="">
-      <div class="restaurant-text">
-        <h3><?php echo $restaurant->name ?></h3>
+      <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
+      <div id="restaurant-header-text">
+        <h3><?php echo "$restaurant->name"?></h3>
+        <h4><?php echo "$average"?></h4>
+        <i class="material-symbols-rounded">star</i>
+        <br>
+        <i class="material-icons">place</i>
+        <p><?php echo $restaurant->address ?></p>
       </div>
     </header>
     <div id="tabs">
@@ -130,8 +137,13 @@ function output_restaurant_card(Restaurant $restaurant, array $dishes, array $re
     </article>
     <article id="restaurant-reviews" class="restaurant-tab">
       <?php
-      foreach ($reviews as $review) {
-        output_review($review);
+      if (count($reviews) == 0) { ?>
+        <p>No reviews here yet!</p>
+      <?php }
+      else {
+        foreach ($reviews as $review) {
+          output_review($review);
+        }
       }
       ?>
     </article>
@@ -146,10 +158,7 @@ function output_restaurant_card(Restaurant $restaurant, array $dishes, array $re
         <p>100% off today</p>
       </div>
       <div id="ratings">
-        Add the score card here.
-      </div>
-      <div id="user_photos">
-        <img src="https://picsum.photos/200/300" alt="">
+        <h4><?php echo "$average"?>/10</h4>
       </div>
     </section>
   </article>
