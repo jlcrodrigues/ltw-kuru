@@ -20,7 +20,7 @@
       $this->category = $category;
     }
 
-    static function getRestaurantDishes(PDO $db, int $idRestaurant) : array {
+    static function gEtRestaurantDishes(PDO $db, int $idRestaurant) : array {
         $stmt = $db->prepare('SELECT idDish, idRestaurant, name, description, price, category FROM Dish WHERE idRestaurant = ?');
         $stmt->execute(array($idRestaurant));
     

@@ -6,7 +6,7 @@ require_once("restaurants.php");
 ?>
 
 <?php
-function output_favorites(array $restaurants)
+function output_favorites(array $restaurants, array $dishes)
 { ?>
   <section id="favorites">
     <header>
@@ -16,7 +16,10 @@ function output_favorites(array $restaurants)
     <body>
       <?php 
       foreach ($restaurants as $restaurant) {
-        output_restaurant_card_mini($restaurant->id);
+        output_restaurant_card_nano($restaurant);
+      }
+      foreach ($dishes as $dish) {
+        output_meal($dish);
       } ?>
     </body>
   </section>

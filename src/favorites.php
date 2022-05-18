@@ -11,8 +11,9 @@
   $db = getDatabaseConnection();
 
   $restaurants = User::getFavoriteRestaurants($db, $_SESSION['id']);
+  $dishes = User::getFavoriteDishes($db, $_SESSION['id']);
 
   output_header();
-  output_favorites($restaurants);
+  output_favorites($restaurants, $dishes);
   output_footer();
 ?>
