@@ -19,12 +19,12 @@ a {
 
 /* header */
 
-body>header {
+body > header {
   background-color: var(--tertiary-color);
   box-shadow: 0px 1px 12px var(--shadow-color);
 }
 
-body>header a {
+body > header a {
   color: var(--secondary-color);
   text-decoration: none;
   margin: 0;

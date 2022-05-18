@@ -4,9 +4,9 @@
   session_start();
   
   require_once('templates/common.php');
-  require_once('templates/account.php');
+  require_once('templates/favorites.php');
 
   output_header();
-  output_profile($_SESSION['id']);
+  output_favorites();
   output_footer();
 ?>

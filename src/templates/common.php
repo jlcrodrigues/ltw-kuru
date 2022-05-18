@@ -23,7 +23,7 @@ function output_header()
     <header>
       <h1><a href="../index.php">Restaurant</a></h1>
       <h3><a href="search.php">Search</a></h1>
-      <h3><a href="">Favorites</a></h1>
+      <h3><a href="favorites.php">Favorites</a></h1>
       <?php 
           if (isset($_SESSION['id'])) { ?>
             <a href="profile.php">
