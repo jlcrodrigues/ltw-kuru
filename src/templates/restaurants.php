@@ -96,7 +96,7 @@ function output_review(Review $review)
 <?php } ?>
 
 <?php
-function output_restaurant_card(Restaurant $restaurant, array $dishes, array $reviews, float $average)
+function output_restaurant_card(Restaurant $restaurant, array $dishes, array $reviews, ?float $average)
 { ?>
   <article id="restaurant">
     <header>
@@ -158,7 +158,9 @@ function output_restaurant_card(Restaurant $restaurant, array $dishes, array $re
         <p>100% off today</p>
       </div>
       <div id="ratings">
-        <h4><?php echo "$average"?>/10</h4>
+        <?php if ($average != null) {?> 
+          <h4><?php echo "$average"?>/10</h4>
+          <?php } ?>
       </div>
     </section>
   </article>
