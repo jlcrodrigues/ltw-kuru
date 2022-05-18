@@ -63,12 +63,16 @@ function output_restaurant_search()
 <?php
 function output_meal(Dish $dish)
 { ?>
-  <img src="https://picsum.photos/id/10>/300/300" alt="">
-  <h3><?php echo $dish->name ?></h3>
-  <h4><?php echo $dish->description ?></h4>
-  <form action="" method="post">
-    <button class="add_to_cart">+</button>
-  </form>
+  <section class="meal">
+    <div>
+      <h3><?php echo $dish->name ?></h3>
+      <h4><?php echo $dish->description ?></h4>
+    </div>
+    <p><?php echo $dish->price?>€</p>
+    <form action="" method="post">
+      <button class="add_to_cart">+</button>
+    </form>
+  </section>
 <?php } ?>
 
 <?php
@@ -78,57 +82,84 @@ function output_review(Review $review)
     $db = getDataBaseConnection();
     $user = User::getUserById($db, $review->idUser);
   ?>
-  <h3><?php echo $user->first_name . " " . $user->last_name ?></h3>
-  <h4><?php echo $review->rating ?></h4>
-  < ><?php echo $review->fullText ?></p>
-  <form action="" method="post">
-    <button class="add_comment">Comment</button>
-  </form>
+  <section class="review">
+    <div class="review-title">
+      <img src="https://picsum.photos/50/50" alt="">
+      <h3><?php echo $user->first_name . " " . $user->last_name ?></h3>
+      <h4><?php echo $review->rating?></h4>
+      <i class="material-symbols-rounded">star</i>
+      <p>&#183;</p>
+    </div>
+    <p><?php echo $review->fullText ?></p>
+    <a class="add-comment">Comment</a>
+  </section>
 <?php } ?>
 
 <?php
-function output_restaurant_card(Restaurant $restaurant, array $dishes, array $reviews)
+function output_restaurant_card(Restaurant $restaurant, array $dishes, array $reviews, float $average)
 { ?>
-  <article class="restaurant">
+  <article id="restaurant">
     <header>
-      <img src="https://picsum.photos/500/300" alt="">
-      <div class="restaurant-text">
-        <h3><?php echo $restaurant->name ?></h3>
+      <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
+      <div id="restaurant-header-text">
+        <h3><?php echo "$restaurant->name"?></h3>
+        <h4>	&#183; <?php echo "$average"?></h4>
+        <i class="material-symbols-rounded">star</i>
+        <br>
+        <i class="material-icons">place</i>
+        <p><?php echo $restaurant->address ?></p>
       </div>
     </header>
-    <form action="" method="post">
-      <button class="restaurant_section">Menu</button>
-      <button class="restaurant_section">Reviews</button>
-      <button class="restaurant_section">About</button>
-    </form>
-    <section id="menu">
+    <div id="tabs">
+      <button 
+        id="menu-button"
+        class="restaurant-button"
+        onclick="openRestaurantTab(event, 'restaurant-menu')">
+        Menu
+      </button>
+      <button
+        class="restaurant-button"
+        onclick="openRestaurantTab(event, 'restaurant-reviews')">
+        Reviews
+      </button>
+      <button 
+        class="restaurant-button"
+        onclick="openRestaurantTab(event, 'restaurant-about')">
+        About
+      </button>
+    </div>
+    <article id="restaurant-menu" class="restaurant-tab">
       <?php
       foreach ($dishes as $dish) {
         output_meal($dish);
       }
       ?>
-    </section>
-    <section id="reviews">
-      <h1>Reviews</h1>
+    </article>
+    <article id="restaurant-reviews" class="restaurant-tab">
       <?php
-      foreach ($reviews as $review) {
-        output_review($review);
+      if (count($reviews) == 0) { ?>
+        <p>No reviews here yet!</p>
+      <?php }
+      else {
+        foreach ($reviews as $review) {
+          output_review($review);
+        }
       }
       ?>
+    </article>
+    <section id="restaurant-about" class="restaurant-tab">
+      <?php 
+        $address_url = rawurlencode($restaurant->address);
+        echo "<iframe width='425' height='350' frameborder='0' scrolling='no'  marginheight='0' marginwidth='0' src='https://maps.google.com/maps?&amp;q={$address_url}&amp;output=embed'></iframe>";
+      ?>
     </section>
-    <section id="about">
-      <h3>This is the about section</h3>
-      <p>Location: <?php echo $restaurant->address ?></p>
-      <p>Optional text by the owner</p>
-    </section>
-    <section id="promotion">
-      <p>100% off today</p>
-    </section>
-    <section id="ratings">
-      Add the score card here.
-    </section>
-    <section id="user_photos">
-      <img src="https://picsum.photos/200/300" alt="">
+    <section id="side-section">
+      <div id="promotion">
+        <p>100% off today</p>
+      </div>
+      <div id="ratings">
+        <h4><?php echo "$average"?>/10</h4>
+      </div>
     </section>
   </article>
 <?php } ?>
