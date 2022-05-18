@@ -99,4 +99,28 @@
             return $rating['average'];
         }
 
+
+        static function getOwnerRestaurants(PDO $db, int $idUser) {
+            $stmt = $db->prepare(
+                'SELECT idRestaurant, idUser, name, opens, closes, category, address
+                FROM RESTAURANT 
+                WHERE idUser = ?'
+            );
+
+        $stmt->execute(array($idUser));
+
+        $restaurants = array();
+            while ($restaurant = $stmt->fetch()){
+                $restaurants[] = new Restaurant(
+                    $restaurant['idRestaurant'],
+                    $restaurant['idUser'],
+                    $restaurant['name'],
+                    $restaurant['opens'],
+                    $restaurant['closes'],
+                    $restaurant['category'],
+                    $restaurant['address']);
+            }
+            return $restaurants;
+        }
+
     }
