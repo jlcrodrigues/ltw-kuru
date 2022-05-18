@@ -86,7 +86,7 @@ function output_review(Review $review)
     <div class="review-title">
       <img src="https://picsum.photos/50/50" alt="">
       <h3><?php echo $user->first_name . " " . $user->last_name ?></h3>
-      <h4>	&#183; <?php echo $review->rating?></h4>
+      <h4><?php echo $review->rating?></h4>
       <i class="material-symbols-rounded">star</i>
       <p>&#183;</p>
     </div>
@@ -103,7 +103,7 @@ function output_restaurant_card(Restaurant $restaurant, array $dishes, array $re
       <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
       <div id="restaurant-header-text">
         <h3><?php echo "$restaurant->name"?></h3>
-        <h4><?php echo "$average"?></h4>
+        <h4>	&#183; <?php echo "$average"?></h4>
         <i class="material-symbols-rounded">star</i>
         <br>
         <i class="material-icons">place</i>

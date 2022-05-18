@@ -11,7 +11,7 @@ function output_profile(int $id)
 
   <section id="profile">
     <img src="https://picsum.photos/200" alt="profile photo">
-    <div id="tabs">
+    <div id="profile-tabs">
       <button 
         id="profile-button" 
         class="profile-section-button" 
