@@ -1,0 +1,21 @@
+<?php 
+  declare(strict_types = 1); 
+
+  require_once(__DIR__ . '/../utils/session.php');
+
+  require_once(__DIR__ . '/../templates/common.php');
+  require_once(__DIR__ . '/../templates/account.php');
+  require_once(__DIR__ . '/../templates/search.php');
+
+
+  $session = new Session();
+
+  output_header($session);
+  if (isset($_SESSION['id'])) { 
+    header('Location: ../pages/profile.php');
+  }
+  else { 
+    output_login();
+  }
+  output_footer();
+?>

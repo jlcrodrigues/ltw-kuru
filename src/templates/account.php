@@ -1,12 +1,12 @@
 <?php
-function output_profile(int $id)
+function output_profile(Session $session)
 { ?>
   <?php
-    require_once('database/connection.db.php');
-    require_once('database/user.class.php');
+    require_once(__DIR__ . '/../database/connection.db.php');
+    require_once(__DIR__ . '/../database/user.class.php');
 
     $db = getDataBaseConnection();
-    $user = User::getUserById($db, $id);
+    $user = User::getUserById($db, $session->getId());
   ?>
 
   <section id="profile">
@@ -42,7 +42,7 @@ function output_profile(int $id)
         onclick="openProfileTab(event, 'profile-change_password')">
         Change Password
       </button>
-      <form action="action_logout.php" method="post">
+      <form action="../actions/action_logout.php" method="post">
       <button id="logout-button" class="profile-section-button">Logout</button>
       </form>
     </div>
@@ -66,7 +66,7 @@ function output_profile(int $id)
     <section id="profile-edit" class="profile-section">
       <p>Edit Profile</p>
 
-    <form action="action_edit_profile.php" method="post" class="profile">
+    <form action="../actions/action_edit_profile.php" method="post" class="profile">
       <label for="first_name">First Name:</label>
       <input id="first_name" type="text" name="first_name" value="<?=$user->first_name?>">
       
@@ -125,41 +125,19 @@ function output_profile(int $id)
 <?php
 function output_login()
 { ?>
-  <form action="action_login.php" method="post">
+  <form action="../actions/action_login.php" method="post">
     <input type="email" name="email" placeholder="email">
     <input type="password" name="password" placeholder="password">
     <button type="submit" name="submit" class="login">Login</button>
   </form>
   <a href="register.php">Register</a>
 
-  <?php
-    if (!isset($_GET['login'])) {
-      exit();
-    }
-    else {
-      $loginCheck = $_GET['login'];
-
-      if ($loginCheck == 'empty') {
-          echo "You have to fill in all fields.";
-          exit();
-      }
-      else if ($loginCheck == 'failed') {
-          echo "Wrong email or password.";
-          exit();
-      }
-      else if ($loginCheck == 'register') {
-          echo "Sign up successful."; 
-          exit();
-      }
-    }
-  ?>
-
 <?php } ?>
 
 <?php
 function output_register()
 { ?>
-  <form action="action_register.php" method="post">
+  <form action="../actions/action_register.php" method="post">
     <input type="text" name="first_name" placeholder="First Name">
     <input type="text" name="last_name" placeholder="Last Name">
     <input type="email" name="email"  placeholder="email">
@@ -168,25 +146,5 @@ function output_register()
     <button type="submit" name="submit" class="login">Register</button>
   </form>
   <a href="login.php">Login</a>
-
   <?php
-   if (!isset($_GET['register'])) {
-    exit();
-  }
-  else {
-    $registerCheck = $_GET['register'];
-
-    if ($registerCheck == 'empty') {
-        echo "You have to fill in all fields.";
-        exit();
-    }
-    else if ($registerCheck == 'email') {
-        echo "Email already in use.";
-        exit();
-    }
-    else if ($registerCheck == 'password') {
-        echo "Passwords don't match."; 
-        exit();
-      }
-    }
   }
