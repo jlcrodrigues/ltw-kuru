@@ -107,20 +107,20 @@
                 WHERE idUser = ?'
             );
 
-        $stmt->execute(array($idUser));
+            $stmt->execute(array($idUser));
 
-        $restaurants = array();
-            while ($restaurant = $stmt->fetch()){
-                $restaurants[] = new Restaurant(
-                    $restaurant['idRestaurant'],
-                    $restaurant['idUser'],
-                    $restaurant['name'],
-                    $restaurant['opens'],
-                    $restaurant['closes'],
-                    $restaurant['category'],
-                    $restaurant['address']);
-            }
-            return $restaurants;
+            $restaurants = array();
+                while ($restaurant = $stmt->fetch()){
+                    $restaurants[] = new Restaurant(
+                        $restaurant['idRestaurant'],
+                        $restaurant['idUser'],
+                        $restaurant['name'],
+                        $restaurant['opens'],
+                        $restaurant['closes'],
+                        $restaurant['category'],
+                        $restaurant['address']);
+                }
+                return $restaurants;
         }
 
     }
