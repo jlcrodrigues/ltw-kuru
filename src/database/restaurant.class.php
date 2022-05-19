@@ -67,7 +67,7 @@
                 $restaurant['address']);
         }  
 
-        static function getAverage(PDO $db, int $id) : float {
+        static function getAverage(PDO $db, int $id) : ?float {
             $stmt = $db->prepare(
                 'SELECT avg(rating) as average
                  FROM Review
