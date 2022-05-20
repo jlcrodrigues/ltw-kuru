@@ -128,3 +128,17 @@ body > header * {
 .review-title > h4, .review-title > a {
   margin-left: auto;
 }
+
+/* favorites page */
+
+#favorites {
+  min-height: 80vh;
+}
+
+#favorites > header > h1 {
+  text-align: center;
+}
+
+#favorites-tabs {
+  margin: 0 auto;
+}

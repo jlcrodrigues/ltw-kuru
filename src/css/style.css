@@ -318,6 +318,28 @@ body>footer p {
   text-align: center;
 }
 
+/* favorites page */
+
+#favorites-tabs {
+  font-size: 0;
+}
+
+.favorites-section-button {
+  background-color: var(--bg-color);
+  border: none;
+  font-family: "Nunito", sans-serif;
+  font-size: large;
+  font-weight: 700;
+  color: #bbb;
+  border-bottom: 0.2em solid #bbb;
+  cursor: pointer;
+}
+
+.favorites-section-button.active {
+  color: var(--accent-color);
+  border-bottom: 0.2em solid var(--accent-color);
+}
+
 /* animations */
 
 @keyframes fadeEffect {
