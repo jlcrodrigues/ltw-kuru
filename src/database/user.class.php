@@ -197,7 +197,7 @@ class User
         return $dishes;
     }
 
-    static function isFavoriteRestaurant(PDO $db, int $idUser, $idRestaurant): bool
+    static function isFavoriteRestaurant(PDO $db, int $idUser, int $idRestaurant): bool
     {
         $stmt = $db->prepare(
             'SELECT Restaurant.idRestaurant
@@ -228,6 +228,40 @@ class User
                 'INSERT INTO Favorite_Restaurant (idUser, idRestaurant) VALUES (?, ?)'
             );
             $stmt->execute(array($idUser, $idRestaurant));
+        }
+    }
+
+    static function isFavoriteDish(PDO $db, int $idUser, int $idDish): bool
+    {
+        $stmt = $db->prepare(
+            'SELECT Dish.idDish
+                 FROM Dish, Favorite_Dish
+                 WHERE Dish.idDish = Favorite_Dish.idDish
+                 AND Favorite_Dish.idUser = ?
+                 AND Dish.idDish = ?
+                 '
+        );
+        $stmt->execute(array($idUser, $idDish));
+
+        $dish = $stmt->fetchAll();
+        return (count($dish) > 0);
+    }
+
+    static function setFavoriteDish(PDO $db, int $idUser, int $idDish)
+    {
+        if (User::isFavoriteDish($db, $idUser, $idDish)) {
+            $stmt = $db->prepare(
+                'DELETE FROM Favorite_Dish
+                 WHERE idUser = ?
+                 AND idDish = ?
+                '
+            );
+            $stmt->execute(array($idUser, $idDish));
+        } else {
+            $stmt = $db->prepare(
+                'INSERT INTO Favorite_Dish (idUser, idDish) VALUES (?, ?)'
+            );
+            $stmt->execute(array($idUser, $idDish));
         }
     }
 }

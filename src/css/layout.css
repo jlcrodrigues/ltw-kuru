@@ -116,13 +116,13 @@ body > header * {
   grid-column-start: 2;
 }
 
-.meal {
+.dish {
   display: flex;
   align-items: center;
   gap: 1em;
 }
 
-.meal > p {
+.dish > p {
   margin-left: auto;
 }
 

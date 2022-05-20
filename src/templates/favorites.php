@@ -36,7 +36,7 @@ function output_favorites(array $restaurants, array $dishes)
       <article class="favorites-section" id="favorite-meals">
       <?php
         foreach ($dishes as $dish) {
-          output_meal($dish);
+          echo $dish->name;
         } ?>
       </article>
     </body>

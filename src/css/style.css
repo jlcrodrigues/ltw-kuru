@@ -236,8 +236,11 @@ body>footer p {
   display: inline;
 }
 
-.favorite-button {
+#form-favorite {
   margin: 2em;
+}
+
+.favorite-button {
   cursor: pointer;
   background: none;
   border: none;
@@ -277,7 +280,7 @@ body>footer p {
   color: white;
 }
 
-.meal button {
+.add-to-cart {
   border-radius: 50%;
   border: none;
   height: 1.4em;
@@ -287,11 +290,23 @@ body>footer p {
   color: white;
 }
 
-.meal h4 {
+.dish h4 {
   font-weight: 400;
 }
 
-#restaurant-reviews > p{
+.dish h3 {
+  display: inline;
+}
+
+.fav-dish-form {
+  display: inline;
+}
+
+.fav-dish-form > .favorite-button > i {
+  font-size: large;
+}
+
+#restaurant-reviews > p {
   text-align: center;
   padding: 2em;
   font-weight: 700;

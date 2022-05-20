@@ -1,5 +1,5 @@
 <?php
-    declare(strict_type = 1);
+    declare(strict_types = 1);
 
     class Review{
         public int $idReview;
@@ -27,10 +27,10 @@
 
             while ($review = $stmt->fetch()) {
                 $reviews[] = new Review(
-                    $review['idReview'],
-                    $review['idUser'],
-                    $review['idRestaurant'],
-                    $review['rating'],
+                    intval($review['idReview']),
+                    intval($review['idUser']),
+                    intval($review['idRestaurant']),
+                    intval($review['rating']),
                     $review['fullText'],
                     $review['data']
                 );
