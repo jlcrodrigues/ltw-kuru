@@ -148,3 +148,9 @@ body > header * {
 #favorites-tabs {
   margin: 0 auto;
 }
+
+#favorite-restaurants > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

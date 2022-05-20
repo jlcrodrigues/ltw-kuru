@@ -372,6 +372,16 @@ body>footer p {
   border-bottom: 0.2em solid var(--accent-color);
 }
 
+#favorite-meals {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#favorite-meals > * {
+  border-bottom: 0.1em solid var(--shadow-color);
+  margin: 0.5em 0;
+}
+
 /* animations */
 
 @keyframes fadeEffect {

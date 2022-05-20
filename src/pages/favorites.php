@@ -16,6 +16,6 @@
   $dishes = User::getFavoriteDishes($db, intval($_SESSION['id']));
 
   output_header($session);
-  output_favorites($restaurants, $dishes);
+  output_favorites($restaurants, $dishes, $session);
   output_footer();
 ?>

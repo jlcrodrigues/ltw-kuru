@@ -97,6 +97,39 @@ function output_dish(Dish $dish, $session)
 <?php } ?>
 
 <?php
+function output_favorite_dish(Dish $dish, $session)
+{ ?>
+  <section class="dish">
+    <div>
+      <h3>
+        <a href=<?php echo "\"../pages/restaurant.php?id=$dish->idRestaurant\">";
+          echo $dish->name; ?>
+        </a>
+      </h3>
+      <?php
+      if ($session->isLoggedIn()) { ?>
+        <form class="fav-dish-form" action="../actions/action_favorite.php" method="post">
+          <?php 
+          $db = getDatabaseConnection();
+          if (User::isFavoriteDish($db, $session->getId(), $dish->idDish)) {
+          ?>
+          <button class="favorite-button favorite-active">
+          <?php } else { ?>
+          <button class="favorite-button">
+          <?php } ?>
+            <i class="material-symbols-rounded">favorite</i>
+          </button>
+          <input type="hidden" name="id" value="<?php echo $dish->idDish?>">
+          <input type="hidden" name="idRestaurant" value="<?php echo $dish->idRestaurant?>">
+          <input type="hidden" name="type" value="dish">
+        </form>
+      <?php } ?>
+      <h4><?php echo $dish->description ?></h4>
+    </div>
+  </section>
+<?php } ?>
+
+<?php
 function output_review(Review $review)
 { ?>
   <?php
