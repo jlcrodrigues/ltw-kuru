@@ -3,12 +3,12 @@ declare(strict_types = 1); ?>
 
 <?php
   
-  require_once('database/connection.db.php');
-  require_once('database/user.class.php');
+  require_once(__DIR__ . '/../database/connection.db.php');
+  require_once(__DIR__ . '/../database/user.class.php');
 
 function output_restaurant_card_nano(Restaurant $restaurant)
 { ?>
-  <a href="restaurant.php?id=<?=$restaurant->id?>" class="restaurant-nano">
+  <a href="../pages/restaurant.php?id=<?=$restaurant->id?>" class="restaurant-nano">
     <img src="https://picsum.photos/id/101/250/150" alt="">
     <div class="nano-text">
       <h3><?php echo $restaurant->name ?></h3>
@@ -36,7 +36,7 @@ function output_restaurant_slide(array $restaurants)
 <?php
 function output_restaurant_card_mini(int $id)
 { ?>
-  <a href="restaurant.php" class="restaurant-mini">
+  <a href="../pages/restaurant.php" class="restaurant-mini">
     <img src="https://picsum.photos/id/101<?php echo $id ?>/200/200" alt="">
     <div class="mini-text">
       <h3>Restaurant</h3>
@@ -96,7 +96,7 @@ function output_review(Review $review)
 <?php } ?>
 
 <?php
-function output_restaurant_card(Restaurant $restaurant, array $dishes, array $reviews, float $average)
+function output_restaurant_card(Restaurant $restaurant, array $dishes, array $reviews, ?float $average)
 { ?>
   <article id="restaurant">
     <header>
@@ -158,7 +158,9 @@ function output_restaurant_card(Restaurant $restaurant, array $dishes, array $re
         <p>100% off today</p>
       </div>
       <div id="ratings">
-        <h4><?php echo "$average"?>/10</h4>
+        <?php if ($average != null) {?> 
+          <h4><?php echo "$average"?>/10</h4>
+          <?php } ?>
       </div>
     </section>
   </article>

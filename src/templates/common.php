@@ -2,7 +2,7 @@
 declare(strict_types=1); ?>
 
 <?php
-function output_header()
+function output_header(Session $session)
 { ?>
   <!DOCTYPE html>
   <html lang="en-US">
@@ -21,26 +21,35 @@ function output_header()
 
   <body>
     <header>
-      <h1><a href="../index.php">Restaurant</a></h1>
-      <h3><a href="search.php">Search</a></h1>
-      <h3><a href="favorites.php">Favorites</a></h1>
+      <h1><a href="../pages/index.php">Restaurant</a></h1>
+      <h3><a href="../pages/search.php">Search</a></h1>
+      <h3><a href="../pages/favorites.php">Favorites</a></h1>
       <?php 
-          if (isset($_SESSION['id'])) { ?>
-            <a href="profile.php">
+          if ($session->isLoggedIn()) { ?>
+            <a href="../pages/profile.php">
             <i class="material-icons icon-4x">account_circle</i>
             </a>
           <?php }
           else { ?>
-            <a href="login.php">
+            <a href="../pages/login.php">
             <i class="material-icons icon-4x">account_circle</i>
           </a>
         <?php }
       ?>
     </header>
 
+    <section id="messages">
+      <?php foreach ($session->getMessages() as $message) { ?>
+        <article class="<?=$message['type']?>">
+          <?=$message['text']?>
+        </article>
+      <?php } ?>
+    </section>
 
-  <?php }
 
+  <?php } ?>
+
+<?php
 function output_footer()
 { ?>
     <footer>
