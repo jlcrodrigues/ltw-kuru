@@ -3,6 +3,7 @@ declare(strict_types = 1); ?>
 
 <?php
   
+  require_once(__DIR__ . '/../utils/session.php');
   require_once(__DIR__ . '/../database/connection.db.php');
   require_once(__DIR__ . '/../database/user.class.php');
 
@@ -110,6 +111,24 @@ function output_restaurant_card(Restaurant $restaurant, array $dishes, array $re
         <p><?php echo $restaurant->address ?></p>
       </div>
     </header>
+    <?php
+    $session = new Session();
+    if ($session->isLoggedIn()) { ?>
+      <form id="form-favorite" action="../actions/action_favorite.php" method="post">
+        <?php 
+        $db = getDatabaseConnection();
+        if (User::isFavoriteRestaurant($db, $session->getId(), $restaurant->id)) {
+        ?>
+        <button class="favorite-button favorite-active">
+        <?php } else { ?>
+        <button class="favorite-button">
+        <?php } ?>
+          <i class="material-symbols-rounded">favorite</i>
+        </button>
+        <input type="hidden" name="id" value="<?php echo $restaurant->id?>">
+        <input type="hidden" name="type" value="restaurant">
+      </form>
+    <?php } ?>
     <div id="tabs">
       <button 
         id="menu-button"

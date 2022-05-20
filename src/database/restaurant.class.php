@@ -71,7 +71,7 @@
             $restaurant = $stmt->fetch();
         
             return new Restaurant(
-                $restaurant['idRestaurant'],
+                intval($restaurant['idRestaurant']),
                 $restaurant['name'],
                 $restaurant['opens'],
                 $restaurant['closes'],
@@ -89,7 +89,7 @@
 
             $rating = $stmt->fetch();
 
-            return $rating['average'];
+            return floatval($rating['average']);
         }
 
     }

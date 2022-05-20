@@ -49,5 +49,5 @@ function openFavoritesTab(evt, tab_id) {
   evt.currentTarget.className += " active";
 }
 
-const favorite_button = document.getElementById("favorite-button");
+const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()

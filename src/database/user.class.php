@@ -196,4 +196,38 @@ class User
         }
         return $dishes;
     }
+
+    static function isFavoriteRestaurant(PDO $db, int $idUser, $idRestaurant): bool
+    {
+        $stmt = $db->prepare(
+            'SELECT Restaurant.idRestaurant
+                 FROM Restaurant, Favorite_Restaurant
+                 WHERE Restaurant.idRestaurant = Favorite_Restaurant.idRestaurant
+                 AND Favorite_Restaurant.idUser = ?
+                 AND Restaurant.idRestaurant = ?
+                 '
+        );
+        $stmt->execute(array($idUser, $idRestaurant));
+
+        $restaurant = $stmt->fetchAll();
+        return (count($restaurant) > 0);
+    }
+
+    static function setFavoriteRestaurant(PDO $db, int $idUser, int $idRestaurant)
+    {
+        if (User::isFavoriteRestaurant($db, $idUser, $idRestaurant)) {
+            $stmt = $db->prepare(
+                'DELETE FROM Favorite_Restaurant
+                 WHERE idUser = ?
+                 AND idRestaurant = ?
+                '
+            );
+            $stmt->execute(array($idUser, $idRestaurant));
+        } else {
+            $stmt = $db->prepare(
+                'INSERT INTO Favorite_Restaurant (idUser, idRestaurant) VALUES (?, ?)'
+            );
+            $stmt->execute(array($idUser, $idRestaurant));
+        }
+    }
 }

@@ -236,6 +236,22 @@ body>footer p {
   display: inline;
 }
 
+.favorite-button {
+  margin: 2em;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--accent-color);
+}
+
+.favorite-button.favorite-active > i {
+  font-variation-settings: 'FILL' 1;
+}
+
+.favorite-button > i {
+  font-size: xx-large;
+}
+
 #restaurant-menu {
   display: block;
 }
@@ -322,6 +338,7 @@ body>footer p {
 
 #favorites-tabs {
   font-size: 0;
+  text-align: center;
 }
 
 .favorites-section-button {

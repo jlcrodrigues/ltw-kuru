@@ -8,7 +8,7 @@ function output_header(Session $session)
   <html lang="en-US">
 
   <head>
-    <title>Restaurant</title>
+    <title>Kuru</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -21,7 +21,7 @@ function output_header(Session $session)
 
   <body>
     <header>
-      <h1><a href="../pages/index.php">Restaurant</a></h1>
+      <h1><a href="../pages/index.php">Kuru</a></h1>
       <h3><a href="../pages/search.php">Search</a></h1>
       <h3><a href="../pages/favorites.php">Favorites</a></h1>
       <?php 
@@ -32,8 +32,8 @@ function output_header(Session $session)
           <?php }
           else { ?>
             <a href="../pages/login.php">
-            <i class="material-icons icon-4x">account_circle</i>
-          </a>
+              <i class="material-icons icon-4x">account_circle</i>
+            </a>
         <?php }
       ?>
     </header>

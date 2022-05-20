@@ -13,7 +13,7 @@ function output_favorites(array $restaurants, array $dishes)
       <h1>Favorites</h1>
       <div id=favorites-tabs>
         <button 
-          id="favorite-button"
+          id="favorite-button-tab"
           class="favorites-section-button" 
           onclick="openFavoritesTab(event, 'favorite-restaurants')">
           Restaurants
