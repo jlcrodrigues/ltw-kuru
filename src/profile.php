@@ -7,6 +7,6 @@
   require_once('templates/account.php');
 
   output_header();
-  output_profile($_SESSION['id']);
+  output_profile(intval($_SESSION['id']));
   output_footer();
 ?>

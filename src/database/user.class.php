@@ -61,7 +61,7 @@ class User
 
         if ($user = $stmt->fetch()) {
             return new User(
-                $user['idUser'],
+                intval($user['idUser']),
                 $user['firstName'],
                 $user['lastName'],
                 $user['address'],
@@ -114,7 +114,7 @@ class User
         $user = $stmt->fetch();
 
         return new User(
-            $user['idUser'],
+            intval($user['idUser']),
             $user['firstName'],
             $user['lastName'],
             $user['address'],

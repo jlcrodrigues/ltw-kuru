@@ -10,8 +10,8 @@
 
   $db = getDatabaseConnection();
 
-  $restaurants = User::getFavoriteRestaurants($db, $_SESSION['id']);
-  $dishes = User::getFavoriteDishes($db, $_SESSION['id']);
+  $restaurants = User::getFavoriteRestaurants($db, intval($_SESSION['id']));
+  $dishes = User::getFavoriteDishes($db, intval($_SESSION['id']));
 
   output_header();
   output_favorites($restaurants, $dishes);
