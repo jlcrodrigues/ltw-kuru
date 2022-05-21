@@ -78,6 +78,7 @@ function output_meal(Dish $dish)
   </section>
 <?php } ?>
 
+
 <?php
 function output_review(Review $review)
 { ?>
@@ -98,53 +99,6 @@ function output_review(Review $review)
   </section>
 <?php } ?>
 
-<?php
-  function output_edit_restaurant(PDO $db, Session $session, Restaurant $restaurant) {
-?>
-<article id="restaurant">
-<header>
-      <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
-      <form action="../actions/action_edit_restaurant.php?id=<?=$restaurant->id?>" method="post" class="profile">
-      <label for="name">Name:</label>
-      <input id="name" type="text" name="name" value="<?=$restaurant->name?>">
-      
-      <label for="opens">Opens:</label>
-      <input id="opens" type="time" name="opens" min=00:00 max=23:59 value="<?=$restaurant->opens?>">  
-
-      <label for="closes">Closes:</label>
-      <input id="closes" type="time" name="closes" min=00:00 max=23:59 value="<?=$restaurant->closes?>">  
-      
-      <label for="category">Category:</label>
-      <select name="category" id="category">
-      <option value="" selected disabled hidden>Choose here</option>
-      <option value="Super market">Super Market</option>
-      <option value="grill">Grill</option>
-      <option value="Fast Food">Fast Food</option>
-      <option value="pretzels">Pretzels</option>
-      <option value="Ice cream">Ice Creams</option>
-      <option value="american">American</option>
-      <option value="pizza">Pizza</option>
-      <option value="Sea food">Sea Food</option>
-      <option value="italian">Italian</option>
-      <option value="donuts">Donuts</option>
-      <option value="caffee">Caffee House</option>
-      <option value="sandwiches">Sandwiches</option>
-      <option value="juice">Juices</option>
-      <option value="steakhouse">Steakhouse</option>
-      <option value="Fast casual">Fast Casual</option>
-      <option value="mexican">Mexican</option>
-      <option value="bar">Bar</option>
-      </select>
-
-      <label for="address">Address:</label>
-      <input id="address" type="text" name="address" value="<?=$restaurant->address?>">  
-
-      <button type="submit">Save</button>
-    </form>
-    </header>
-  </article>
-    <?php } ?>
-
 
 
 <?php
@@ -158,7 +112,9 @@ function output_restaurant_card(PDO $db, Session $session, Restaurant $restauran
         <h4>	&#183; <?php echo "$average"?></h4>
         <i class="material-symbols-rounded">star</i>
         <?php if(Restaurant::getRestaurantOwner($db, $restaurant->id) == $session->getId()) {?>
-          <a href="../pages/edit_restaurant.php?id=<?=$restaurant->id?>"><i class="material-icons">edit</i></a>
+          <span title="owner view">
+          <a href="../pages/owner_view.php?id=<?=$restaurant->id?>"><i class="material-icons">work</i></a>
+          </span>
     <?php } ?>
         <br>
         <i class="material-icons">place</i>
@@ -221,4 +177,116 @@ function output_restaurant_card(PDO $db, Session $session, Restaurant $restauran
       </div>
     </section>
   </article>
+<?php } ?>
+
+
+
+
+
+
+<!-- EDIT SECTION -->
+
+
+<?php
+  function output_edit_restaurant(PDO $db, Session $session, Restaurant $restaurant) {
+?>
+<article id="restaurant">
+<header>
+      <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
+      <form action="../actions/action_edit_restaurant.php?id=<?=$restaurant->id?>" method="post" class="restaurant">
+      <label for="name">Name:</label>
+      <input id="name" type="text" name="name" value="<?=$restaurant->name?>">
+      
+      <label for="opens">Opens:</label>
+      <input id="opens" type="time" name="opens" min=00:00 max=23:59 value="<?=$restaurant->opens?>">  
+
+      <label for="closes">Closes:</label>
+      <input id="closes" type="time" name="closes" min=00:00 max=23:59 value="<?=$restaurant->closes?>">  
+      
+      <label for="category">Category:</label>
+      <select name="category" id="category">
+      <option value="" selected disabled hidden>Choose here</option>
+      <option value="Super market">Super Market</option>
+      <option value="grill">Grill</option>
+      <option value="Fast Food">Fast Food</option>
+      <option value="pretzels">Pretzels</option>
+      <option value="Ice cream">Ice Creams</option>
+      <option value="american">American</option>
+      <option value="pizza">Pizza</option>
+      <option value="Sea food">Sea Food</option>
+      <option value="italian">Italian</option>
+      <option value="donuts">Donuts</option>
+      <option value="caffee">Caffee House</option>
+      <option value="sandwiches">Sandwiches</option>
+      <option value="juice">Juices</option>
+      <option value="steakhouse">Steakhouse</option>
+      <option value="Fast casual">Fast Casual</option>
+      <option value="mexican">Mexican</option>
+      <option value="bar">Bar</option>
+      </select>
+
+      <label for="address">Address:</label>
+      <input id="address" type="text" name="address" value="<?=$restaurant->address?>">  
+
+      <button type="submit">Save</button>
+    </form>
+    </header>
+  </article>
+    <?php } ?>
+
+
+<?php
+function output_edit_restaurant_card(PDO $db, Session $session, Restaurant $restaurant, array $dishes, array $reviews, ?float $average)
+{ ?>
+  <article id="restaurant">
+    <header>
+      <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
+      <div id="restaurant-header-text">
+        <h3><?php echo "$restaurant->name"?></h3>
+        <h4>	&#183; <?php echo "$average"?></h4>
+        <i class="material-symbols-rounded">star</i>
+        <span title="user view"> <a href="../pages/restaurant.php?id=<?=$restaurant->id?>"><i class="material-icons">person</i></a></span>
+        <span title="edit details"><a href="../pages/edit_restaurant.php?id=<?=$restaurant->id?>"><i class="material-icons">edit</i></a></span>
+        <br>
+        <i class="material-icons">place</i>
+        <p><?php echo $restaurant->address ?></p>
+        <br>
+        <p><?php echo $restaurant->category?></p>
+      </div>
+    </header>
+    <div id="tabs">
+      <button 
+        id="menu-button"
+        class="restaurant-button"
+        onclick="openRestaurantTab(event, 'restaurant-menu')">
+        Menu
+      </button>
+    </div> 
+    <article id="restaurant-menu" class="restaurant-tab">
+      <?php
+      foreach ($dishes as $dish) {
+        output_edit_meal($dish);
+      }
+      ?>
+    </article>
+<?php } ?>
+
+
+<?php
+function output_edit_meal(Dish $dish)
+{ ?>
+  <section class="meal">
+    <div>
+      <h3><?php echo $dish->name ?></h3>
+      <h4><?php echo $dish->description ?></h4>
+    </div>
+    <p><?php echo $dish->price?>€</p>
+    <form action="" method="post">
+        <button class="edit_meal"><i class="material-icons">edit</i></button>
+    </form>
+    <form action="" method="post">
+        <button class="delete_meal"><i class="material-icons">delete</i></button>
+    </form>
+    
+  </section>
 <?php } ?>

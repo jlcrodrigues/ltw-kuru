@@ -8,6 +8,9 @@
   require_once(__DIR__ . '/../templates/search.php');
 
   $session = new Session();
+  if (!$session->isLoggedIn()) {
+    die(header('Location: /')); 
+  }
 
   output_header($session);
   output_profile($session);

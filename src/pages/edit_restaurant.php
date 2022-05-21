@@ -8,12 +8,15 @@
   require_once(__DIR__ . '/../database/dish.class.php');
   require_once(__DIR__ . '/../database/review.class.php');
 
-  $session = new Session();
-  if (!$session->isOwner($session->getId()) || !$session->isLoggedIn()) {
-    if(!$session->isLoggedIn()) die(header('Location: /')); 
-  }
 
-  $db = getDatabaseConnection();
+    $session = new Session();
+    $db = getDatabaseConnection();
+    $id = intval($_GET['id']);
+
+    if (!$session->isOwner($session->getId()) || !$session->isLoggedIn() || Restaurant::getRestaurantOwner($db, $id) != $session->getId()) {
+        die(header('Location: /')); 
+     }
+
 
   $id = $_GET['id'];
   $restaurant = Restaurant::getRestaurant($db, intval($id));
