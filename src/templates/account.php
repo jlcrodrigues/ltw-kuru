@@ -4,6 +4,8 @@ function output_profile(Session $session)
   <?php
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/user.class.php');
+    require_once(__DIR__ . '/../database/restaurant.class.php');
+    require_once('restaurants.php');
 
     $db = getDataBaseConnection();
     $user = User::getUserById($db, $session->getId());
@@ -36,6 +38,22 @@ function output_profile(Session $session)
         onclick="openProfileTab(event, 'profile-edit')">
         Edit Profile
       </button>
+      <?php if($session->isOwner($session->getId())) { ?>
+        <button 
+        id="owner-button" 
+        class="profile-section-button" 
+        onclick="openProfileTab(event, 'profile-owner')">
+        My restaurants
+      </button> 
+      <?php } 
+       else { ?>
+        <button 
+        id="not-owner-button" 
+        class="profile-section-button" 
+        onclick="openProfileTab(event, 'profile-not-owner')">
+        Become a Owner
+      </button> 
+      <?php } ?>
       <button 
         id="change_password-button" 
         class="profile-section-button" 
@@ -65,7 +83,6 @@ function output_profile(Session $session)
     </section>
     <section id="profile-edit" class="profile-section">
       <p>Edit Profile</p>
-
     <form action="../actions/action_edit_profile.php" method="post" class="profile">
       <label for="first_name">First Name:</label>
       <input id="first_name" type="text" name="first_name" value="<?=$user->first_name?>">
@@ -89,37 +106,61 @@ function output_profile(Session $session)
       <input id="phone" type="text" name="phone" value="<?=$user->phone?>">  
       <button type="submit">Save</button>
     </form>
-    <?php
-    if (!isset($_GET['profile'])) {
-      exit();
-    }
-    else {
-      $profileCheck = $_GET['profile'];
+    </section>
+    <section id="profile-owner" class="profile-section">
+      <h3>Restaurants</h3>
 
-      if ($profileCheck == 'success') {
-          echo "Successfully saved";
-          exit();
-      }
-      else if ($profileCheck == 'failed') {
-          echo "Edit Failed. Email or phone number already in use";
-          exit();
-      }
-      else if ($profileCheck == 'failed_name') {
-        echo "Edit Failed. Name can only contain letters and spaces";
-        exit();
-      }
-      else if ($profileCheck == 'failed_empty') {
-        echo "Edit Failed. Names and email must be filled";
-        exit();
-      }
-    }
-  ?>
-
+      <?php 
+        $restaurants = Restaurant::getOwnerRestaurants($db, $session->getId());
+        
+        foreach ($restaurants as $restaurant) {
+          output_restaurant_card_nano($restaurant);
+        }
+      ?>
 
 
     </section>
-  </section>
+    <section id="profile-not-owner" class="profile-section">
+      <h3>Become a owner now!</h3>
+      <form action="../actions/action_register_restaurant.php?id=<?php echo $restaurant->idRestaurant?>" method="post" class="profile">
+      <label for="name">Name:</label>
+      <input id="name" type="text" name="name">
+      
+      <label for="opens">Opens:</label>
+      <input id="opens" type="time" name="opens" min=00:00 max=23:59>  
 
+      <label for="closes">Closes:</label>
+      <input id="closes" type="time" name="closes" min=00:00 max=23:59>  
+      
+      <label for="category">Category:</label>
+      <option value="" selected disabled hidden>Choose here</option>
+      <select name="category" id="category">
+      <option value="Super market">Super Market</option>
+      <option value="grill">Grill</option>
+      <option value="Fast Food">Fast Food</option>
+      <option value="pretzels">Pretzels</option>
+      <option value="Ice cream">Ice Creams</option>
+      <option value="american">American</option>
+      <option value="pizza">Pizza</option>
+      <option value="Sea food">Sea Food</option>
+      <option value="italian">Italian</option>
+      <option value="donuts">Donuts</option>
+      <option value="caffee">Caffee House</option>
+      <option value="sandwiches">Sandwiches</option>
+      <option value="juice">Juices</option>
+      <option value="steakhouse">Steakhouse</option>
+      <option value="Fast casual">Fast Casual</option>
+      <option value="mexican">Mexican</option>
+      <option value="bar">Bar</option>
+      </select>
+
+      <label for="address">Address:</label>
+      <input id="address" type="text" name="address">  
+
+      <button type="submit">Register restaurant</button>
+    </form>
+    </section>
+  </section>
 <?php } ?>
 
 <?php

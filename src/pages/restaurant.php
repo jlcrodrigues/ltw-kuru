@@ -25,6 +25,6 @@
 
 
   output_header($session);
-  output_restaurant_card($restaurant, $dishes, $reviews, $average); 
+  output_restaurant_card($db, $session, $restaurant, $dishes, $reviews, $average); 
   output_footer();
 ?>

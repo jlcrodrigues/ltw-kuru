@@ -86,7 +86,7 @@
         }  
 
 
-        static function getAverage(PDO $db, int $id) : float {
+        static function getAverage(PDO $db, int $id) : ?float {
             $stmt = $db->prepare(
                 'SELECT avg(rating) as average
                  FROM Review
@@ -121,6 +121,47 @@
                         $restaurant['address']);
                 }
                 return $restaurants;
+        }
+
+        static function getRestaurantOwner(PDO $db, int $id) {
+            $stmt = $db->prepare(
+                'SELECT idUser 
+                FROM Restaurant 
+                WHERE idRestaurant = ?'
+            );
+
+            $stmt->execute(array($id));
+
+            $user = $stmt->fetch();
+
+            return $user['idUser'];
+            
+        }
+
+        static function newRestaurant($db, $idUser, $name, $opens, $closes, $category, $address){
+            $stmt = $db->prepare('INSERT INTO Restaurant (idUser, name, opens, closes, category, address) values(?, ?, ?, ?, ?, ?)');
+            try {
+                  $stmt->execute(array($idUser, $name, $opens, $closes, $category, $address));
+                return true;
+            }
+            catch (PDOException $e) {
+                return false;
+            }
+        }
+
+
+        static function updateRestaurant(PDO $db, string $name, string $opens, string $closes, string $category, string $address, int $id) {
+            $stmt = $db->prepare('
+                UPDATE Restaurant SET name = ?, opens = ?, closes = ?, category = ?, address = ?
+                WHERE idRestaurant = ?
+            ');
+            
+            try {
+                $stmt->execute(array($name, $opens, $closes, $category, $address, $id));
+                return true;
+            } catch (PDOException $e) {
+                return false;
+            }
         }
 
     }

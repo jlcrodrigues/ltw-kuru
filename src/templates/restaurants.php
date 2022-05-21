@@ -5,6 +5,9 @@ declare(strict_types = 1); ?>
   
   require_once(__DIR__ . '/../database/connection.db.php');
   require_once(__DIR__ . '/../database/user.class.php');
+  require_once(__DIR__ . '/../database/restaurant.class.php');
+
+
 
 function output_restaurant_card_nano(Restaurant $restaurant)
 { ?>
@@ -96,7 +99,56 @@ function output_review(Review $review)
 <?php } ?>
 
 <?php
-function output_restaurant_card(Restaurant $restaurant, array $dishes, array $reviews, ?float $average)
+  function output_edit_restaurant(PDO $db, Session $session, Restaurant $restaurant) {
+?>
+<article id="restaurant">
+<header>
+      <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
+      <form action="../actions/action_edit_restaurant.php?id=<?=$restaurant->id?>" method="post" class="profile">
+      <label for="name">Name:</label>
+      <input id="name" type="text" name="name" value="<?=$restaurant->name?>">
+      
+      <label for="opens">Opens:</label>
+      <input id="opens" type="time" name="opens" min=00:00 max=23:59 value="<?=$restaurant->opens?>">  
+
+      <label for="closes">Closes:</label>
+      <input id="closes" type="time" name="closes" min=00:00 max=23:59 value="<?=$restaurant->closes?>">  
+      
+      <label for="category">Category:</label>
+      <select name="category" id="category">
+      <option value="" selected disabled hidden>Choose here</option>
+      <option value="Super market">Super Market</option>
+      <option value="grill">Grill</option>
+      <option value="Fast Food">Fast Food</option>
+      <option value="pretzels">Pretzels</option>
+      <option value="Ice cream">Ice Creams</option>
+      <option value="american">American</option>
+      <option value="pizza">Pizza</option>
+      <option value="Sea food">Sea Food</option>
+      <option value="italian">Italian</option>
+      <option value="donuts">Donuts</option>
+      <option value="caffee">Caffee House</option>
+      <option value="sandwiches">Sandwiches</option>
+      <option value="juice">Juices</option>
+      <option value="steakhouse">Steakhouse</option>
+      <option value="Fast casual">Fast Casual</option>
+      <option value="mexican">Mexican</option>
+      <option value="bar">Bar</option>
+      </select>
+
+      <label for="address">Address:</label>
+      <input id="address" type="text" name="address" value="<?=$restaurant->address?>">  
+
+      <button type="submit">Save</button>
+    </form>
+    </header>
+  </article>
+    <?php } ?>
+
+
+
+<?php
+function output_restaurant_card(PDO $db, Session $session, Restaurant $restaurant, array $dishes, array $reviews, ?float $average)
 { ?>
   <article id="restaurant">
     <header>
@@ -105,9 +157,14 @@ function output_restaurant_card(Restaurant $restaurant, array $dishes, array $re
         <h3><?php echo "$restaurant->name"?></h3>
         <h4>	&#183; <?php echo "$average"?></h4>
         <i class="material-symbols-rounded">star</i>
+        <?php if(Restaurant::getRestaurantOwner($db, $restaurant->id) == $session->getId()) {?>
+          <a href="../pages/edit_restaurant.php?id=<?=$restaurant->id?>"><i class="material-icons">edit</i></a>
+    <?php } ?>
         <br>
         <i class="material-icons">place</i>
         <p><?php echo $restaurant->address ?></p>
+        <br>
+        <p><?php echo $restaurant->category?></p>
       </div>
     </header>
     <div id="tabs">

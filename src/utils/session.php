@@ -1,4 +1,7 @@
 <?php
+  require_once(__DIR__ . '/../database/restaurant.class.php');
+  require_once(__DIR__ . '/../database/connection.db.php');
+
   class Session {
     private array $messages;
 
@@ -11,6 +14,15 @@
 
     public function isLoggedIn() : bool {
       return isset($_SESSION['id']);    
+    }
+
+    public function isOwner(int $id) : bool {
+      $db = getDatabaseConnection();
+      $onwer_restaurants = Restaurant::getOwnerRestaurants($db, $id);
+      if (empty($onwer_restaurants)) {
+        return false;
+      }
+      return true;
     }
 
     public function logout() {
