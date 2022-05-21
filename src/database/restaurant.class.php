@@ -1,5 +1,5 @@
 <?php
-    declare(strict_type = 1);
+    declare(strict_types = 1);
 
     class Restaurant{
         public int $id;
@@ -27,7 +27,13 @@
 
             $restaurants = array();
             while ($restaurant = $stmt->fetch()){
-                $restaurants[] = new Restaurant($restaurant['idRestaurant'],$restaurant['name'],$restaurant['opens'],$restaurant['closes'],$restaurant['category'],$restaurant['address']);
+               $restaurants[] = new Restaurant(
+                  intval($restaurant['idRestaurant']),
+                  $restaurant['name'],
+                  $restaurant['opens'],
+                  $restaurant['closes'],
+                  $restaurant['category'],
+                  $restaurant['address']);
             }
             return $restaurants;
         }
@@ -43,7 +49,13 @@
         
             $restaurants = array();
             while ($restaurant = $stmt->fetch()) {
-              $restaurants[] = new Restaurant($restaurant['idRestaurant'],$restaurant['name'],$restaurant['opens'],$restaurant['closes'],$restaurant['category'],$restaurant['address']);
+              $restaurants[] = new Restaurant(
+                  intval($restaurant['idRestaurant']),
+                  $restaurant['name'],
+                  $restaurant['opens'],
+                  $restaurant['closes'],
+                  $restaurant['category'],
+                  $restaurant['address']);
             }
         
             return $restaurants;
@@ -59,7 +71,7 @@
             $restaurant = $stmt->fetch();
         
             return new Restaurant(
-                $restaurant['idRestaurant'],
+                intval($restaurant['idRestaurant']),
                 $restaurant['name'],
                 $restaurant['opens'],
                 $restaurant['closes'],
@@ -77,7 +89,7 @@
 
             $rating = $stmt->fetch();
 
-            return $rating['average'];
+            return floatval($rating['average']);
         }
 
     }

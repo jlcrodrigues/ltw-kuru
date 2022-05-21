@@ -19,12 +19,12 @@ a {
 
 /* header */
 
-body>header {
+body > header {
   background-color: var(--tertiary-color);
   box-shadow: 0px 1px 12px var(--shadow-color);
 }
 
-body>header a {
+body > header a {
   color: var(--secondary-color);
   text-decoration: none;
   margin: 0;
@@ -96,7 +96,7 @@ input[name=search]:focus {
   font-weight: 400;
 }
 
-.restaurant-nano img {
+.slide .restaurant-nano img {
   width: 100%;
 }
 
@@ -236,6 +236,25 @@ body>footer p {
   display: inline;
 }
 
+#form-favorite {
+  margin: 2em;
+}
+
+.favorite-button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--accent-color);
+}
+
+.favorite-button.favorite-active > i {
+  font-variation-settings: 'FILL' 1;
+}
+
+.favorite-button > i {
+  font-size: xx-large;
+}
+
 #restaurant-menu {
   display: block;
 }
@@ -261,7 +280,7 @@ body>footer p {
   color: white;
 }
 
-.meal button {
+.add-to-cart {
   border-radius: 50%;
   border: none;
   height: 1.4em;
@@ -271,11 +290,23 @@ body>footer p {
   color: white;
 }
 
-.meal h4 {
+.dish h4 {
   font-weight: 400;
 }
 
-#restaurant-reviews > p{
+.dish h3 {
+  display: inline;
+}
+
+.fav-dish-form {
+  display: inline;
+}
+
+.fav-dish-form > .favorite-button > i {
+  font-size: large;
+}
+
+#restaurant-reviews > p {
   text-align: center;
   padding: 2em;
   font-weight: 700;
@@ -316,6 +347,39 @@ body>footer p {
 
 #ratings {
   text-align: center;
+}
+
+/* favorites page */
+
+#favorites-tabs {
+  font-size: 0;
+  text-align: center;
+}
+
+.favorites-section-button {
+  background-color: var(--bg-color);
+  border: none;
+  font-family: "Nunito", sans-serif;
+  font-size: large;
+  font-weight: 700;
+  color: #bbb;
+  border-bottom: 0.2em solid #bbb;
+  cursor: pointer;
+}
+
+.favorites-section-button.active {
+  color: var(--accent-color);
+  border-bottom: 0.2em solid var(--accent-color);
+}
+
+#favorite-meals {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#favorite-meals > * {
+  border-bottom: 0.1em solid var(--shadow-color);
+  margin: 0.5em 0;
 }
 
 /* animations */

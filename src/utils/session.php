@@ -18,7 +18,7 @@
     }
 
     public function getId() : ?int {
-      return isset($_SESSION['id']) ? $_SESSION['id'] : null;    
+      return isset($_SESSION['id']) ? intval($_SESSION['id']) : null;    
     }
 
     public function getName() : ?string {

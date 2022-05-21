@@ -3,8 +3,11 @@ declare(strict_types = 1); ?>
 
 <?php
   
+  require_once(__DIR__ . '/../utils/session.php');
   require_once(__DIR__ . '/../database/connection.db.php');
   require_once(__DIR__ . '/../database/user.class.php');
+  require_once(__DIR__ . '/../database/review.class.php');
+  require_once(__DIR__ . '/../database/dish.class.php');
 
 function output_restaurant_card_nano(Restaurant $restaurant)
 { ?>
@@ -61,17 +64,68 @@ function output_restaurant_search()
 <?php } ?>
 
 <?php
-function output_meal(Dish $dish)
+function output_dish(Dish $dish, $session)
 { ?>
-  <section class="meal">
+  <section class="dish">
     <div>
       <h3><?php echo $dish->name ?></h3>
+      <?php
+      if ($session->isLoggedIn()) { ?>
+        <form class="fav-dish-form" action="../actions/action_favorite.php" method="post">
+          <?php 
+          $db = getDatabaseConnection();
+          if (User::isFavoriteDish($db, $session->getId(), $dish->idDish)) {
+          ?>
+          <button class="favorite-button favorite-active">
+          <?php } else { ?>
+          <button class="favorite-button">
+          <?php } ?>
+            <i class="material-symbols-rounded">favorite</i>
+          </button>
+          <input type="hidden" name="id" value="<?php echo $dish->idDish?>">
+          <input type="hidden" name="idRestaurant" value="<?php echo $dish->idRestaurant?>">
+          <input type="hidden" name="type" value="dish">
+        </form>
+      <?php } ?>
       <h4><?php echo $dish->description ?></h4>
     </div>
     <p><?php echo $dish->price?>€</p>
     <form action="" method="post">
-      <button class="add_to_cart">+</button>
+      <button class="add-to-cart">+</button>
     </form>
+  </section>
+<?php } ?>
+
+<?php
+function output_favorite_dish(Dish $dish, $session)
+{ ?>
+  <section class="dish">
+    <div>
+      <h3>
+        <a href=<?php echo "\"../pages/restaurant.php?id=$dish->idRestaurant\">";
+          echo $dish->name; ?>
+        </a>
+      </h3>
+      <?php
+      if ($session->isLoggedIn()) { ?>
+        <form class="fav-dish-form" action="../actions/action_favorite.php" method="post">
+          <?php 
+          $db = getDatabaseConnection();
+          if (User::isFavoriteDish($db, $session->getId(), $dish->idDish)) {
+          ?>
+          <button class="favorite-button favorite-active">
+          <?php } else { ?>
+          <button class="favorite-button">
+          <?php } ?>
+            <i class="material-symbols-rounded">favorite</i>
+          </button>
+          <input type="hidden" name="id" value="<?php echo $dish->idDish?>">
+          <input type="hidden" name="idRestaurant" value="<?php echo $dish->idRestaurant?>">
+          <input type="hidden" name="type" value="dish">
+        </form>
+      <?php } ?>
+      <h4><?php echo $dish->description ?></h4>
+    </div>
   </section>
 <?php } ?>
 
@@ -96,8 +150,12 @@ function output_review(Review $review)
 <?php } ?>
 
 <?php
-function output_restaurant_card(Restaurant $restaurant, array $dishes, array $reviews, ?float $average)
-{ ?>
+function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
+{ 
+  $dishes = Dish::getRestaurantDishes($db, intval($restaurant->id));
+  $reviews = Review::getRestaurantReviews($db, intval($restaurant->id));
+  $average = Restaurant::getAverage($db, intval($restaurant->id));
+  ?>
   <article id="restaurant">
     <header>
       <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
@@ -110,6 +168,23 @@ function output_restaurant_card(Restaurant $restaurant, array $dishes, array $re
         <p><?php echo $restaurant->address ?></p>
       </div>
     </header>
+    <?php
+    if ($session->isLoggedIn()) { ?>
+      <form id="form-favorite" action="../actions/action_favorite.php" method="post">
+        <?php 
+        $db = getDatabaseConnection();
+        if (User::isFavoriteRestaurant($db, $session->getId(), $restaurant->id)) {
+        ?>
+        <button class="favorite-button favorite-active">
+        <?php } else { ?>
+        <button class="favorite-button">
+        <?php } ?>
+          <i class="material-symbols-rounded">favorite</i>
+        </button>
+        <input type="hidden" name="idRestaurant" value="<?php echo $restaurant->id?>">
+        <input type="hidden" name="type" value="restaurant">
+      </form>
+    <?php } ?>
     <div id="tabs">
       <button 
         id="menu-button"
@@ -131,7 +206,7 @@ function output_restaurant_card(Restaurant $restaurant, array $dishes, array $re
     <article id="restaurant-menu" class="restaurant-tab">
       <?php
       foreach ($dishes as $dish) {
-        output_meal($dish);
+        output_dish($dish, $session);
       }
       ?>
     </article>

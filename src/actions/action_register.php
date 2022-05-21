@@ -8,14 +8,12 @@
 
     $session = new Session();
 
-
     $db = getDatabaseConnection();
     $email = $_POST["email"];
     $fist_name = $_POST["first_name"];
     $last_name = $_POST["last_name"];
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
-
 
     if (empty($_POST['email']) || empty($_POST['first_name']) || empty($_POST['last_name']) || empty($_POST['password']) || empty($_POST['confirm_password'])) {
         $session->addMessage('error', 'You have to fill in all fields.');

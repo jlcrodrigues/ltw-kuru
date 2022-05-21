@@ -51,7 +51,7 @@
         $dish['idDish'], 
         $dish['idRestaurant'],
         $dish['name'],
-        $dish['desctiption'],
+        $dish['description'],
         $dish['price'],
         $dish['category']
       );
