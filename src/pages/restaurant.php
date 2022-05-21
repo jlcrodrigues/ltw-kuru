@@ -19,12 +19,8 @@
 
   $id = $_GET['id'];
   $restaurant = Restaurant::getRestaurant($db, intval($id));
-  $dishes = Dish::getRestaurantDishes($db, intval($id));
-  $reviews = Review::getRestaurantReviews($db, intval($id));
-  $average = Restaurant::getAverage($db, intval($id));
-
 
   output_header($session);
-  output_restaurant_card($db, $session, $restaurant, $dishes, $reviews, $average); 
+  output_restaurant_card($db, $restaurant, $session); 
   output_footer();
 ?>

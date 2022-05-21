@@ -1,5 +1,5 @@
 <?php
-    declare(strict_type = 1);
+    declare(strict_types = 1);
 
     class Restaurant{
         public int $id;
@@ -86,19 +86,6 @@
         }  
 
 
-        static function getAverage(PDO $db, int $id) : ?float {
-            $stmt = $db->prepare(
-                'SELECT avg(rating) as average
-                 FROM Review
-                 WHERE idRestaurant = ?
-                ');
-            $stmt->execute(array($id));
-
-            $rating = $stmt->fetch();
-
-            return $rating['average'];
-        }
-
 
         static function getOwnerRestaurants(PDO $db, int $idUser) {
             $stmt = $db->prepare(
@@ -162,6 +149,20 @@
             } catch (PDOException $e) {
                 return false;
             }
+        }
+
+
+        static function getAverage(PDO $db, int $id) : ?float {
+            $stmt = $db->prepare(
+                'SELECT avg(rating) as average
+                 FROM Review
+                 WHERE idRestaurant = ?
+                ');
+            $stmt->execute(array($id));
+
+            $rating = $stmt->fetch();
+
+            return floatval($rating['average']);
         }
 
     }

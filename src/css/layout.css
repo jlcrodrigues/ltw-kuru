@@ -100,23 +100,29 @@ body > header * {
 }
 
 #restaurant > header {
-  grid-column: 1 / 3;
+  grid-column-start: 1;
   display: flex;
   margin-bottom: 1em;
   flex-wrap: wrap;
+}
+
+#form-favorite {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  text-align: right;
 }
 
 #side-section {
   grid-column-start: 2;
 }
 
-.meal {
+.dish {
   display: flex;
   align-items: center;
   gap: 1em;
 }
 
-.meal > p {
+.dish > p {
   margin-left: auto;
 }
 
@@ -127,4 +133,24 @@ body > header * {
 
 .review-title > h4, .review-title > a {
   margin-left: auto;
+}
+
+/* favorites page */
+
+#favorites {
+  min-height: 80vh;
+}
+
+#favorites > header > h1 {
+  text-align: center;
+}
+
+#favorites-tabs {
+  margin: 0 auto;
+}
+
+#favorite-restaurants > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
