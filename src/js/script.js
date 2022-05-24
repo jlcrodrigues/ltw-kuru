@@ -51,3 +51,49 @@ function openFavoritesTab(evt, tab_id) {
 
 const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()
+
+const searchRestaurant = document.querySelector('#search-restaurant')
+if (searchRestaurant) {
+  searchRestaurant.addEventListener('input', async function() {
+    const response = await fetch('../api_restaurants.php?search=' + this.value)
+    const restaurants = await response.json()
+
+    const section = document.querySelector('#restaurants-search')
+    section.innerHTML = ''
+
+    for (const restaurant of restaurants) {
+      /*const link = document.createElement('a')
+      link.href = "../pages/restaurant.php"
+      link.class = "restaurant-mini"
+      const img = document.createElement('img')
+      img.src = "https://picsum.photos/id/101/200/200"
+      img.alt = ""
+      const div = document.createElement('div')
+      div.class = "mini-text"
+      const h3 = document.createElement('h3')
+      h3.textContent = restaurant.name
+      const h4 = document.createElement('h4')
+      h4.textContent = restaurant.address
+      div.appendChild(h3)
+      div.appendChild(h4)
+      link.appendChild(img)
+      link.appendChild(div)
+      section.appendChild(link)
+       */
+      const text = document.createElement('p')
+      text.textContent = restaurant.name
+      section.appendChild(text)
+
+      /*const article = document.createElement('article')
+      const img = document.createElement('img')
+      img.src = 'https://picsum.photos/200?' + restaurant.id
+      const link = document.createElement('a')
+      link.href = 'restaurants.php?id=' + restaurant.id
+      link.textContent = restaurant.name
+      article.appendChild(img)
+      article.appendChild(link)
+      section.appendChild(article)
+       */
+    }
+  })
+}

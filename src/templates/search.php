@@ -5,7 +5,7 @@ declare(strict_types=1);
 function output_search_bar()
 { ?>
   <form method="post" id="search-box">
-    <input type="text" name="search" placeholder="Search">
+    <input id="search-restaurant" type="text" name="search" placeholder="Search">
     <button type="submit">
       <i class="material-icons icon-4x">search</i>
     </button>
