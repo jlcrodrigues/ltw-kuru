@@ -263,7 +263,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
 
 
 <?php
-  function output_edit_restaurant(PDO $db, Session $session, Restaurant $restaurant) {
+  function output_edit_restaurant_form(PDO $db, Session $session, Restaurant $restaurant) {
 ?>
 <article id="restaurant">
 <header>
@@ -311,7 +311,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
 
 
 <?php
-function output_edit_restaurant_card(PDO $db, Session $session, Restaurant $restaurant, array $dishes, array $reviews, ?float $average)
+function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $restaurant, array $dishes, array $reviews, ?float $average)
 { ?>
   <article id="restaurant">
     <header>
@@ -340,7 +340,7 @@ function output_edit_restaurant_card(PDO $db, Session $session, Restaurant $rest
     <article id="restaurant-menu" class="restaurant-tab">
       <?php
       foreach ($dishes as $dish) {
-        output_edit_meal($dish);
+        output_edit_dish($dish);
       }
       ?>
     </article>
@@ -348,7 +348,7 @@ function output_edit_restaurant_card(PDO $db, Session $session, Restaurant $rest
 
 
 <?php
-function output_edit_meal(Dish $dish)
+function output_edit_dish(Dish $dish)
 { ?>
   <section class="meal">
     <div>
@@ -356,12 +356,24 @@ function output_edit_meal(Dish $dish)
       <h4><?php echo $dish->description ?></h4>
     </div>
     <p><?php echo $dish->price?>€</p>
+    <a href="../pages/edit_dish.php?id=<?=$dish->idDish?>"><button name=edit class="edit_meal"><i class="material-icons">edit</i></button></a>
     <form action="" method="post">
-        <button class="edit_meal"><i class="material-icons">edit</i></button>
-    </form>
-    <form action="" method="post">
-        <button class="delete_meal"><i class="material-icons">delete</i></button>
+        <button name=delete class="delete_meal"><i class="material-icons">delete</i></button>
     </form>
     
   </section>
 <?php } ?>
+
+
+<?php
+  function output_edit_dish_form(PDO $db, Session $session, Dish $dish) {
+?>
+<article id="restaurant">
+  <section class="dish">
+    <div>
+      <h3><?php echo $dish->name ?></h3>
+      <h4><?php echo $dish->description ?></h4>
+    </div>
+    <p><?php echo $dish->price?>€</p>
+  </section>
+    <?php } ?>

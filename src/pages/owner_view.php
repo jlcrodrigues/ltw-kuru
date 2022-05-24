@@ -29,6 +29,6 @@
 
 
   output_header($session);
-  output_edit_restaurant_card($db, $session, $restaurant, $dishes, $reviews, $average); 
+  output_owner_restaurant_card($db, $session, $restaurant, $dishes, $reviews, $average); 
   output_footer();
 ?>

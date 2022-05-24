@@ -48,7 +48,7 @@
       $dish = $stmt->fetch();
   
       return new Dish(
-        $dish['idDish'], 
+        intval($dish['idDish']), 
         $dish['idRestaurant'],
         $dish['name'],
         $dish['description'],

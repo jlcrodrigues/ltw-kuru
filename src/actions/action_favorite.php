@@ -21,5 +21,5 @@
     User::setFavoriteDish($db, $session->getId(), $id);
   }
 
-  header("Location: ../pages/restaurant.php?id=$idRestaurant");
+  header('Location: ' . $_SERVER['HTTP_REFERER']);
 ?>

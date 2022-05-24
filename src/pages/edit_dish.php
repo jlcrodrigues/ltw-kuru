@@ -7,6 +7,7 @@
   require_once(__DIR__ . '/../templates/restaurants.php');
   require_once(__DIR__ . '/../database/dish.class.php');
   require_once(__DIR__ . '/../database/review.class.php');
+  require_once(__DIR__ . '/../database/dish.class.php');
 
 
     $session = new Session();
@@ -18,10 +19,10 @@
      }
 
 
-  $id = $_GET['id'];
-  $restaurant = Restaurant::getRestaurant($db, intval($id));
+  $id = intval($_GET['id']);
+  $dish = Dish::getDish($db, $id);
 
   output_header($session);
-  output_edit_restaurant_form($db, $session, $restaurant);
+  output_edit_dish_form($db, $session, $dish);
   output_footer();
 ?>
