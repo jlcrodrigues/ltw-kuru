@@ -55,15 +55,15 @@ if (favorite_button) favorite_button.click()
 const searchRestaurant = document.querySelector('#search-restaurant')
 if (searchRestaurant) {
   searchRestaurant.addEventListener('input', async function() {
-    const response = await fetch('../api_restaurants.php?search=' + this.value)
+    const response = await fetch('../api/api_restaurants.php?search=' + this.value)
     const restaurants = await response.json()
 
-    const section = document.querySelector('#restaurants-search')
+    const section = document.querySelector('.restaurants-search')
     section.innerHTML = ''
 
     for (const restaurant of restaurants) {
-      /*const link = document.createElement('a')
-      link.href = "../pages/restaurant.php"
+      const link = document.createElement('a')
+      link.href = "../pages/restaurant.php?id=" + restaurant.id
       link.class = "restaurant-mini"
       const img = document.createElement('img')
       img.src = "https://picsum.photos/id/101/200/200"
@@ -79,10 +79,6 @@ if (searchRestaurant) {
       link.appendChild(img)
       link.appendChild(div)
       section.appendChild(link)
-       */
-      const text = document.createElement('p')
-      text.textContent = restaurant.name
-      section.appendChild(text)
 
       /*const article = document.createElement('article')
       const img = document.createElement('img')

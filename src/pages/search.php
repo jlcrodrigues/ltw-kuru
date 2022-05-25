@@ -16,6 +16,7 @@ $db = getDatabaseConnection();
 
 $restaurants = Restaurant::getRestaurants($db, 5);
 
+
 output_header($session);
 output_search_bar();
 echo '<div id="search">';
