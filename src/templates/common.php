@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1); ?>
 
 <?php
@@ -23,37 +24,46 @@ function output_header(Session $session)
     <header>
       <h1><a href="../pages/index.php">Kuru</a></h1>
       <h3><a href="../pages/search.php">Search</a></h1>
-      <h3><a href="../pages/favorites.php">Favorites</a></h1>
-      <?php 
-          if ($session->isLoggedIn()) { ?>
-            <a href="../pages/profile.php">
-            <i class="material-icons icon-4x">account_circle</i>
-            </a>
-          <?php }
-          else { ?>
-            <a href="../pages/login.php">
-              <i class="material-icons icon-4x">account_circle</i>
-            </a>
-        <?php }
-      ?>
+        <?php
+        if ($session->isLoggedIn()) { ?>
+          <h3><a href="../pages/favorites.php">Favorites</a></h1>
+          <?php } else { ?>
+            <h3><a href="../pages/login.php">Favorites</a></h1>
+            <?php } ?>
+            <?php
+            if ($session->isLoggedIn()) { ?>
+              <a href="../pages/profile.php">
+                <i class="material-icons icon-4x">account_circle</i>
+              </a>
+            <?php } else { ?>
+              <a href="../pages/login.php">
+                <i class="material-icons icon-4x">account_circle</i>
+              </a>
+            <?php }
+            ?>
     </header>
 
-    <section id="messages">
+    <article id="messages">
       <?php foreach ($session->getMessages() as $message) { ?>
-        <article class="<?=$message['type']?>">
-          <?=$message['text']?>
-        </article>
+        <section class="message <?= $message['type'] ?>">
+          <p><?= $message['text'] ?></p>
+          <button 
+            class="close-message"
+            onclick="closeMessage(event)">
+            <i class="material-symbols-rounded">close</i>
+          </button>
+        </div>
       <?php } ?>
-    </section>
-
+    </article>
 
   <?php } ?>
 
-<?php
-function output_footer()
-{ ?>
+  <?php
+  function output_footer()
+  { ?>
+    <div id="footer-prev"></div>
     <footer>
-      <p>&copy; Restaurant, 2002</p>
+      <p>&copy; Kuru, 2022</p>
     </footer>
   </body>
 

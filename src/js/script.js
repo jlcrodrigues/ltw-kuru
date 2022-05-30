@@ -54,7 +54,7 @@ if (favorite_button) favorite_button.click()
 
 const searchRestaurant = document.querySelector('#search-restaurant');
 if (searchRestaurant) {
-  searchRestaurant.addEventListener('input', async function() {
+  searchRestaurant.addEventListener('input', async function () {
     const response = await fetch('../api/api_restaurants.php?search=' + this.value);
     const restaurants = await response.json();
 
@@ -81,4 +81,12 @@ if (searchRestaurant) {
       section.appendChild(link);
     }
   })
+}
+function closeMessage(event) {
+  console.log("df2")
+  let message = event.currentTarget.parentNode
+  message.style["animation"] = "fadeOut 0.5s"
+  setTimeout(function() {
+    message.remove()
+  }, 500);
 }

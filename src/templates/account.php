@@ -125,26 +125,32 @@ function output_profile(Session $session)
 <?php
 function output_login()
 { ?>
-  <form action="../actions/action_login.php" method="post">
-    <input type="email" name="email" placeholder="email">
-    <input type="password" name="password" placeholder="password">
-    <button type="submit" name="submit" class="login">Login</button>
-  </form>
-  <a href="register.php">Register</a>
+  <div class="account">
+    <form action="../actions/action_login.php" method="post">
+      <input type="email" name="email" placeholder="Email">
+      <input type="password" name="password" placeholder="Password">
+      <button type="submit" name="submit" class="login">Log In</button>
+    </form>
+    <hr>
+    <a href="register.php">Create an account</a>
+  </div>
 
 <?php } ?>
 
 <?php
 function output_register()
 { ?>
-  <form action="../actions/action_register.php" method="post">
-    <input type="text" name="first_name" placeholder="First Name">
-    <input type="text" name="last_name" placeholder="Last Name">
-    <input type="email" name="email"  placeholder="email">
-    <input type="password" name="password" placeholder="password">
-    <input type="password" name="confirm_password" placeholder="confirm password">
-    <button type="submit" name="submit" class="login">Register</button>
-  </form>
-  <a href="login.php">Login</a>
+  <div class="account">
+    <form id="register" action="../actions/action_register.php" method="post">
+      <input type="text" name="first_name" placeholder="First Name">
+      <input type="text" name="last_name" placeholder="Last Name">
+      <input type="email" name="email"  placeholder="Email">
+      <input type="password" name="password" placeholder="Password">
+      <input type="password" name="confirm_password" placeholder="Confirm Password">
+      <button type="submit" name="submit" class="login">Register</button>
+    </form>
+      <hr>
+      <a href="login.php">I have an account</a>
+  </div>
   <?php
   }
