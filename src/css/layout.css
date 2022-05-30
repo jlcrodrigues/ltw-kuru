@@ -65,7 +65,7 @@ body > header * {
   grid-template-columns: auto 70%;
   grid-template-rows: auto 1fr;
   margin: 0 auto;
-  min-height: 80vh;
+  width: 70%;
 }
 
 #profile > img {
