@@ -51,3 +51,12 @@ function openFavoritesTab(evt, tab_id) {
 
 const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()
+
+function closeMessage(event) {
+  console.log("df2")
+  let message = event.currentTarget.parentNode
+  message.style["animation"] = "fadeOut 0.5s"
+  setTimeout(function() {
+    message.remove()
+  }, 500);
+}

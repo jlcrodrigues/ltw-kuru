@@ -126,13 +126,13 @@ function output_profile(Session $session)
 function output_login()
 { ?>
   <div class="account">
-    <form class="account-form" action="../actions/action_login.php" method="post">
+    <form action="../actions/action_login.php" method="post">
       <input type="email" name="email" placeholder="Email">
       <input type="password" name="password" placeholder="Password">
       <button type="submit" name="submit" class="login">Log In</button>
-      <hr>
-      <a href="register.php">Create an account</a>
     </form>
+    <hr>
+    <a href="register.php">Create an account</a>
   </div>
 
 <?php } ?>
@@ -141,16 +141,16 @@ function output_login()
 function output_register()
 { ?>
   <div class="account">
-    <form class="account-form" id="register" action="../actions/action_register.php" method="post">
+    <form id="register" action="../actions/action_register.php" method="post">
       <input type="text" name="first_name" placeholder="First Name">
       <input type="text" name="last_name" placeholder="Last Name">
       <input type="email" name="email"  placeholder="Email">
       <input type="password" name="password" placeholder="Password">
       <input type="password" name="confirm_password" placeholder="Confirm Password">
       <button type="submit" name="submit" class="login">Register</button>
+    </form>
       <hr>
       <a href="login.php">I have an account</a>
-    </form>
   </div>
   <?php
   }

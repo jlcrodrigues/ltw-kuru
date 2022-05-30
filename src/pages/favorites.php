@@ -10,6 +10,9 @@
 
   $session = new Session();
 
+  if (!$session->isLoggedIn())
+    header("Location: ../pages/login.php");
+
   $db = getDatabaseConnection();
 
   $restaurants = User::getFavoriteRestaurants($db, intval($_SESSION['id']));
