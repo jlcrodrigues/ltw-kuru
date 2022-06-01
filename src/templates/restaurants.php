@@ -20,11 +20,11 @@ function output_restaurant_card_nano(Restaurant $restaurant)
   </a>
 <?php } 
 
-function output_restaurant_slide(array $restaurants)
+function output_restaurant_slide(array $restaurants, string $title)
 {
 ?>
   <section class="slide">
-    <h2>Section Title</h2>
+    <h2><?php echo $title?></h2>
     <div class="slide-content">
       <?php
       foreach ($restaurants as $restaurant) { 
@@ -103,7 +103,7 @@ function output_favorite_dish(Dish $dish, $session)
     <div>
       <h3>
         <a href=<?php echo "\"../pages/restaurant.php?id=$dish->idRestaurant\">";
-          echo $dish->name; ?>
+          echo $dish->name; ?>>
         </a>
       </h3>
       <?php
@@ -166,6 +166,8 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
         <br>
         <i class="material-icons">place</i>
         <p><?php echo $restaurant->address ?></p>
+        <br>
+        <p class="category"><?php echo $restaurant->category ?></p>
       </div>
     </header>
     <?php
