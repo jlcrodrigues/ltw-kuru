@@ -116,7 +116,7 @@ function output_favorite_dish(Dish $dish, $session)
     <div>
       <h3>
         <a href=<?php echo "\"../pages/restaurant.php?id=$dish->idRestaurant\">";
-          echo $dish->name; ?>>
+          echo $dish->name; ?>
         </a>
       </h3>
       <?php
