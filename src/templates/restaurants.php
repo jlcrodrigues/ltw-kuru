@@ -97,6 +97,19 @@ function output_dish(Dish $dish, $session)
 <?php } ?>
 
 <?php
+function output_dish_category(PDO $db, $session, string $category, int $idRestaurant) {
+  ?><section class="category-section"><?php
+  $dishes = Dish::getRestaurantDishesByCategory($db, $category, $idRestaurant);
+
+  echo '<h2>' . ucwords($category) . '</h2><hr>';
+
+  foreach ($dishes as $dish) {
+    output_dish($dish, $session);
+  }
+  ?></section><?php
+}?>
+
+<?php
 function output_favorite_dish(Dish $dish, $session)
 { ?>
   <section class="dish">
@@ -152,7 +165,7 @@ function output_review(Review $review)
 <?php
 function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
 { 
-  $dishes = Dish::getRestaurantDishes($db, intval($restaurant->id));
+  $categories = Dish::getDishCategories($db, $restaurant->id);
   $reviews = Review::getRestaurantReviews($db, intval($restaurant->id));
   $average = Restaurant::getAverage($db, intval($restaurant->id));
   ?>
@@ -207,9 +220,9 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
     </div>
     <article id="restaurant-menu" class="restaurant-tab">
       <?php
-      foreach ($dishes as $dish) {
-        output_dish($dish, $session);
-      }
+        foreach($categories as $category) {
+          output_dish_category($db, $session, $category, $restaurant->id);
+        }
       ?>
     </article>
     <article id="restaurant-reviews" class="restaurant-tab">

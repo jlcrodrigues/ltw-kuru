@@ -307,6 +307,11 @@ body>footer p {
   display: inline;
 }
 
+.category-section > hr{
+  border: 0;
+  border-top: 0.1em solid var(--shadow-color);
+}
+
 .fav-dish-form {
   display: inline;
 }
