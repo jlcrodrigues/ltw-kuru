@@ -232,8 +232,17 @@ body>footer p {
   padding-left: 0.3em;
 }
 
-#restaurant-header-text > p {
+#restaurant-header-text p:first-of-type {
   display: inline;
+}
+
+.category {
+  display: inline-block;
+  background-color: var(--shadow-color);
+  border-radius: 1em;
+  font-family: 'Nunito';
+  font-weight: 700;
+  padding: 0.5em;
 }
 
 #form-favorite {
@@ -296,6 +305,11 @@ body>footer p {
 
 .dish h3 {
   display: inline;
+}
+
+.category-section > hr{
+  border: 0;
+  border-top: 0.1em solid var(--shadow-color);
 }
 
 .fav-dish-form {
