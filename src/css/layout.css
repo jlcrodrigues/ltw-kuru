@@ -38,10 +38,16 @@ body > header * {
 
 /* sliders */
 
-.slide-content {
+.slide {
+  position: relative;
+  margin: 0 auto;
+}
+
+.slide-box {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 1em;
+  align-items: center;
 }
 
 /* search page */

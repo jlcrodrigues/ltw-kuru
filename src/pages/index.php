@@ -20,7 +20,7 @@
   output_search_bar();
 
   foreach ($categories as $category) {
-    $restaurants = Restaurant::getRestaurantsByCategory($db, $category, 5);
+    $restaurants = Restaurant::getRestaurantsByCategory($db, $category);
     if (sizeof($restaurants) < 5) continue;
     output_restaurant_slide($restaurants, ucwords($category));
   }

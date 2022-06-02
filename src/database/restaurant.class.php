@@ -72,14 +72,13 @@
             return $categories;
         }
 
-        static function getRestaurantsByCategory(PDO $db, string $category, int $count) : array {
+        static function getRestaurantsByCategory(PDO $db, string $category) : array {
             $stmt = $db->prepare(
                 'SELECT idRestaurant, name, opens, closes, category, address
                  FROM Restaurant
                  WHERE category
-                 LIKE ? 
-                 LIMIT ?');
-            $stmt->execute(array($category . '%', $count));
+                 LIKE ?');
+            $stmt->execute(array($category . '%'));
         
             $restaurants = array();
             while ($restaurant = $stmt->fetch()) {

@@ -23,14 +23,22 @@ function output_restaurant_card_nano(Restaurant $restaurant)
 function output_restaurant_slide(array $restaurants, string $title)
 {
 ?>
-  <section class="slide">
+  <section class="slide-category">
     <h2><?php echo $title?></h2>
-    <div class="slide-content">
+    <div class="slide">
+      <div class="slide-box">
       <?php
       foreach ($restaurants as $restaurant) { 
         output_restaurant_card_nano($restaurant); 
       }
       ?>
+      </div>
+      <a class="slide-left slide-button" onclick="sliderScrollLeft(event)">
+        <i class="material-symbols-rounded">navigate_before</i>
+      </a>
+      <a class="slide-right slide-button" onclick="sliderScrollRight(event)">
+        <i class="material-symbols-rounded">navigate_next</i>
+      </a>
     </div>
   </section>
 <?php
