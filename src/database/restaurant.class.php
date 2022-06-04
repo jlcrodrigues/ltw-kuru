@@ -114,9 +114,9 @@
 
         static function getOrderRestaurant(PDO $db, int $idOrder) : Restaurant {
             $stmt = $db->prepare(
-                'SELECT Request.idRestaurant, name, opens, closes, category, address
+                'SELECT DISTINCT Request.idRestaurant, name, opens, closes, category, address
                  FROM Restaurant, Request
-                 WHERE Request.idRestaurant = ?
+                 WHERE Request.idRequest = ?
                  AND Restaurant.idRestaurant = Request.idRestaurant');
             $stmt->execute(array($idOrder));
         

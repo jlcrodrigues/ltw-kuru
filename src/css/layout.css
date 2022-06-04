@@ -195,6 +195,6 @@ body > header * {
 
 .cart {
   width: 80%;
-  margin: 0 auto;
+  margin: 1em auto;
   min-height: 10em;
 }

@@ -98,9 +98,10 @@ function output_dish(Dish $dish, $session)
       <h4><?php echo $dish->description ?></h4>
     </div>
     <p><?php echo $dish->price?>€</p>
-    <form action="" method="post">
-      <button class="add-to-cart">+</button>
-    </form>
+    <button class="add-to-cart">
+      <i class="material-symbols-rounded">add</i>
+    </button>
+    <input type="hidden" name="idDish" value="<?php echo $dish->idDish?>">
   </section>
 <?php } ?>
 

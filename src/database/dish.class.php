@@ -51,13 +51,13 @@
       $stmt->execute(array($idDish));
   
       $dish = $stmt->fetch();
-  
+
       return new Dish(
-        $dish['idDish'], 
-        $dish['idRestaurant'],
+        intval($dish['idDish']), 
+        intval($dish['idRestaurant']),
         $dish['name'],
         $dish['description'],
-        $dish['price'],
+        floatval($dish['price']),
         $dish['category']
       );
     }
@@ -136,5 +136,28 @@
         }
         return $dishes;
       }
+
+    static function addDishToOrder(PDO $db, int $idDish, int $idUser) {
+      $dish = Dish::getDish($db, $idDish);
+
+      // Check for existing orders
+      if (User::getOrderByRestaurant($db, $idUser, $dish->idRestaurant) == null) {
+        $stmt = $db->prepare("
+          INSERT INTO REQUEST (idUser, idRestaurant, state)
+          VALUES (?, ?, 'Ordering')
+        ");
+        $stmt->execute(array($idUser, $dish->idRestaurant));
+      }
+
+      // Get the id of the Order
+      $id = User::getOrderByRestaurant($db, $idUser, $dish->idRestaurant);
+
+      // Add the dish to the orders
+      $stmt = $db->prepare("
+        INSERT INTO REQUEST_DISH (idRequest, idDish)
+        VALUES (?, ?)
+      ");
+      $stmt->execute(array($id, $dish->idDish));
+    }
   }
 ?>

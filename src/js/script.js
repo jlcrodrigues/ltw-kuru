@@ -115,3 +115,21 @@ if (favorite_buttons) {
     })
   }
 }
+
+const cart_buttons = document.querySelectorAll(".add-to-cart")
+
+if (cart_buttons) {
+  for (const button of cart_buttons) {
+    const id = button.nextElementSibling.value;
+    console.log(id)
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idDish=" + id
+      })
+    })
+  }
+}

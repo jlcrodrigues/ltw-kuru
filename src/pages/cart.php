@@ -13,6 +13,9 @@
 
   $session = new Session();
 
+  if (!$session->isLoggedIn())
+    header("Location: ../pages/login.php");
+
   $db = getDatabaseConnection();
 
   output_header($session);

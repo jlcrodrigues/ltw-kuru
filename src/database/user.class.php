@@ -213,7 +213,7 @@ class User
         return (count($restaurant) > 0);
     }
 
-    static function setFavoriteRestaurant(PDO $db, int $idUser, int $idRestaurant) : string
+    static function setFavoriteRestaurant(PDO $db, int $idUser, int $idRestaurant): string
     {
         if (User::isFavoriteRestaurant($db, $idUser, $idRestaurant)) {
             $stmt = $db->prepare(
@@ -250,7 +250,7 @@ class User
         return (count($dish) > 0);
     }
 
-    static function setFavoriteDish(PDO $db, int $idUser, int $idDish) : string
+    static function setFavoriteDish(PDO $db, int $idUser, int $idDish): string
     {
         if (User::isFavoriteDish($db, $idUser, $idDish)) {
             $stmt = $db->prepare(
@@ -271,7 +271,8 @@ class User
         return "error";
     }
 
-    static function getOrdersByState(PDO $db, int $idUser, string $state) : array {
+    static function getOrdersByState(PDO $db, int $idUser, string $state): array
+    {
         $stmt = $db->prepare(
             "SELECT idRequest
                  FROM Request
@@ -282,11 +283,27 @@ class User
         );
         $stmt->execute(array($idUser, $state));
 
-        $dishes = [];
+        $orders = [];
 
-        while ($dish = $stmt->fetch()) {
-            $dishes[] = $dish['idRequest'];
+        while ($order = $stmt->fetch()) {
+            $orders[] = $order['idRequest'];
         }
-        return $dishes;
+        return $orders;
+    }
+
+    static function getOrderByRestaurant(PDO $db, int $idUser, int $idRestaurant): ?int
+    {
+        $stmt = $db->prepare("
+            SELECT idRequest
+            FROM Request
+            WHERE idUser = ?
+            AND idRestaurant = ?
+            AND state
+            LIKE 'Ordering'
+        ");
+        $stmt->execute(array($idUser, $idRestaurant));
+        $id = $stmt->fetch();
+        if ($id == FALSE) return null;
+        return intval($id['idRequest']);
     }
 }

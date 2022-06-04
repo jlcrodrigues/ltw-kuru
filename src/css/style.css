@@ -338,10 +338,15 @@ body>footer p {
 .add-to-cart {
   border-radius: 50%;
   border: none;
-  height: 1.4em;
-  width: 1.4em;
-  font-size: x-large;
   background-color: var(--tertiary-color);
+  text-align: center;
+  height: 2.55em;
+  width: 2.65em;
+}
+
+.add-to-cart > i{
+  font-size: x-large;
+  font-weight: 700;
   color: white;
 }
 
