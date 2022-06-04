@@ -114,9 +114,6 @@ function output_profile(Session $session)
       }
     }
   ?>
-
-
-
     </section>
   </section>
 

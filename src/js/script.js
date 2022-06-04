@@ -55,10 +55,9 @@ const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()
 
 function closeMessage(event) {
-  console.log("df2")
   let message = event.currentTarget.parentNode
   message.style["animation"] = "fadeOut 0.5s"
-  setTimeout(function() {
+  setTimeout(function () {
     message.remove()
   }, 500);
 }
@@ -88,5 +87,31 @@ function sliderScrollRight(event) {
   }
   else {
     scroll_amount = 0
+  }
+}
+
+const favorite_buttons = document.querySelectorAll(".favorite-button")
+
+if (favorite_buttons) {
+  for (const button of favorite_buttons) {
+    let body;
+    const input1 = button.nextElementSibling;
+    const input2 = input1.nextElementSibling;
+    if (input2.nextElementSibling == null) {
+      body = "idRestaurant=" + input1.value + "&type=restaurant"
+    } else {
+      body = "id=" + input1.value + "&idRestaurant" + input2.value + "&type=dish"
+    }
+    button.addEventListener("click", function () {
+      fetch("../api/api_favorites.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: body
+      })
+      .then((response) => response.text())
+      .then((res) => button.className = "favorite-button " + res)
+    })
   }
 }

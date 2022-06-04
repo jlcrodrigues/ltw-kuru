@@ -79,7 +79,7 @@ function output_dish(Dish $dish, $session)
       <h3><?php echo $dish->name ?></h3>
       <?php
       if ($session->isLoggedIn()) { ?>
-        <form class="fav-dish-form" action="../actions/action_favorite.php" method="post">
+        <div class="fav-dish-form">
           <?php 
           $db = getDatabaseConnection();
           if (User::isFavoriteDish($db, $session->getId(), $dish->idDish)) {
@@ -93,7 +93,7 @@ function output_dish(Dish $dish, $session)
           <input type="hidden" name="id" value="<?php echo $dish->idDish?>">
           <input type="hidden" name="idRestaurant" value="<?php echo $dish->idRestaurant?>">
           <input type="hidden" name="type" value="dish">
-        </form>
+        </div>
       <?php } ?>
       <h4><?php echo $dish->description ?></h4>
     </div>
@@ -129,7 +129,7 @@ function output_favorite_dish(Dish $dish, $session)
       </h3>
       <?php
       if ($session->isLoggedIn()) { ?>
-        <form class="fav-dish-form" action="../actions/action_favorite.php" method="post">
+        <div class="fav-dish-form">
           <?php 
           $db = getDatabaseConnection();
           if (User::isFavoriteDish($db, $session->getId(), $dish->idDish)) {
@@ -143,7 +143,7 @@ function output_favorite_dish(Dish $dish, $session)
           <input type="hidden" name="id" value="<?php echo $dish->idDish?>">
           <input type="hidden" name="idRestaurant" value="<?php echo $dish->idRestaurant?>">
           <input type="hidden" name="type" value="dish">
-        </form>
+        </div>
       <?php } ?>
       <h4><?php echo $dish->description ?></h4>
     </div>
@@ -193,7 +193,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
     </header>
     <?php
     if ($session->isLoggedIn()) { ?>
-      <form id="form-favorite" action="../actions/action_favorite.php" method="post">
+      <div id="form-favorite">
         <?php 
         $db = getDatabaseConnection();
         if (User::isFavoriteRestaurant($db, $session->getId(), $restaurant->id)) {
@@ -206,7 +206,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
         </button>
         <input type="hidden" name="idRestaurant" value="<?php echo $restaurant->id?>">
         <input type="hidden" name="type" value="restaurant">
-      </form>
+      </div>
     <?php } ?>
     <div id="tabs">
       <button 
