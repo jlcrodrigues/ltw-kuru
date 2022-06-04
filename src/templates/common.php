@@ -33,7 +33,7 @@ function output_header(Session $session)
             <?php
             if ($session->isLoggedIn()) { ?>
               <a href="../pages/cart.php">
-                <i class="material-icons icon-4x">shopping_basket</i>
+                <i class="material-icons icon-4x">shopping_cart</i>
               </a>
               <a href="../pages/profile.php">
                 <i class="material-icons icon-4x">account_circle</i>

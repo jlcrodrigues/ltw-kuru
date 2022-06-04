@@ -18,9 +18,17 @@ function output_cart_dish(Dish $dish) { ?>
 
 <?php 
 function output_order_cart(int $idOrder, Restaurant $restaurant, array $dishes)
-{ ?>
+{ 
+  $total = 0;
+  foreach ($dishes as $dish) {
+    $total += $dish->price;
+  }
+  ?>
   <article class="cart card">
-    <h2><?=$restaurant->name?></h2>
+    <a href="../pages/restaurant.php?id=<?=$restaurant->id?>">
+      <h2><?=$restaurant->name?></h2>
+      <i class="material-symbols-rounded">navigate_next</i>
+    </a>
     <button class="remove-order">
       <i class="material-symbols-rounded">delete</i>
     </button>
@@ -33,7 +41,7 @@ function output_order_cart(int $idOrder, Restaurant $restaurant, array $dishes)
     <hr>
     <div class="total">
       <h3>Total</h3>
-      <h3>5.76€</h3>
+      <h3><?=$total?>€</h3>
       <br>
       <button>
         Order

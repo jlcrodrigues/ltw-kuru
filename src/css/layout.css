@@ -205,3 +205,8 @@ body > header * {
   right: 2em;
   top: 2em;
 }
+
+.cart > a {
+  display: flex;
+  align-items: center;
+}

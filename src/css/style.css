@@ -524,8 +524,17 @@ body>footer p {
   padding: 0 2em;
 }
 
-.cart > h2 {
-  margin: 0.7em;
+.cart > a > h2 {
+  margin: 0.7em 0 0.7em 0.7em;
+}
+
+.cart > a > i {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.cart > a:hover > i {
+  color: var(--accent-color);
 }
 
 .total {
