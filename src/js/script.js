@@ -100,7 +100,7 @@ if (favorite_buttons) {
     if (input2.nextElementSibling == null) {
       body = "idRestaurant=" + input1.value + "&type=restaurant"
     } else {
-      body = "id=" + input1.value + "&idRestaurant" + input2.value + "&type=dish"
+      body = "id=" + input1.value + "&idRestaurant=" + input2.value + "&type=dish"
     }
     button.addEventListener("click", function () {
       fetch("../api/api_favorites.php", {

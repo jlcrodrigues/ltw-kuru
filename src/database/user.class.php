@@ -250,7 +250,7 @@ class User
         return (count($dish) > 0);
     }
 
-    static function setFavoriteDish(PDO $db, int $idUser, int $idDish)
+    static function setFavoriteDish(PDO $db, int $idUser, int $idDish) : string
     {
         if (User::isFavoriteDish($db, $idUser, $idDish)) {
             $stmt = $db->prepare(
@@ -260,11 +260,14 @@ class User
                 '
             );
             $stmt->execute(array($idUser, $idDish));
+            return "";
         } else {
             $stmt = $db->prepare(
                 'INSERT INTO Favorite_Dish (idUser, idDish) VALUES (?, ?)'
             );
             $stmt->execute(array($idUser, $idDish));
+            return "favorite-active";
         }
+        return "error";
     }
 }
