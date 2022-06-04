@@ -28,7 +28,7 @@ body > header {
   margin-bottom: 1em;
 }
 
-body > header > a {
+body > header > a:first-of-type {
   margin-left: auto;
 }
 
@@ -189,4 +189,12 @@ body > header * {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+/* orders */
+
+.cart {
+  width: 80%;
+  margin: 0 auto;
+  min-height: 10em;
 }

@@ -26,7 +26,7 @@ function output_restaurant_slide(array $restaurants, string $title)
   <section class="slide-category">
     <h2><?php echo $title?></h2>
     <div class="slide">
-      <div class="slide-box">
+      <div class="slide-box card">
       <?php
       foreach ($restaurants as $restaurant) { 
         output_restaurant_card_nano($restaurant); 
@@ -177,7 +177,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
   $reviews = Review::getRestaurantReviews($db, intval($restaurant->id));
   $average = Restaurant::getAverage($db, intval($restaurant->id));
   ?>
-  <article id="restaurant">
+  <article id="restaurant" class="card">
     <header>
       <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
       <div id="restaurant-header-text">

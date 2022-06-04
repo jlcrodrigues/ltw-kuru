@@ -15,7 +15,7 @@ function output_search_bar()
 
 function output_search_filter()
 { ?>
-  <form id="search-filter" action="search_filter.php" method="post">
+  <form id="search-filter" class="card" action="search_filter.php" method="post">
     <label for="price">Price range:<br></label>
     <label>
       <input type="checkbox" name="price">

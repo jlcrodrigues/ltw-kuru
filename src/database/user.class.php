@@ -271,16 +271,16 @@ class User
         return "error";
     }
 
-    static function getCompletedOrders(PDO $db, int $idUser) : array {
+    static function getOrdersByState(PDO $db, int $idUser, string $state) : array {
         $stmt = $db->prepare(
             "SELECT idRequest
                  FROM Request
                  WHERE idUser = ?
                  AND state
-                 LIKE 'Completed'
+                 LIKE ?
                  "
         );
-        $stmt->execute(array($idUser));
+        $stmt->execute(array($idUser, $state));
 
         $dishes = [];
 

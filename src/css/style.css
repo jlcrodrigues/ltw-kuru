@@ -17,6 +17,12 @@ a {
   text-decoration: none;
 }
 
+hr {
+  border: 0;
+  border-top: 0.1em solid var(--shadow-color);
+}
+
+
 /* header */
 
 body > header {
@@ -32,6 +38,14 @@ body > header a {
 
 .material-icons.icon-4x {
   font-size: 2em;
+}
+
+/* generic card */
+
+.card {
+  box-shadow: 0px 5px 15px var(--shadow-color);
+  border-radius: 0.5em;
+  background-color: var(--bg-secondary-color);
 }
 
 /* search box */
@@ -76,12 +90,6 @@ input[name=search]:focus {
 .slide-box {
   overflow: hidden;
   width: auto;
-}
-
-.slide-box {
-  box-shadow: 0px 5px 15px var(--shadow-color);
-  border-radius: 0.5em;
-  background-color: var(--bg-secondary-color);
 }
 
 .slide-button {
@@ -165,11 +173,8 @@ body>footer p {
 }
 
 #search-filter {
-  background-color: var(--bg-secondary-color);
   padding: 1em;
-  box-shadow: 0px 5px 15px var(--shadow-color);
   margin-right: 1em;
-  border-radius: 0.5em;
 }
 
 .restaurants-search {
@@ -190,9 +195,6 @@ body>footer p {
 /* profile page */
 
 #profile {
-  background-color: var(--bg-secondary-color);
-  box-shadow: 0px 2px 15px var(--shadow-color);
-  border-radius: 0.5em;
   margin: 2em;
 }
 
@@ -246,9 +248,6 @@ body>footer p {
 /* restaurant page */
 
 #restaurant {
-  background-color: var(--bg-secondary-color);
-  box-shadow: 0px 2px 15px var(--shadow-color);
-  border-radius: 0.5em;
   margin: 2em;
 }
 
@@ -488,11 +487,6 @@ body>footer p {
   text-decoration: underline;
 }
 
-.account > hr {
-  border: 0;
-  border-top: 0.1em solid var(--shadow-color);
-}
-
 .account > form > input:focus {
   outline: var(--accent-color) solid 0.1em;
 }
@@ -513,6 +507,45 @@ body>footer p {
   background-color: transparent;
   color: white;
   cursor: pointer;
+}
+
+/* orders */
+
+.cart {
+  padding: 1em;
+}
+
+.cart > .dish {
+  padding: 0 2em;
+}
+
+.cart > h2 {
+  margin: 0.7em;
+}
+
+.total {
+  text-align: right;
+}
+
+.total > h3 {
+  display: inline;
+}
+
+.total > h3:nth-of-type(2) {
+  font-weight: 700;
+  color: var(--accent-color);
+  padding: 0 1.7em;
+}
+
+.total > button {
+  margin: 1em;
+  border: none;
+  border-radius: 0.2em;
+  color: white;
+  background-color: var(--tertiary-color);
+  padding: 0.5em 1em;
+  font-weight: 700;
+  font-size: large;
 }
 
 /* animations */

@@ -1,6 +1,6 @@
 <?php
 function output_profile_orders(PDO $db, Session $session) { 
-  $orders_id = User::getCompletedOrders($db, $session->getId());
+  $orders_id = User::getOrdersByState($db, $session->getId(), 'Completed');
   foreach ($orders_id as $id) {
     $dishes = Dish::getOrderDishes($db, $id);
     $restaurant = Restaurant::getOrderRestaurant($db, $id);
@@ -33,7 +33,7 @@ function output_profile(Session $session)
     $user = User::getUserById($db, $session->getId());
   ?>
 
-  <section id="profile">
+  <section id="profile" class="card">
     <img src="https://picsum.photos/200" alt="profile photo">
     <div id="profile-tabs">
       <button 
