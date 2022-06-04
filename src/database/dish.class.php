@@ -102,8 +102,7 @@
         return $dishes;
       }
 
-
-    function addDish(PDO $db, $idDish, $idRestaurant, $name, $description, $price, $promotion, $category) {
+    static function addDish(PDO $db, $idDish, $idRestaurant, $name, $description, $price, $promotion, $category) {
         $stmt = $db->prepare('INSERT into Dish (idDish, idRestaurant, name, description, price, promotion, category) VALUES (?, ?, ?, ?, ?, ?, ?');
 
         try {
@@ -114,5 +113,28 @@
             return false;
         }
     }
+
+    static function getOrderDishes(PDO $db, int $idOrder) : array {
+        $stmt = $db->prepare(
+          'SELECT Dish.idDish, Dish.idRestaurant, name, description, price, category 
+          FROM Dish, Request_Dish
+          WHERE idRequest = ?
+          AND Dish.idDish = Request_Dish.idDish');
+        $stmt->execute(array($idOrder));
+    
+        $dishes = [];
+  
+        while ($dish = $stmt->fetch()) {
+          $dishes[] = new Dish(
+            intval($dish['idDish']), 
+            intval($dish['idRestaurant']),
+            $dish['name'],
+            $dish['description'],
+            floatval($dish['price']),
+            $dish['category']
+          );
+        }
+        return $dishes;
+      }
   }
 ?>

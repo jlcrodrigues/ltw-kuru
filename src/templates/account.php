@@ -1,4 +1,28 @@
 <?php
+function output_profile_orders(PDO $db, Session $session) { 
+  $orders_id = User::getCompletedOrders($db, $session->getId());
+  foreach ($orders_id as $id) {
+    $dishes = Dish::getOrderDishes($db, $id);
+    $restaurant = Restaurant::getOrderRestaurant($db, $id);
+    ?>
+    <section class="order">
+      <h3><?=$restaurant->name ?></h3>
+      <ul>
+      <?php 
+      foreach($dishes as $dish) {?>
+        <li>
+          <p><?=$dish->name?></p>
+        </li>
+      <?php }
+      ?>
+      </ul>
+    </section>
+    <?php
+  }
+  ?>
+<?php } ?>
+
+<?php
 function output_profile(Session $session)
 { ?>
   <?php
@@ -54,12 +78,13 @@ function output_profile(Session $session)
       <p><?php if ($user->city != null and $user->country != null) {echo $user->city . ", " . $user->country;} 
                else {echo $user->city . $user->country;}?></p>
     </section>
-    <section id="profile-reviews" class="profile-section">
+    <article id="profile-reviews" class="profile-section">
       <p>Review</p>
-    </section>
-    <section id="profile-orders" class="profile-section">
-      <p>Order</p>
-    </section>
+    </article>
+    <article id="profile-orders" class="profile-section">
+      <h2>Orders</h2>
+      <?php output_profile_orders($db, $session);?>
+    </article>
     <section id="profile-change_password" class="profile-section">
       <p>Change Password</p>
     </section>
