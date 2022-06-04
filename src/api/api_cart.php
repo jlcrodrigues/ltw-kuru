@@ -11,7 +11,14 @@
 
   $db = getDatabaseConnection();
 
-  $idDish = intval($_POST["idDish"]);
+  $action = $_POST["action"];
 
-  Dish::addDishToOrder($db, intval($idDish), $session->getId());
+  if ($action == "add") {
+    $idDish = intval($_POST["idDish"]);
+    Dish::addDishToOrder($db, intval($idDish), $session->getId());
+  }
+  if ($action == "remove-order") {
+    $idOrder = intval($_POST["idOrder"]);
+    User::deleteOrder($db, $session->getId(), $idOrder);
+  }
 ?>

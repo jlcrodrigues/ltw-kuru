@@ -306,4 +306,18 @@ class User
         if ($id == FALSE) return null;
         return intval($id['idRequest']);
     }
+
+    static function deleteOrder(PDO $db, int $idUser, int $idOrder)
+    {
+        $stmt = $db->prepare("
+            DELETE
+            FROM Request
+            WHERE idUser = ?
+            AND idRequest = ?
+            AND state
+            LIKE 'Ordering'
+        ");
+        $stmt->execute(array($idUser, $idOrder));
+        $stmt->fetch();
+    }
 }

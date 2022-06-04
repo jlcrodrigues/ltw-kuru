@@ -121,15 +121,35 @@ const cart_buttons = document.querySelectorAll(".add-to-cart")
 if (cart_buttons) {
   for (const button of cart_buttons) {
     const id = button.nextElementSibling.value;
-    console.log(id)
     button.addEventListener("click", function () {
       fetch("../api/api_cart.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
-        body: "idDish=" + id
+        body: "idDish=" + id + "&action=add"
       })
+    })
+  }
+}
+
+const remove_order_buttons = document.querySelectorAll(".remove-order")
+
+if (remove_order_buttons) {
+  for (const button of remove_order_buttons) {
+    const id = button.nextElementSibling.value;
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idOrder=" + id + "&action=remove-order"
+      })
+      button.parentElement.style["animation"] = "fadeOut 0.5s"
+      setTimeout(function () {
+        button.parentElement.remove()
+      }, 500);
     })
   }
 }

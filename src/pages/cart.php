@@ -24,7 +24,7 @@
   foreach ($orders_id as $id) {
     $restaurant = Restaurant::getOrderRestaurant($db, intval($id));
     $dishes = Dish::getOrderDishes($db, intval($id));
-    output_order_cart($restaurant, $dishes);
+    output_order_cart(intval($id), $restaurant, $dishes);
   }
 
   output_footer();

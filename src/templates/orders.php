@@ -17,10 +17,14 @@ function output_cart_dish(Dish $dish) { ?>
 <?php } ?>
 
 <?php 
-function output_order_cart(Restaurant $restaurant, array $dishes)
+function output_order_cart(int $idOrder, Restaurant $restaurant, array $dishes)
 { ?>
   <article class="cart card">
     <h2><?=$restaurant->name?></h2>
+    <button class="remove-order">
+      <i class="material-symbols-rounded">delete</i>
+    </button>
+    <input type="hidden" name="idOrder" value="<?=$idOrder?>">
     <?php
     foreach ($dishes as $dish) { 
       output_cart_dish($dish);

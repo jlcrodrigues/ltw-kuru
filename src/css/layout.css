@@ -197,4 +197,11 @@ body > header * {
   width: 80%;
   margin: 1em auto;
   min-height: 10em;
+  position: relative;
+}
+
+.remove-order {
+  position: absolute;
+  right: 2em;
+  top: 2em;
 }

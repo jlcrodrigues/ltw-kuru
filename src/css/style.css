@@ -553,6 +553,22 @@ body>footer p {
   font-size: large;
 }
 
+.remove-order {
+  border: 0;
+  background-color: transparent;
+  font-size: large;
+  font-weight: 700;
+  color: var(--tertiary-color);
+  cursor: pointer;
+  height: 2em;
+  width: 2em;
+}
+
+.remove-order:hover {
+  background-color: var(--bg-color);
+  border-radius: 50%;
+}
+
 /* animations */
 
 @keyframes fadeIn {
