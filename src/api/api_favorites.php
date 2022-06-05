@@ -15,11 +15,10 @@
   $type = $_POST["type"];
 
   if ($type == "restaurant") {
-    User::setFavoriteRestaurant($db, $session->getId(), $idRestaurant);
+    echo User::setFavoriteRestaurant($db, $session->getId(), $idRestaurant);
   } elseif ($type == "dish") {
     $id = intval($_POST["id"]);
-    User::setFavoriteDish($db, $session->getId(), $id);
+    echo User::setFavoriteDish($db, $session->getId(), $id);
   }
 
-  header("Location: ../pages/restaurant.php?id=$idRestaurant");
 ?>

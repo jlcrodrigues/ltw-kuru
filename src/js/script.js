@@ -1,3 +1,5 @@
+const scroll_offset = 800;
+
 function openProfileTab(evt, tab_id) {
   const tabs = document.getElementsByClassName("profile-section");
   for (const tab of tabs) {
@@ -94,10 +96,63 @@ async function getRestaurants() {
     }
 }
 function closeMessage(event) {
-  console.log("df2")
   let message = event.currentTarget.parentNode
   message.style["animation"] = "fadeOut 0.5s"
-  setTimeout(function() {
+  setTimeout(function () {
     message.remove()
   }, 500);
+}
+
+let scroll_amount = 0;
+
+function sliderScrollLeft(event) {
+  slider = event.currentTarget.parentNode.children[0]
+  slider.scrollTo({
+    top: 0,
+    left: (scroll_amount -= scroll_offset),
+    behavior: "smooth"
+  })
+  if (scroll_amount < 0) {
+    scroll_amount = 0;
+  }
+}
+
+function sliderScrollRight(event) {
+  slider = event.currentTarget.parentNode.children[0]
+  if (scroll_amount <= slider.scrollWidth - slider.clientWidth) {
+    slider.scrollTo({
+      top: 0,
+      left: (scroll_amount += scroll_offset),
+      behavior: "smooth"
+    })
+  }
+  else {
+    scroll_amount = 0
+  }
+}
+
+const favorite_buttons = document.querySelectorAll(".favorite-button")
+
+if (favorite_buttons) {
+  for (const button of favorite_buttons) {
+    let body;
+    const input1 = button.nextElementSibling;
+    const input2 = input1.nextElementSibling;
+    if (input2.nextElementSibling == null) {
+      body = "idRestaurant=" + input1.value + "&type=restaurant"
+    } else {
+      body = "id=" + input1.value + "&idRestaurant=" + input2.value + "&type=dish"
+    }
+    button.addEventListener("click", function () {
+      fetch("../api/api_favorites.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: body
+      })
+      .then((response) => response.text())
+      .then((res) => button.className = "favorite-button " + res)
+    })
+  }
 }

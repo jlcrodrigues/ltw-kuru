@@ -52,7 +52,7 @@ function output_header(Session $session)
             onclick="closeMessage(event)">
             <i class="material-symbols-rounded">close</i>
           </button>
-        </div>
+        </section>
       <?php } ?>
     </article>
 

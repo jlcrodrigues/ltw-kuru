@@ -61,6 +61,39 @@
             return $restaurants;
         }
 
+        static function getCategories(PDO $db) : array {
+            $stmt = $db->prepare(
+                'SELECT DISTINCT category
+                 FROM Restaurant');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+            $categories = [];
+            foreach ($result as $r) {$categories[] = $r['category'];}
+            return $categories;
+        }
+
+        static function getRestaurantsByCategory(PDO $db, string $category) : array {
+            $stmt = $db->prepare(
+                'SELECT idRestaurant, name, opens, closes, category, address
+                 FROM Restaurant
+                 WHERE category
+                 LIKE ?');
+            $stmt->execute(array($category . '%'));
+        
+            $restaurants = array();
+            while ($restaurant = $stmt->fetch()) {
+              $restaurants[] = new Restaurant(
+                  intval($restaurant['idRestaurant']),
+                  $restaurant['name'],
+                  $restaurant['opens'],
+                  $restaurant['closes'],
+                  $restaurant['category'],
+                  $restaurant['address']);
+            }
+        
+            return $restaurants;
+        }
+
         static function getRestaurant(PDO $db, int $id) : Restaurant {
             $stmt = $db->prepare(
                 'SELECT idRestaurant, name, opens, closes, category, address

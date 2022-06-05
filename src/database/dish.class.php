@@ -21,7 +21,10 @@
     }
 
     static function getRestaurantDishes(PDO $db, int $idRestaurant) : array {
-        $stmt = $db->prepare('SELECT idDish, idRestaurant, name, description, price, category FROM Dish WHERE idRestaurant = ?');
+        $stmt = $db->prepare(
+          'SELECT idDish, idRestaurant, name, description, price, category 
+          FROM Dish 
+          WHERE idRestaurant = ?');
         $stmt->execute(array($idRestaurant));
     
         $dishes = [];
@@ -40,8 +43,10 @@
       }
 
     static function getDish(PDO $db, int $idDish) : Dish {
-      $stmt = $db->prepare('
-      SELECT idDish, idRestaurant, name, description, price, category from Dish where idDish = ?');
+      $stmt = $db->prepare(
+        'SELECT idDish, idRestaurant, name, description, price, category 
+        FROM Dish
+        WHERE idDish = ?');
 
       $stmt->execute(array($idDish));
   
@@ -56,6 +61,47 @@
         $dish['category']
       );
     }
+
+    static function getDishCategories(PDO $db, int $idRestaurant) : array {
+        $stmt = $db->prepare(
+          'SELECT DISTINCT category 
+          FROM Dish
+          WHERE idRestaurant = ?');
+        $stmt->execute(array($idRestaurant));
+    
+        $categories = [];
+  
+        while ($category = $stmt->fetch()) {
+          $categories[] = $category['category'];
+        }
+        return $categories;
+      }
+
+    static function getRestaurantDishesByCategory(PDO $db, string $category, int $idRestaurant) : array {
+        $stmt = $db->prepare(
+          'SELECT idDish, idRestaurant, name, description, price, category 
+          FROM Dish 
+          WHERE category
+          LIKE ?
+          AND idRestaurant = ?
+          LIMIT 7');
+        $stmt->execute(array($category . '%', $idRestaurant));
+    
+        $dishes = [];
+  
+        while ($dish = $stmt->fetch()) {
+          $dishes[] = new Dish(
+            intval($dish['idDish']), 
+            intval($dish['idRestaurant']),
+            $dish['name'],
+            $dish['description'],
+            floatval($dish['price']),
+            $dish['category']
+          );
+        }
+        return $dishes;
+      }
+
 
     function addDish(PDO $db, $idDish, $idRestaurant, $name, $description, $price, $promotion, $category) {
         $stmt = $db->prepare('INSERT into Dish (idDish, idRestaurant, name, description, price, promotion, category) VALUES (?, ?, ?, ?, ?, ?, ?');

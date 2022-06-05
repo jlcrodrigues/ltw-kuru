@@ -20,17 +20,25 @@ function output_restaurant_card_nano(Restaurant $restaurant)
   </a>
 <?php } 
 
-function output_restaurant_slide(array $restaurants)
+function output_restaurant_slide(array $restaurants, string $title)
 {
 ?>
-  <section class="slide">
-    <h2>Section Title</h2>
-    <div class="slide-content">
+  <section class="slide-category">
+    <h2><?php echo $title?></h2>
+    <div class="slide">
+      <div class="slide-box">
       <?php
       foreach ($restaurants as $restaurant) { 
         output_restaurant_card_nano($restaurant); 
       }
       ?>
+      </div>
+      <a class="slide-left slide-button" onclick="sliderScrollLeft(event)">
+        <i class="material-symbols-rounded">navigate_before</i>
+      </a>
+      <a class="slide-right slide-button" onclick="sliderScrollRight(event)">
+        <i class="material-symbols-rounded">navigate_next</i>
+      </a>
     </div>
   </section>
 <?php
@@ -70,7 +78,7 @@ function output_dish(Dish $dish, $session)
       <h3><?php echo $dish->name ?></h3>
       <?php
       if ($session->isLoggedIn()) { ?>
-        <form class="fav-dish-form" action="../actions/action_favorite.php" method="post">
+        <div class="fav-dish-form">
           <?php 
           $db = getDatabaseConnection();
           if (User::isFavoriteDish($db, $session->getId(), $dish->idDish)) {
@@ -84,7 +92,7 @@ function output_dish(Dish $dish, $session)
           <input type="hidden" name="id" value="<?php echo $dish->idDish?>">
           <input type="hidden" name="idRestaurant" value="<?php echo $dish->idRestaurant?>">
           <input type="hidden" name="type" value="dish">
-        </form>
+        </div>
       <?php } ?>
       <h4><?php echo $dish->description ?></h4>
     </div>
@@ -94,6 +102,19 @@ function output_dish(Dish $dish, $session)
     </form>
   </section>
 <?php } ?>
+
+<?php
+function output_dish_category(PDO $db, $session, string $category, int $idRestaurant) {
+  ?><section class="category-section"><?php
+  $dishes = Dish::getRestaurantDishesByCategory($db, $category, $idRestaurant);
+
+  echo '<h2>' . ucwords($category) . '</h2><hr>';
+
+  foreach ($dishes as $dish) {
+    output_dish($dish, $session);
+  }
+  ?></section><?php
+}?>
 
 <?php
 function output_favorite_dish(Dish $dish, $session)
@@ -107,7 +128,7 @@ function output_favorite_dish(Dish $dish, $session)
       </h3>
       <?php
       if ($session->isLoggedIn()) { ?>
-        <form class="fav-dish-form" action="../actions/action_favorite.php" method="post">
+        <div class="fav-dish-form">
           <?php 
           $db = getDatabaseConnection();
           if (User::isFavoriteDish($db, $session->getId(), $dish->idDish)) {
@@ -121,7 +142,7 @@ function output_favorite_dish(Dish $dish, $session)
           <input type="hidden" name="id" value="<?php echo $dish->idDish?>">
           <input type="hidden" name="idRestaurant" value="<?php echo $dish->idRestaurant?>">
           <input type="hidden" name="type" value="dish">
-        </form>
+        </div>
       <?php } ?>
       <h4><?php echo $dish->description ?></h4>
     </div>
@@ -151,7 +172,7 @@ function output_review(Review $review)
 <?php
 function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
 { 
-  $dishes = Dish::getRestaurantDishes($db, intval($restaurant->id));
+  $categories = Dish::getDishCategories($db, $restaurant->id);
   $reviews = Review::getRestaurantReviews($db, intval($restaurant->id));
   $average = Restaurant::getAverage($db, intval($restaurant->id));
   ?>
@@ -165,11 +186,13 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
         <br>
         <i class="material-icons">place</i>
         <p><?php echo $restaurant->address ?></p>
+        <br>
+        <p class="category"><?php echo $restaurant->category ?></p>
       </div>
     </header>
     <?php
     if ($session->isLoggedIn()) { ?>
-      <form id="form-favorite" action="../actions/action_favorite.php" method="post">
+      <div id="form-favorite">
         <?php 
         $db = getDatabaseConnection();
         if (User::isFavoriteRestaurant($db, $session->getId(), $restaurant->id)) {
@@ -182,7 +205,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
         </button>
         <input type="hidden" name="idRestaurant" value="<?php echo $restaurant->id?>">
         <input type="hidden" name="type" value="restaurant">
-      </form>
+      </div>
     <?php } ?>
     <div id="tabs">
       <button 
@@ -204,9 +227,9 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
     </div>
     <article id="restaurant-menu" class="restaurant-tab">
       <?php
-      foreach ($dishes as $dish) {
-        output_dish($dish, $session);
-      }
+        foreach($categories as $category) {
+          output_dish_category($db, $session, $category, $restaurant->id);
+        }
       ?>
     </article>
     <article id="restaurant-reviews" class="restaurant-tab">
