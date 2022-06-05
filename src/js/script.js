@@ -116,19 +116,43 @@ if (favorite_buttons) {
   }
 }
 
+const open_add_buttons = document.querySelectorAll(".open-add-card")
+
+for (const button of open_add_buttons) {
+  button.onclick = function() {
+    button.nextElementSibling.style.display = "block"
+  }
+}
+
+const close_add_buttons = document.querySelectorAll(".close-add")
+
+for (const button of close_add_buttons) {
+  button.onclick = function() {
+    button.parentElement.parentElement.style.display = "none"
+  }
+}
+
+window.onclick = function(event) {
+  if (event.target.className == "add-card") {
+    event.target.style.display = "none";
+  }
+}
+
 const cart_buttons = document.querySelectorAll(".add-to-cart")
 
 if (cart_buttons) {
   for (const button of cart_buttons) {
     const id = button.nextElementSibling.value;
     button.addEventListener("click", function () {
+      const quantity = button.previousElementSibling.previousElementSibling.value;
       fetch("../api/api_cart.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
-        body: "idDish=" + id + "&action=add"
+        body: "idDish=" + id + "&action=add&quantity=" + quantity
       })
+      .then(button.parentElement.parentElement.style.display = "none")
     })
   }
 }

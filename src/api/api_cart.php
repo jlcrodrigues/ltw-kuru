@@ -15,7 +15,8 @@
 
   if ($action == "add") {
     $idDish = intval($_POST["idDish"]);
-    Dish::addDishToOrder($db, intval($idDish), $session->getId());
+    $quantity = intval($_POST["quantity"]);
+    Dish::addDishToOrder($db, intval($idDish), $session->getId(), $quantity);
   }
   if ($action == "remove-order") {
     $idOrder = intval($_POST["idOrder"]);

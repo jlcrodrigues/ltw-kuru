@@ -137,7 +137,7 @@
         return $dishes;
       }
 
-    static function addDishToOrder(PDO $db, int $idDish, int $idUser) {
+    static function addDishToOrder(PDO $db, int $idDish, int $idUser, int $quantity) {
       $dish = Dish::getDish($db, $idDish);
 
       // Check for existing orders
@@ -153,11 +153,13 @@
       $id = User::getOrderByRestaurant($db, $idUser, $dish->idRestaurant);
 
       // Add the dish to the orders
-      $stmt = $db->prepare("
-        INSERT INTO REQUEST_DISH (idRequest, idDish)
-        VALUES (?, ?)
-      ");
-      $stmt->execute(array($id, $dish->idDish));
+      for ($i = 0; $i < $quantity; $i++) {
+        $stmt = $db->prepare("
+          INSERT INTO REQUEST_DISH (idRequest, idDish)
+          VALUES (?, ?)
+        ");
+        $stmt->execute(array($id, $dish->idDish));
+      }
     }
   }
 ?>

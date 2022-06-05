@@ -335,16 +335,17 @@ body>footer p {
   color: white;
 }
 
-.add-to-cart {
+.open-add-card {
   border-radius: 50%;
   border: none;
   background-color: var(--tertiary-color);
   text-align: center;
   height: 2.55em;
   width: 2.65em;
+  cursor: pointer;
 }
 
-.add-to-cart > i{
+.open-add-card > i{
   font-size: x-large;
   font-weight: 700;
   color: white;
@@ -576,6 +577,59 @@ body>footer p {
 .remove-order:hover {
   background-color: var(--bg-color);
   border-radius: 50%;
+}
+
+.add-card {
+  background-color: rgb(0,0,0,0.1);
+}
+
+.add-content {
+  box-shadow: none;
+  text-align: center;
+  background-color: white;
+}
+
+.add-content > * {
+  margin: 1em;
+  text-align: center;
+}
+
+.add-content > h3 {
+  position: relative;
+  top: 1em;
+}
+
+.add-content > h4 {
+  margin-top: 2.5em;
+}
+
+.close-add {
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+input[name=quantity] { 
+  font-size: large;
+  font-weight: bold;
+  font-family: "Nunito";
+  padding: 0.5em;
+  border-radius: 1em;
+  width: 3em;
+  border: 0.1em solid var(--shadow-color);
+  color: var(--primary-color);
+}
+
+.add-to-cart {
+  border: none;
+  font-size: large;
+  border-radius: 1em;
+  font-weight: bold;
+  color: white;
+  background-color: var(--tertiary-color);
+  padding: 0.6em;
 }
 
 /* animations */
