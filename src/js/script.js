@@ -161,7 +161,7 @@ const remove_order_buttons = document.querySelectorAll(".remove-order")
 
 if (remove_order_buttons) {
   for (const button of remove_order_buttons) {
-    const id = button.nextElementSibling.value;
+    const id = button.parentElement.children[0].value;
     button.addEventListener("click", function () {
       fetch("../api/api_cart.php", {
         method: "POST",
@@ -173,6 +173,28 @@ if (remove_order_buttons) {
       button.parentElement.style["animation"] = "fadeOut 0.5s"
       setTimeout(function () {
         button.parentElement.remove()
+      }, 500);
+    })
+  }
+}
+
+const submit_order_buttons = document.querySelectorAll(".submit-order")
+
+if (submit_order_buttons) {
+  for (const button of submit_order_buttons) {
+    const id = button.parentElement.parentElement.children[0].value;
+    console.log(id)
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idOrder=" + id + "&action=submit-order"
+      })
+      button.parentElement.parentElement.style["animation"] = "fadeOut 0.5s"
+      setTimeout(function () {
+        button.parentElement.parentElement.remove()
       }, 500);
     })
   }

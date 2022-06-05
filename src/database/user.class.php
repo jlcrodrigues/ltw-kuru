@@ -320,4 +320,18 @@ class User
         $stmt->execute(array($idUser, $idOrder));
         $stmt->fetch();
     }
+
+    static function submitOrder(PDO $db, int $idUser, int $idOrder)
+    {
+        $stmt = $db->prepare("
+            UPDATE Request
+            SET state = 'Processing'
+            WHERE idUser = ?
+            AND idRequest = ?
+            AND state
+            LIKE 'Ordering'
+        ");
+        $stmt->execute(array($idUser, $idOrder));
+        $stmt->fetch();
+    }
 }

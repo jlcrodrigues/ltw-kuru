@@ -22,4 +22,8 @@
     $idOrder = intval($_POST["idOrder"]);
     User::deleteOrder($db, $session->getId(), $idOrder);
   }
+  if ($action == "submit-order") {
+    $idOrder = intval($_POST["idOrder"]);
+    User::submitOrder($db, $session->getId(), $idOrder);
+  }
 ?>
