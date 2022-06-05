@@ -122,7 +122,7 @@ function output_profile(Session $session)
     </section>
     <section id="profile-not-owner" class="profile-section">
       <h3>Become a owner now!</h3> 
-      <form action="../actions/action_register_restaurant.php?id=<?php $restaurant->idRestaurant?>" method="post" class="profile">
+      <form action="../actions/action_register_restaurant.php" method="post" class="profile">
       <label for="name">Name:</label>
       <input id="name" type="text" name="name">
       
@@ -133,8 +133,8 @@ function output_profile(Session $session)
       <input id="closes" type="time" name="closes" min=00:00 max=23:59>  
       
       <label for="category">Category:</label>
-      <option value="" selected disabled hidden>Choose here</option>
       <select name="category" id="category">
+      <option value="" selected disabled hidden>Choose here</option>
       <option value="Super market">Super Market</option>
       <option value="grill">Grill</option>
       <option value="Fast Food">Fast Food</option>

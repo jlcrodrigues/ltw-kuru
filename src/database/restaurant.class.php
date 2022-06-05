@@ -185,5 +185,20 @@
                 $restaurant['category'],
                 $restaurant['address']);
           }
+
+        
+          static function deleteRestaurant(PDO $db, int $id) {
+            $stmt = $db->prepare('
+            DELETE FROM Restaurant WHERE idRestaurant = ?');
+            
+            try {
+              $stmt->execute(array($id));
+              return true;
+            } catch (PDOException $e) {
+              return false;
+            }
+          }
+
     }
+
 ?>

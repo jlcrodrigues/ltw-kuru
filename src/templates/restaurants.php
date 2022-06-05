@@ -327,6 +327,9 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
         <i class="material-symbols-rounded">star</i>
         <span title="user view"> <a href="../pages/restaurant.php?id=<?=$restaurant->id?>"><i class="material-icons">person</i></a></span>
         <span title="edit details"><a href="../pages/edit_restaurant.php?id=<?=$restaurant->id?>"><i class="material-icons">edit</i></a></span>
+        <form action="../actions/action_delete_restaurant.php?id=<?=$restaurant->id?>" method="post" class="restaurant">
+          <button name=delete class="restaurant"><i class="material-icons">delete</i></button>
+        </form>
         <br>
         <i class="material-icons">place</i>
         <p><?php echo $restaurant->address ?></p>
