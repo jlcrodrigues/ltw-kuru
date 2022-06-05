@@ -130,6 +130,7 @@ body>footer p {
   padding: 0.5em;
   box-shadow: 0px 2px 15px var(--shadow-color);
   border-radius: 0.5em;
+  min-height: 70em;
 }
 
 .restaurants-search * {

@@ -48,7 +48,7 @@ body > header * {
 
 #search {
   display: grid;
-  grid-template-columns: 20% auto;
+  grid-template-columns: 30% auto;
   margin: 0 auto;
   width: 70%;
   padding-bottom: 5em;
@@ -56,6 +56,10 @@ body > header * {
 
 .restaurant-mini {
   display: flex;
+}
+
+.no-restaurants{
+  text-align: center;
 }
 
 /* profile page */

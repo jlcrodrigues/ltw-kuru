@@ -53,13 +53,25 @@ const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()
 
 const searchRestaurant = document.querySelector('#search-restaurant');
-if (searchRestaurant) {
-  searchRestaurant.addEventListener('input', async function () {
+const isIndex = window.location.toString().includes('/pages/index.php');
+if (searchRestaurant && !isIndex) {
+  if (searchRestaurant.value) getRestaurants.call(searchRestaurant);
+  searchRestaurant.addEventListener('input',getRestaurants);
+}
+
+async function getRestaurants() {
     const response = await fetch('../api/api_restaurants.php?search=' + this.value);
     const restaurants = await response.json();
 
     const section = document.querySelector('.restaurants-search');
     section.innerHTML = '';
+
+    if(restaurants.length===0){
+      const h = document.createElement('h3');
+      h.classList.add("no-restaurants");
+      h.textContent = "No matches found";
+      section.appendChild(h);
+    }
 
     for (const restaurant of restaurants) {
       const link = document.createElement('a');
@@ -80,7 +92,6 @@ if (searchRestaurant) {
       link.appendChild(div);
       section.appendChild(link);
     }
-  })
 }
 function closeMessage(event) {
   console.log("df2")

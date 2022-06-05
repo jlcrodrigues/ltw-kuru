@@ -2,10 +2,14 @@
 
 declare(strict_types=1);
 
-function output_search_bar()
-{ ?>
-  <form method="post" id="search-box">
-    <input id="search-restaurant" type="text" name="search" placeholder="Search">
+function output_search_bar($query = NULL)
+{
+
+  $isIndex = $_SERVER['REQUEST_URI'] === '/pages/index.php';
+
+  ?>
+  <form method="post" id="search-box" <?= $isIndex ? "action='search.php'" : '' ?>>
+    <input id="search-restaurant" type="text" name="search" placeholder="Search" value="<?= $query ?>">
     <button type="submit">
       <i class="material-icons icon-4x">search</i>
     </button>
@@ -16,38 +20,15 @@ function output_search_bar()
 function output_search_filter()
 { ?>
   <form id="search-filter" action="search_filter.php" method="post">
-    <label for="price">Price range:<br></label>
-    <label>
-      <input type="checkbox" name="price">
-      €
-    </label>
-    <label>
-      <input type="checkbox" name="price">
-      €€
-    </label>
-    <label>
-      <input type="checkbox" name="price">
-      €€€
-    </label>
-    <br>
     <label for="rating">Rating:<br></label>
     <label>
-      <input type="checkbox" name="rating">
-      5
-    </label>
-    <label>
-      <input type="checkbox" name="rating">
-      >= 4
-    </label>
-    <label>
-      <input type="checkbox" name="rating">
-      >= 3
+      <input type="number" name="number">
     </label>
     <br>
-    <label for="diet">Diet:<br></label>
+    <label for="category">Category:<br></label>
     <label>
-      <input type="checkbox" name="diet">
-      Vegan
+      <input type="checkbox" name="category">
+
     </label>
     <label>
       <input type="checkbox" name="diet">
