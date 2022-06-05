@@ -334,4 +334,26 @@ class User
         $stmt->execute(array($idUser, $idOrder));
         $stmt->fetch();
     }
+
+    static function deleteOrderDish(PDO $db, int $idUser, int $idOrder, int $idDish)
+    {
+        $stmt = $db->prepare("
+            SELECT idUser
+            FROM Request
+            WHERE idRequest = ?;
+            AND state
+            LIKE 'Ordering'
+        ");
+        $stmt->execute(array($idOrder));
+        if ($stmt->fetch()['idUser'] != $idUser) return;
+
+        $stmt = $db->prepare("
+            DELETE
+            FROM Request_Dish
+            WHERE idRequest = ?
+            AND idDish = ?
+        ");
+        $stmt->execute(array($idOrder, $idDish));
+        $stmt->fetch();
+    }
 }

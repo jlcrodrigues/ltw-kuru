@@ -183,7 +183,6 @@ const submit_order_buttons = document.querySelectorAll(".submit-order")
 if (submit_order_buttons) {
   for (const button of submit_order_buttons) {
     const id = button.parentElement.parentElement.children[0].value;
-    console.log(id)
     button.addEventListener("click", function () {
       fetch("../api/api_cart.php", {
         method: "POST",
@@ -195,6 +194,28 @@ if (submit_order_buttons) {
       button.parentElement.parentElement.style["animation"] = "fadeOut 0.5s"
       setTimeout(function () {
         button.parentElement.parentElement.remove()
+      }, 500);
+    })
+  }
+}
+
+const remove_dish_buttons = document.querySelectorAll(".remove-dish")
+
+if (remove_dish_buttons) {
+  for (const button of remove_dish_buttons) {
+    const idDish = button.parentElement.children[0].value;
+    const idOrder = button.parentElement.parentElement.children[0].value;
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idOrder=" + idOrder + "&idDish=" + idDish + "&action=remove-dish"
+      })
+      button.parentElement.style["animation"] = "fadeOut 0.5s"
+      setTimeout(function () {
+        button.parentElement.remove()
       }, 500);
     })
   }

@@ -26,4 +26,9 @@
     $idOrder = intval($_POST["idOrder"]);
     User::submitOrder($db, $session->getId(), $idOrder);
   }
+  if ($action == "remove-dish") {
+    $idOrder = intval($_POST["idOrder"]);
+    $idDish = intval($_POST["idDish"]);
+    User::deleteOrderDish($db, $session->getId(), $idOrder, $idDish);
+  }
 ?>

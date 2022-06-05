@@ -8,6 +8,10 @@ require_once(__DIR__ . '/restaurants.php');
 <?php
 function output_cart_dish(Dish $dish, int $quantity) { ?>
   <section class="dish">
+    <input type="hidden" name="idOrder" value="<?=$dish->idDish?>">
+    <button class="remove-dish">
+      <i class="material-symbols-rounded">remove</i>
+    </button>
     <div>
       <h3><?=$dish->name ?></h3>
       <h4><?=$dish->description ?></h4>

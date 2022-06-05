@@ -522,8 +522,7 @@ body>footer p {
 }
 
 .cart > .dish {
-  padding: 0 2em;
-  gap: 3em;
+  padding-right: 2em;
 }
 
 .cart > .dish > div {
@@ -641,6 +640,13 @@ input[name=quantity] {
   color: white;
   background-color: var(--tertiary-color);
   padding: 0.6em;
+}
+
+.cart > .dish > button {
+  border: none;
+  background-color: transparent;
+  color: var(--accent-color);
+  margin: 0.5em;
 }
 
 /* animations */
