@@ -6,13 +6,14 @@ require_once(__DIR__ . '/restaurants.php');
 ?>
 
 <?php
-function output_cart_dish(Dish $dish) { ?>
+function output_cart_dish(Dish $dish, int $quantity) { ?>
   <section class="dish">
     <div>
-      <h3><?php echo $dish->name ?></h3>
-      <h4><?php echo $dish->description ?></h4>
+      <h3><?=$dish->name ?></h3>
+      <h4><?=$dish->description ?></h4>
     </div>
-    <p><?php echo $dish->price?>€</p>
+    <p><?=$quantity?></p>
+    <p><?=$dish->price?>€</p>
   </section>
 <?php } ?>
 
@@ -20,8 +21,11 @@ function output_cart_dish(Dish $dish) { ?>
 function output_order_cart(int $idOrder, Restaurant $restaurant, array $dishes)
 { 
   $total = 0;
+  $dish_count = [];
   foreach ($dishes as $dish) {
     $total += $dish->price;
+    if (!isset($dish_count[$dish->idDish])) $dish_count[$dish->idDish] = 0;
+    $dish_count[$dish->idDish]++;
   }
   ?>
   <article class="cart card">
@@ -35,7 +39,10 @@ function output_order_cart(int $idOrder, Restaurant $restaurant, array $dishes)
     <input type="hidden" name="idOrder" value="<?=$idOrder?>">
     <?php
     foreach ($dishes as $dish) { 
-      output_cart_dish($dish);
+      if ($dish_count[$dish->idDish] > 0) {
+        output_cart_dish($dish, $dish_count[$dish->idDish]);
+        $dish_count[$dish->idDish] = 0;
+      }
      }
     ?>
     <hr>

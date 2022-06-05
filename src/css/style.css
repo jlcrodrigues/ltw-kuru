@@ -523,6 +523,17 @@ body>footer p {
 
 .cart > .dish {
   padding: 0 2em;
+  gap: 3em;
+}
+
+.cart > .dish > div {
+  flex-grow: 2;
+}
+
+.cart > .dish > p:nth-of-type(2) {
+  font-weight: bold;
+  width: 5em;
+  text-align: right;
 }
 
 .cart > a > h2 {
