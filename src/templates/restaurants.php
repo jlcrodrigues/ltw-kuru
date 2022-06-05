@@ -100,7 +100,7 @@ function output_dish(Dish $dish, $session)
 
 
 <?php
-function output_favorite_dish(Dish $dish, $session)
+function output_favorite_dish(Dish $dish, Session $session)
 { ?>
   <section class="dish">
     <div>
@@ -133,7 +133,7 @@ function output_favorite_dish(Dish $dish, $session)
 <?php } ?>
 
 <?php
-function output_review(Review $review)
+function output_review(Session $session, Review $review)
 { ?>
   <?php
     $db = getDataBaseConnection();
@@ -148,7 +148,12 @@ function output_review(Review $review)
       <p>&#183;</p>
     </div>
     <p><?php echo $review->fullText ?></p>
-    <a class="add-comment">Comment</a>
+    <?php 
+      if ($session->isOwnerRestaurant($review->idRestaurant)) { ?>
+            <div class='comment'> 
+            <button  id='comment' class='comment'>Comment</button>
+            </div>
+            <?php } ?>
   </section>
 <?php } ?>
 
@@ -230,7 +235,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
       <?php }
       else {
         foreach ($reviews as $review) {
-          output_review($review);
+          output_review($session, $review);
         }
       }
       ?>
@@ -402,6 +407,45 @@ function output_edit_dish(Dish $dish)
       </select>
 
       <button type="submit">Save</button>
+    </form>
+    </header>
+  </article>
+    <?php } ?>
+
+
+    <?php
+  function output_add_dish_form(PDO $db, Session $session, Restaurant $restaurant) {
+?>
+<article id="dish">
+<header>
+      <form action="../actions/action_add_dish.php?id=<?=$restaurant->id?>" method="post" class="dish">
+      <label for="name">Name:</label>
+      <input id="name" type="text" name="name">
+      
+      <label for="description">Description:</label>
+      <input id="description" type="text" name="description">
+
+      <label for="price">Price:</lael>
+      <input id="price" type="number" name="price" min="0.00" max="100000.00" step="0.01">
+
+      <label for="category">Category:</label>
+      <select name="category" id="category">
+      <option value="" selected disabled hidden>Choose here</option>
+      <option value="Beverages">Beverages</option>
+      <option value="Pizza">Pizza</option>
+      <option value="Sandwiches">Sandwiches</option>
+      <option value="Burgers">Burgers</option>
+      <option value="Salads">Salads</option>
+      <option value="Appetizers & Sides">Appetizers & Sides</option>
+      <option value="Baked Goods">Baked Goods</option>
+      <option value="Desserts">Desserts</option>
+      <option value="Soup">Soup</option>
+      <option value="Toppings & Ingredients">Toppings & Ingredients</option>
+      <option value="Fried Potatoes">Fried Potatoes</option>
+      <option value="Entrees">Entrees</option>
+      </select>
+
+      <button type="submit">Add dish</button>
     </form>
     </header>
   </article>

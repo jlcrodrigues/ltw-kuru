@@ -94,5 +94,19 @@
       return false;
     }
   }
+
+  static function newDish(PDO $db, int $idRestaurant, string $name, string $description, float $price, string $category) {
+    $stmt = $db->prepare('
+      INSERT INTO Dish (idRestaurant, name, description, price, category)
+      VALUES (?, ?, ?, ?, ?)'
+    );
+    
+    try {
+      $stmt->execute(array($idRestaurant, $name, $description, $price, $category));
+      return true;
+    } catch (PDOException $e) {
+      return true;
+    }
+  }
 }
 ?>

@@ -126,7 +126,8 @@
         }
 
         static function newRestaurant($db, $idUser, $name, $opens, $closes, $category, $address){
-            $stmt = $db->prepare('INSERT INTO Restaurant (idUser, name, opens, closes, category, address) values(?, ?, ?, ?, ?, ?)');
+            $stmt = $db->prepare('INSERT INTO Restaurant (idUser, name, opens, closes, category, address) 
+                                values(?, ?, ?, ?, ?, ?)');
             try {
                   $stmt->execute(array($idUser, $name, $opens, $closes, $category, $address));
                 return true;

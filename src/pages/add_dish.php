@@ -18,5 +18,6 @@
      }
 
   output_header($session);
+  output_add_dish_form($db, $session, $restaurant);
   output_footer();
 ?>

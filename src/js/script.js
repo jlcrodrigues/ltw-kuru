@@ -51,3 +51,6 @@ function openFavoritesTab(evt, tab_id) {
 
 const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()
+
+const comment_button = document.getElementById("comment");
+if (comment_button) comment_button.addEventListener('click', comment_button.remove);

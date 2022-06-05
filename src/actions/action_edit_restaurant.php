@@ -15,7 +15,6 @@
      }
 
 
-
     if (empty($_POST['name']) || empty($_POST['opens']) || empty($_POST['closes']) || empty($_POST['category']) || empty($_POST['address'])) {
         $session->addMessage('error', 'All fields must be filled!');
         die(header('Location: ' . $_SERVER['HTTP_REFERER']));
