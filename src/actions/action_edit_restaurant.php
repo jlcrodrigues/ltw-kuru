@@ -16,7 +16,7 @@
 
 
 
-    if (empty($_POST['name']) || empty($_POST['opens']) || empty($_POST['closes']) || empty($_POST['category'] || empty($_POST['address']))) {
+    if (empty($_POST['name']) || empty($_POST['opens']) || empty($_POST['closes']) || empty($_POST['category']) || empty($_POST['address'])) {
         $session->addMessage('error', 'All fields must be filled!');
         die(header('Location: ' . $_SERVER['HTTP_REFERER']));
     }
@@ -35,10 +35,10 @@
     
     if (Restaurant::updateRestaurant($db, $name, $opens, $closes, $category, $address, intval($id))) {
         $session->addMessage('success', 'Restaurant updated!');
-        die(header('Location: ../pages/index.php'));
+        die(header('Location: ../pages/restaurant.php?id=' . $id));
     }
     else {
-        $session->addMessage('error', 'Register failed!');
+        $session->addMessage('error', 'Edit failed!');
         die(header('Location: ' . $_SERVER('HTTP_REFERER')));
     }
 ?>

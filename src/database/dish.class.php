@@ -68,5 +68,31 @@
             return false;
         }
     }
+
+    static function updateDish(PDO $db, string $name, string $description, float $price, string $category, int $id) {
+      $stmt = $db->prepare('
+          UPDATE Dish SET name = ?, description = ?, price = ?, category = ?
+          WHERE idDish = ?
+      ');
+      
+      try {
+          $stmt->execute(array($name, $description, $price, $category, $id));
+          return true;
+      } catch (PDOException $e) {
+          return false;
+      }
   }
+
+  static function deleteDish(PDO $db, int $id) {
+    $stmt = $db->prepare('
+    DELETE FROM DISH WHERE idDish = ?');
+    
+    try {
+      $stmt->execute(array($id));
+      return true;
+    } catch (PDOException $e) {
+      return false;
+    }
+  }
+}
 ?>

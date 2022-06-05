@@ -344,6 +344,9 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
       }
       ?>
     </article>
+    <section id="side-section">
+    <a href="../pages/add_dish.php?id=<?=$restaurant->id?>"><button name=add class="add_meal"><i class="material-icons">add_circle</i></button></a>
+    </section>
 <?php } ?>
 
 
@@ -356,8 +359,8 @@ function output_edit_dish(Dish $dish)
       <h4><?php echo $dish->description ?></h4>
     </div>
     <p><?php echo $dish->price?>€</p>
-    <a href="../pages/edit_dish.php?id=<?=$dish->idDish?>"><button name=edit class="edit_meal"><i class="material-icons">edit</i></button></a>
-    <form action="" method="post">
+    <a href="../pages/edit_dish.php?id=<?=$dish->idDish?>"><button name=delete class="delete_meal"><i class="material-icons">edit</i></button></a>
+    <form action="../actions/action_delete_dish.php?id=<?=$dish->idDish?>" method="post" class="dish">
         <button name=delete class="delete_meal"><i class="material-icons">delete</i></button>
     </form>
     
@@ -368,12 +371,38 @@ function output_edit_dish(Dish $dish)
 <?php
   function output_edit_dish_form(PDO $db, Session $session, Dish $dish) {
 ?>
-<article id="restaurant">
-  <section class="dish">
-    <div>
-      <h3><?php echo $dish->name ?></h3>
-      <h4><?php echo $dish->description ?></h4>
-    </div>
-    <p><?php echo $dish->price?>€</p>
-  </section>
+<article id="dish">
+<header>
+      <form action="../actions/action_edit_dish.php?id=<?=$dish->idDish?>" method="post" class="dish">
+      <label for="name">Name:</label>
+      <input id="name" type="text" name="name" value="<?=$dish->name?>">
+      
+      <label for="description">Description:</label>
+      <input id="description" type="text" name="description" value="<?=$dish->description?>">
+
+      <label for="price">Price:</lael>
+      <input id="price" type="number" name="price" min="0.00" max="10000.00" step="0.01" value="<?=$dish->price?>">
+
+
+      <label for="category">Category:</label>
+      <select name="category" id="category">
+      <option value="" selected disabled hidden>Choose here</option>
+      <option value="Beverages">Beverages</option>
+      <option value="Pizza">Pizza</option>
+      <option value="Sandwiches">Sandwiches</option>
+      <option value="Burgers">Burgers</option>
+      <option value="Salads">Salads</option>
+      <option value="Appetizers & Sides">Appetizers & Sides</option>
+      <option value="Baked Goods">Baked Goods</option>
+      <option value="Desserts">Desserts</option>
+      <option value="Soup">Soup</option>
+      <option value="Toppings & Ingredients">Toppings & Ingredients</option>
+      <option value="Fried Potatoes">Fried Potatoes</option>
+      <option value="Entrees">Entrees</option>
+      </select>
+
+      <button type="submit">Save</button>
+    </form>
+    </header>
+  </article>
     <?php } ?>

@@ -121,8 +121,8 @@ function output_profile(Session $session)
 
     </section>
     <section id="profile-not-owner" class="profile-section">
-      <h3>Become a owner now!</h3>
-      <form action="../actions/action_register_restaurant.php?id=<?php echo $restaurant->idRestaurant?>" method="post" class="profile">
+      <h3>Become a owner now!</h3> 
+      <form action="../actions/action_register_restaurant.php?id=<?php $restaurant->idRestaurant?>" method="post" class="profile">
       <label for="name">Name:</label>
       <input id="name" type="text" name="name">
       

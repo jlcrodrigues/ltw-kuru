@@ -12,9 +12,10 @@
 
     $session = new Session();
     $db = getDatabaseConnection();
-    $id = intval($_GET['id']);
+    $id_dish = intval($_GET['id']);
+    $restaurant = Restaurant::getDishRestaurant($db, $id_dish);
 
-    if (!$session->isOwner($session->getId()) || !$session->isLoggedIn() || Restaurant::getRestaurantOwner($db, $id) != $session->getId()) {
+    if (!$session->isOwner($session->getId()) || !$session->isLoggedIn() || !$session->isOwnerRestaurant($restaurant->id)) {
         die(header('Location: /')); 
      }
 

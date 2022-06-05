@@ -165,5 +165,24 @@
             return floatval($rating['average']);
         }
 
+        static function getDishRestaurant(PDO $db, $idDish) {
+            $stmt = $db->prepare('
+            SELECT restaurant.idRestaurant, idUser, restaurant.name, opens, closes, restaurant.category, address 
+            FROM dish, restaurant 
+            WHERE idDish = ? and dish.idRestaurant = restaurant.idRestaurant;');
+            
+            $stmt->execute(array($idDish));
+        
+            $restaurant = $stmt->fetch();
+        
+            return new Restaurant(
+                $restaurant['idRestaurant'],
+                $restaurant['idUser'],
+                $restaurant['name'],
+                $restaurant['opens'],
+                $restaurant['closes'],
+                $restaurant['category'],
+                $restaurant['address']);
+          }
     }
 ?>
