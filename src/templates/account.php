@@ -4,7 +4,7 @@ require_once("orders.php");
 <?php
 function output_profile_orders(PDO $db, Session $session) { 
   ?>
-  <h2>Processing</h2>
+  <h3>Processing</h3>
   <hr>
   <?php
   $orders_id = User::getOrdersByState($db, $session->getId(), 'Processing');
@@ -14,7 +14,7 @@ function output_profile_orders(PDO $db, Session $session) {
     output_order_past($id, $restaurant, $dishes);
   }
   ?>
-  <h2>Completed</h2>
+  <h3>Completed</h3>
   <hr>
   <?php
   $orders_id = User::getOrdersByState($db, $session->getId(), 'Completed');

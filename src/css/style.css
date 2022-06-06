@@ -28,6 +28,7 @@ button {
   border: none;
   font-weight: bold;
   font-family: 'Nunito';
+  cursor: pointer;
 }
 
 
@@ -59,30 +60,41 @@ body > header a {
 /* search box */
 
 #search-box {
-  margin: 3em;
-  text-align: center;
-  display: flex;
-  justify-content: center;
   border: 2em none var(--secondary-color);
+  margin: 3em;
+  white-space: nowrap;
+}
+
+#search-box > div {
+  width: 50%;
+  margin: 0 auto;
 }
 
 input[name=search] {
-  padding: 1em;
-  font-size: 1.2em;
+  padding: 0.7em;
+  font-size: large;
   border-radius: 2em;
   background-color: var(--bg-secondary-color);
-  width: 50%;
   border: none;
+  width: 100%;
   box-shadow: 0px 1px 12px var(--shadow-color);
+  display: inline;
 }
 
 input[name=search]:focus {
   outline: none;
 }
 
-#search-box>button {
-  border: none;
-  background: none;
+#search-box > div > button {
+  color: var(--tertiary-color);
+  background-color: transparent;
+  border-radius: 50%;
+  margin-left: 1em;
+  font-weight: bold;
+  font-size: large;
+  position: relative;
+  right: 4em;
+  top: 0.6em
 }
 
 /* sliders */
@@ -241,7 +253,7 @@ body>footer p {
 
 .profile-section-button:hover {
   color: var(--tertiary-color);
-  background-color: transparent;
+  background-color: #f2f2f2;
 }
 
 .profile-section-button.active {
@@ -257,10 +269,13 @@ body>footer p {
   margin: 1em 1em 3em 1em;
   width: auto;
   box-shadow: none;
+  border: 0.1em solid var(--shadow-color);
+  border-radius: 1em;
 }
 
-#profile-orders > .cart > a > h2 {
-  margin: 0;
+#profile-orders > .cart > a > h3,
+#profile-orders > .cart > a > i {
+  color: var(--accent-color);
 }
 
 #profile-orders .dish p:first-of-type {
@@ -277,7 +292,7 @@ body>footer p {
 .repeat-order {
   position: absolute;
   right: 1em;
-  padding: 0.7em;
+  padding: 0.5em;
   border-radius: 1em;
   font-size: large;
 }
@@ -655,7 +670,8 @@ body>footer p {
   background-color: transparent;
   position: absolute;
   right: 0;
-  top: 0;
+  color: var(--accent-color);
+  top: 0.2em;
 }
 
 input[name=quantity] { 
