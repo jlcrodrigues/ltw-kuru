@@ -51,6 +51,23 @@ function openFavoritesTab(evt, tab_id) {
   evt.currentTarget.className += " active";
 }
 
+function createMessage(text, type) {
+  let message = document.createElement('section')
+  message.className = 'message ' + type;
+  let p = document.createElement('p')
+  p.textContent = text
+  message.appendChild(p)
+  let button = document.createElement('button')
+  button.className = "close-message"
+  button.setAttribute('onclick', 'closeMessage(event)')
+  let i = document.createElement('i');
+  i.className = 'material-symbols-rounded';
+  i.textContent = 'close';
+  button.appendChild(i)
+  message.appendChild(button)
+  return message
+}
+
 const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()
 
@@ -153,6 +170,8 @@ if (cart_buttons) {
         body: "idDish=" + id + "&action=add&quantity=" + quantity
       })
       .then(button.parentElement.parentElement.style.display = "none")
+      document.querySelector('#messages')
+        .appendChild(createMessage('Added to cart!', 'success'))
     })
   }
 }
@@ -205,6 +224,8 @@ if (remove_dish_buttons) {
   for (const button of remove_dish_buttons) {
     const idDish = button.parentElement.children[0].value;
     const idOrder = button.parentElement.parentElement.children[0].value;
+    const price = parseFloat(button.parentElement.children[3].innerHTML)
+     * parseFloat(button.parentElement.children[4].innerHTML.slice(0, -1));
     button.addEventListener("click", function () {
       fetch("../api/api_cart.php", {
         method: "POST",
@@ -214,6 +235,10 @@ if (remove_dish_buttons) {
         body: "idOrder=" + idOrder + "&idDish=" + idDish + "&action=remove-dish"
       })
       button.parentElement.style["animation"] = "fadeOut 0.5s"
+      
+      console.log(button.parentElement.parentElement.lastElementChild)
+      total = button.parentElement.parentElement.lastElementChild.children[1]
+      total.innerHTML = (parseInt(total.innerHTML) - price) + '€'
       setTimeout(function () {
         button.parentElement.remove()
       }, 500);
@@ -234,6 +259,8 @@ if (repeat_order_buttons) {
         },
         body: "idOrder=" + id + "&action=repeat-order"
       })
+      document.querySelector('#messages')
+        .appendChild(createMessage('Added to cart!', 'success'))
     })
   }
 }
