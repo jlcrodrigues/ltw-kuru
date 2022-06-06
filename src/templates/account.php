@@ -1,23 +1,27 @@
+<?php 
+require_once("orders.php");
+?>
 <?php
 function output_profile_orders(PDO $db, Session $session) { 
+  ?>
+  <h2>Processing</h2>
+  <hr>
+  <?php
+  $orders_id = User::getOrdersByState($db, $session->getId(), 'Processing');
+  foreach ($orders_id as $id) {
+    $dishes = Dish::getOrderDishes($db, $id);
+    $restaurant = Restaurant::getOrderRestaurant($db, $id);
+    output_order_past($id, $restaurant, $dishes);
+  }
+  ?>
+  <h2>Completed</h2>
+  <hr>
+  <?php
   $orders_id = User::getOrdersByState($db, $session->getId(), 'Completed');
   foreach ($orders_id as $id) {
     $dishes = Dish::getOrderDishes($db, $id);
     $restaurant = Restaurant::getOrderRestaurant($db, $id);
-    ?>
-    <section class="order">
-      <h3><?=$restaurant->name ?></h3>
-      <ul>
-      <?php 
-      foreach($dishes as $dish) {?>
-        <li>
-          <p><?=$dish->name?></p>
-        </li>
-      <?php }
-      ?>
-      </ul>
-    </section>
-    <?php
+    output_order_past($id, $restaurant, $dishes);
   }
   ?>
 <?php } ?>

@@ -26,6 +26,11 @@
     $dishes = Dish::getOrderDishes($db, intval($id));
     output_order_cart(intval($id), $restaurant, $dishes);
   }
+  if (count($orders_id) == 0) {?>
+    <div class="empty-page">
+      <h2>No orders yet!</h1>
+    </div>
+  <?php }
 
   output_footer();
 ?>

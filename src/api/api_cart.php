@@ -31,4 +31,8 @@
     $idDish = intval($_POST["idDish"]);
     User::deleteOrderDish($db, $session->getId(), $idOrder, $idDish);
   }
+  if ($action == "repeat-order") {
+    $idOrder = intval($_POST["idOrder"]);
+    User::repeatOrder($db, $session->getId(), $idOrder);
+  }
 ?>

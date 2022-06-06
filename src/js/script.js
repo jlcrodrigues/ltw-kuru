@@ -220,3 +220,20 @@ if (remove_dish_buttons) {
     })
   }
 }
+
+const repeat_order_buttons = document.querySelectorAll(".repeat-order")
+
+if (repeat_order_buttons) {
+  for (const button of repeat_order_buttons) {
+    const id = button.parentElement.children[0].value;
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idOrder=" + id + "&action=repeat-order"
+      })
+    })
+  }
+}
