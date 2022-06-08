@@ -114,6 +114,47 @@
         }
     }
 
+    static function updateDish(PDO $db, string $name, string $description, float $price, string $category, int $id) {
+      $stmt = $db->prepare('
+          UPDATE Dish SET name = ?, description = ?, price = ?, category = ?
+          WHERE idDish = ?
+      ');
+      
+      try {
+          $stmt->execute(array($name, $description, $price, $category, $id));
+          return true;
+      } catch (PDOException $e) {
+          return false;
+      }
+  }
+
+  static function deleteDish(PDO $db, int $id) {
+    $stmt = $db->prepare('
+    DELETE FROM DISH WHERE idDish = ?');
+    
+    try {
+      $stmt->execute(array($id));
+      return true;
+    } catch (PDOException $e) {
+      return false;
+    }
+  }
+
+  static function newDish(PDO $db, int $idRestaurant, string $name, string $description, float $price, string $category) {
+    $stmt = $db->prepare('
+      INSERT INTO Dish (idRestaurant, name, description, price, category)
+      VALUES (?, ?, ?, ?, ?)'
+    );
+    
+    try {
+      $stmt->execute(array($idRestaurant, $name, $description, $price, $category));
+      return true;
+    } catch (PDOException $e) {
+      return true;
+    }
+  }
+
+
     static function getOrderDishes(PDO $db, int $idOrder) : array {
         $stmt = $db->prepare(
           'SELECT Dish.idDish, Dish.idRestaurant, name, description, price, category 
@@ -162,4 +203,15 @@
       }
     }
   }
+  function updateDishPhoto(PDO $db, string $photo, int $id) {
+    $stmt = $db->prepare(
+        'UPDATE dish SET dish ? where idDish = ?');
+
+    try {
+        $stmt->execute(array($photo, $id));
+        return true;
+    } catch (PDOException $e) {
+        return false;
+      }
+}
 ?>

@@ -148,7 +148,7 @@ class User
     static function getFavoriteRestaurants(PDO $db, int $idUser): array
     {
         $stmt = $db->prepare(
-            'SELECT Restaurant.idRestaurant, name, opens, closes, category, address
+            'SELECT Restaurant.idRestaurant, Restaurant.idUser, name, opens, closes, category, address, photo
                  FROM Restaurant, Favorite_Restaurant
                  WHERE Restaurant.idRestaurant = Favorite_Restaurant.idRestaurant
                  AND Favorite_Restaurant.idUser = ?
@@ -160,11 +160,13 @@ class User
         while ($restaurant = $stmt->fetch()) {
             $restaurants[] = new Restaurant(
                 intval($restaurant['idRestaurant']),
+                intval($restaurant['idUser']),
                 $restaurant['name'],
                 $restaurant['opens'],
                 $restaurant['closes'],
                 $restaurant['category'],
-                $restaurant['address']
+                $restaurant['address'],
+                $restaurant['photo'],
             );
         }
 
@@ -400,5 +402,17 @@ class User
             $stmt->execute(array($id, $dish->idDish));
             $stmt->fetch();
         }
+    }
+
+    function updateUserPhoto(PDO $db, string $photo, int $id) {
+        $stmt = $db->prepare(
+            'UPDATE user SET photo ? where idUser = ?');
+
+        try {
+            $stmt->execute(array($photo, $id));
+            return true;
+        } catch (PDOException $e) {
+            return false;
+          }
     }
 }

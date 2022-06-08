@@ -10,7 +10,12 @@
   $session = new Session();
 
   output_header($session);
-  output_register();
+  if (isset($_SESSION['id'])) { 
+    header('Location: ../pages/profile.php');
+  }
+  else { 
+    output_register();
+  }
   output_footer();
 
 ?>

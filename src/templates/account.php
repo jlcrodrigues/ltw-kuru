@@ -1,5 +1,6 @@
 <?php 
 require_once("orders.php");
+require_once("restaurants.php");
 ?>
 <?php
 function output_profile_orders(PDO $db, Session $session) { 
@@ -32,6 +33,8 @@ function output_profile(Session $session)
   <?php
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/user.class.php');
+    require_once(__DIR__ . '/../database/restaurant.class.php');
+    require_once('restaurants.php');
 
     $db = getDataBaseConnection();
     $user = User::getUserById($db, $session->getId());
@@ -64,6 +67,22 @@ function output_profile(Session $session)
         onclick="openProfileTab(event, 'profile-edit')">
         Edit Profile
       </button>
+      <?php if($session->isOwner($session->getId())) { ?>
+        <button 
+        id="owner-button" 
+        class="profile-section-button" 
+        onclick="openProfileTab(event, 'profile-owner')">
+        My restaurants
+      </button> 
+      <?php } 
+       else { ?>
+        <button 
+        id="not-owner-button" 
+        class="profile-section-button" 
+        onclick="openProfileTab(event, 'profile-not-owner')">
+        Become a Owner
+      </button> 
+      <?php } ?>
       <button 
         id="change_password-button" 
         class="profile-section-button" 
@@ -94,7 +113,6 @@ function output_profile(Session $session)
     </section>
     <section id="profile-edit" class="profile-section">
       <p>Edit Profile</p>
-
     <form action="../actions/action_edit_profile.php" method="post" class="profile">
       <label for="first_name">First Name:</label>
       <input id="first_name" type="text" name="first_name" value="<?=$user->first_name?>">
@@ -118,34 +136,22 @@ function output_profile(Session $session)
       <input id="phone" type="text" name="phone" value="<?=$user->phone?>">  
       <button type="submit">Save</button>
     </form>
-    <?php
-    if (!isset($_GET['profile'])) {
-      exit();
-    }
-    else {
-      $profileCheck = $_GET['profile'];
-
-      if ($profileCheck == 'success') {
-          echo "Successfully saved";
-          exit();
-      }
-      else if ($profileCheck == 'failed') {
-          echo "Edit Failed. Email or phone number already in use";
-          exit();
-      }
-      else if ($profileCheck == 'failed_name') {
-        echo "Edit Failed. Name can only contain letters and spaces";
-        exit();
-      }
-      else if ($profileCheck == 'failed_empty') {
-        echo "Edit Failed. Names and email must be filled";
-        exit();
-      }
-    }
-  ?>
+    </section>
+    <section id="profile-owner" class="profile-section">
+      <h3>Restaurants       <a href="../pages/register_restaurant.php"><button name=add class="add_restaurant"><i class="material-icons">add_circle</i></button></a></h3>
+      <?php 
+        $restaurants = Restaurant::getOwnerRestaurants($db, $session->getId());
+        
+        foreach ($restaurants as $restaurant) {
+          output_restaurant_card_nano($restaurant);
+        }
+      ?>
+    </section>
+    <section id="profile-not-owner" class="profile-section">
+      <h3>Become a owner now!</h3> 
+      <?php output_register_restaurant_form($db, $session) ?>
     </section>
   </section>
-
 <?php } ?>
 
 <?php
@@ -180,3 +186,4 @@ function output_register()
   </div>
   <?php
   }
+
