@@ -33,7 +33,7 @@
             while ($restaurant = $stmt->fetch()){
                 $restaurants[] = new Restaurant(
                     intval($restaurant['idRestaurant']),
-                    $restaurant['idUser'],
+                    intval($restaurant['idUser']),
                     $restaurant['name'],
                     $restaurant['opens'],
                     $restaurant['closes'],
@@ -57,7 +57,7 @@
             while ($restaurant = $stmt->fetch()) {
               $restaurants[] = new Restaurant(
                   intval($restaurant['idRestaurant']),
-                  $restaurant['idUser'],
+                  intval($restaurant['idUser']),
                   $restaurant['name'],
                   $restaurant['opens'],
                   $restaurant['closes'],
@@ -81,7 +81,7 @@
         
             return new Restaurant(
                 intval($restaurant['idRestaurant']),
-                $restaurant['idUser'],
+                intval($restaurant['idUser']),
                 $restaurant['name'],
                 $restaurant['opens'],
                 $restaurant['closes'],
@@ -105,7 +105,7 @@
                 while ($restaurant = $stmt->fetch()){
                     $restaurants[] = new Restaurant(
                         intval($restaurant['idRestaurant']),
-                        $restaurant['idUser'],
+                        intval($restaurant['idUser']),
                         $restaurant['name'],
                         $restaurant['opens'],
                         $restaurant['closes'],
@@ -140,7 +140,7 @@
             while ($restaurant = $stmt->fetch()) {
               $restaurants[] = new Restaurant(
                   intval($restaurant['idRestaurant']),
-                  $restaurant['idUser'],
+                  intval($restaurant['idUser']),
                   $restaurant['name'],
                   $restaurant['opens'],
                   $restaurant['closes'],
@@ -256,7 +256,7 @@
         
             return new Restaurant(
                 intval($restaurant['idRestaurant']),
-                $restaurant['idUser'],
+                intval($restaurant['idUser']),
                 $restaurant['name'],
                 $restaurant['opens'],
                 $restaurant['closes'],
