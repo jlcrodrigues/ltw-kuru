@@ -51,13 +51,13 @@
       $stmt->execute(array($idDish));
   
       $dish = $stmt->fetch();
-  
+
       return new Dish(
-        $dish['idDish'], 
-        $dish['idRestaurant'],
+        intval($dish['idDish']), 
+        intval($dish['idRestaurant']),
         $dish['name'],
         $dish['description'],
-        $dish['price'],
+        floatval($dish['price']),
         $dish['category']
       );
     }
@@ -102,8 +102,7 @@
         return $dishes;
       }
 
-
-    function addDish(PDO $db, $idDish, $idRestaurant, $name, $description, $price, $promotion, $category) {
+    static function addDish(PDO $db, $idDish, $idRestaurant, $name, $description, $price, $promotion, $category) {
         $stmt = $db->prepare('INSERT into Dish (idDish, idRestaurant, name, description, price, promotion, category) VALUES (?, ?, ?, ?, ?, ?, ?');
 
         try {
@@ -113,6 +112,54 @@
         catch (Exception $e) {
             return false;
         }
+    }
+
+    static function getOrderDishes(PDO $db, int $idOrder) : array {
+        $stmt = $db->prepare(
+          'SELECT Dish.idDish, Dish.idRestaurant, name, description, price, category 
+          FROM Dish, Request_Dish
+          WHERE idRequest = ?
+          AND Dish.idDish = Request_Dish.idDish');
+        $stmt->execute(array($idOrder));
+    
+        $dishes = [];
+  
+        while ($dish = $stmt->fetch()) {
+          $dishes[] = new Dish(
+            intval($dish['idDish']), 
+            intval($dish['idRestaurant']),
+            $dish['name'],
+            $dish['description'],
+            floatval($dish['price']),
+            $dish['category']
+          );
+        }
+        return $dishes;
+      }
+
+    static function addDishToOrder(PDO $db, int $idDish, int $idUser, int $quantity) {
+      $dish = Dish::getDish($db, $idDish);
+
+      // Check for existing orders
+      if (User::getOrderByRestaurant($db, $idUser, $dish->idRestaurant) == null) {
+        $stmt = $db->prepare("
+          INSERT INTO REQUEST (idUser, idRestaurant, state)
+          VALUES (?, ?, 'Ordering')
+        ");
+        $stmt->execute(array($idUser, $dish->idRestaurant));
+      }
+
+      // Get the id of the Order
+      $id = User::getOrderByRestaurant($db, $idUser, $dish->idRestaurant);
+
+      // Add the dish to the orders
+      for ($i = 0; $i < $quantity; $i++) {
+        $stmt = $db->prepare("
+          INSERT INTO REQUEST_DISH (idRequest, idDish)
+          VALUES (?, ?)
+        ");
+        $stmt->execute(array($id, $dish->idDish));
+      }
     }
   }
 ?>

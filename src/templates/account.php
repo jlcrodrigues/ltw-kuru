@@ -1,3 +1,31 @@
+<?php 
+require_once("orders.php");
+?>
+<?php
+function output_profile_orders(PDO $db, Session $session) { 
+  ?>
+  <h3>Processing</h3>
+  <hr>
+  <?php
+  $orders_id = User::getOrdersByState($db, $session->getId(), 'Processing');
+  foreach ($orders_id as $id) {
+    $dishes = Dish::getOrderDishes($db, $id);
+    $restaurant = Restaurant::getOrderRestaurant($db, $id);
+    output_order_past($id, $restaurant, $dishes);
+  }
+  ?>
+  <h3>Completed</h3>
+  <hr>
+  <?php
+  $orders_id = User::getOrdersByState($db, $session->getId(), 'Completed');
+  foreach ($orders_id as $id) {
+    $dishes = Dish::getOrderDishes($db, $id);
+    $restaurant = Restaurant::getOrderRestaurant($db, $id);
+    output_order_past($id, $restaurant, $dishes);
+  }
+  ?>
+<?php } ?>
+
 <?php
 function output_profile(Session $session)
 { ?>
@@ -9,7 +37,7 @@ function output_profile(Session $session)
     $user = User::getUserById($db, $session->getId());
   ?>
 
-  <section id="profile">
+  <section id="profile" class="card">
     <img src="https://picsum.photos/200" alt="profile photo">
     <div id="profile-tabs">
       <button 
@@ -54,12 +82,13 @@ function output_profile(Session $session)
       <p><?php if ($user->city != null and $user->country != null) {echo $user->city . ", " . $user->country;} 
                else {echo $user->city . $user->country;}?></p>
     </section>
-    <section id="profile-reviews" class="profile-section">
+    <article id="profile-reviews" class="profile-section">
       <p>Review</p>
-    </section>
-    <section id="profile-orders" class="profile-section">
-      <p>Order</p>
-    </section>
+    </article>
+    <article id="profile-orders" class="profile-section">
+      <h2>Orders</h2>
+      <?php output_profile_orders($db, $session);?>
+    </article>
     <section id="profile-change_password" class="profile-section">
       <p>Change Password</p>
     </section>

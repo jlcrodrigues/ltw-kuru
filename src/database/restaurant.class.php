@@ -112,6 +112,25 @@
                 $restaurant['address']);
         }  
 
+        static function getOrderRestaurant(PDO $db, int $idOrder) : Restaurant {
+            $stmt = $db->prepare(
+                'SELECT DISTINCT Request.idRestaurant, name, opens, closes, category, address
+                 FROM Restaurant, Request
+                 WHERE Request.idRequest = ?
+                 AND Restaurant.idRestaurant = Request.idRestaurant');
+            $stmt->execute(array($idOrder));
+        
+            $restaurant = $stmt->fetch();
+        
+            return new Restaurant(
+                intval($restaurant['idRestaurant']),
+                $restaurant['name'],
+                $restaurant['opens'],
+                $restaurant['closes'],
+                $restaurant['category'],
+                $restaurant['address']);
+        }  
+
         static function getAverage(PDO $db, int $id) : ?float {
             $stmt = $db->prepare(
                 'SELECT avg(rating) as average

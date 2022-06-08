@@ -51,6 +51,23 @@ function openFavoritesTab(evt, tab_id) {
   evt.currentTarget.className += " active";
 }
 
+function createMessage(text, type) {
+  let message = document.createElement('section')
+  message.className = 'message ' + type;
+  let p = document.createElement('p')
+  p.textContent = text
+  message.appendChild(p)
+  let button = document.createElement('button')
+  button.className = "close-message"
+  button.setAttribute('onclick', 'closeMessage(event)')
+  let i = document.createElement('i');
+  i.className = 'material-symbols-rounded';
+  i.textContent = 'close';
+  button.appendChild(i)
+  message.appendChild(button)
+  return message
+}
+
 const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()
 
@@ -112,6 +129,138 @@ if (favorite_buttons) {
       })
       .then((response) => response.text())
       .then((res) => button.className = "favorite-button " + res)
+    })
+  }
+}
+
+const open_add_buttons = document.querySelectorAll(".open-add-card")
+
+for (const button of open_add_buttons) {
+  button.onclick = function() {
+    button.nextElementSibling.style.display = "block"
+  }
+}
+
+const close_add_buttons = document.querySelectorAll(".close-add")
+
+for (const button of close_add_buttons) {
+  button.onclick = function() {
+    button.parentElement.parentElement.style.display = "none"
+  }
+}
+
+window.onclick = function(event) {
+  if (event.target.className == "add-card") {
+    event.target.style.display = "none";
+  }
+}
+
+const cart_buttons = document.querySelectorAll(".add-to-cart")
+
+if (cart_buttons) {
+  for (const button of cart_buttons) {
+    const id = button.nextElementSibling.value;
+    button.addEventListener("click", function () {
+      const quantity = button.previousElementSibling.previousElementSibling.value;
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idDish=" + id + "&action=add&quantity=" + quantity
+      })
+      .then(button.parentElement.parentElement.style.display = "none")
+      document.querySelector('#messages')
+        .appendChild(createMessage('Added to cart!', 'success'))
+    })
+  }
+}
+
+const remove_order_buttons = document.querySelectorAll(".remove-order")
+
+if (remove_order_buttons) {
+  for (const button of remove_order_buttons) {
+    const id = button.parentElement.children[0].value;
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idOrder=" + id + "&action=remove-order"
+      })
+      button.parentElement.style["animation"] = "fadeOut 0.5s"
+      setTimeout(function () {
+        button.parentElement.remove()
+      }, 500);
+    })
+  }
+}
+
+const submit_order_buttons = document.querySelectorAll(".submit-order")
+
+if (submit_order_buttons) {
+  for (const button of submit_order_buttons) {
+    const id = button.parentElement.parentElement.children[0].value;
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idOrder=" + id + "&action=submit-order"
+      })
+      button.parentElement.parentElement.style["animation"] = "fadeOut 0.5s"
+      setTimeout(function () {
+        button.parentElement.parentElement.remove()
+      }, 500);
+    })
+  }
+}
+
+const remove_dish_buttons = document.querySelectorAll(".remove-dish")
+
+if (remove_dish_buttons) {
+  for (const button of remove_dish_buttons) {
+    const idDish = button.parentElement.children[0].value;
+    const idOrder = button.parentElement.parentElement.children[0].value;
+    const price = parseFloat(button.parentElement.children[3].innerHTML)
+     * parseFloat(button.parentElement.children[4].innerHTML.slice(0, -1));
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idOrder=" + idOrder + "&idDish=" + idDish + "&action=remove-dish"
+      })
+      button.parentElement.style["animation"] = "fadeOut 0.5s"
+      
+      console.log(button.parentElement.parentElement.lastElementChild)
+      total = button.parentElement.parentElement.lastElementChild.children[1]
+      total.innerHTML = (parseInt(total.innerHTML) - price) + '€'
+      setTimeout(function () {
+        button.parentElement.remove()
+      }, 500);
+    })
+  }
+}
+
+const repeat_order_buttons = document.querySelectorAll(".repeat-order")
+
+if (repeat_order_buttons) {
+  for (const button of repeat_order_buttons) {
+    const id = button.parentElement.children[0].value;
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idOrder=" + id + "&action=repeat-order"
+      })
+      document.querySelector('#messages')
+        .appendChild(createMessage('Added to cart!', 'success'))
     })
   }
 }
