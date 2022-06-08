@@ -561,6 +561,10 @@ body>footer p {
   margin: 1em 0;
 }
 
+.message.error {
+  background-color: #EB5E55;
+}
+
 .close-message {
   border: 0;
   background-color: transparent;
