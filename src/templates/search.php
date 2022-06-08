@@ -6,20 +6,21 @@ function output_search_bar($query = NULL)
 {
 
   $isIndex = $_SERVER['REQUEST_URI'] === '/pages/index.php';
-
   ?>
   <form method="post" id="search-box" <?= $isIndex ? "action='search.php'" : '' ?>>
-    <input id="search-restaurant" type="text" name="search" placeholder="Search" value="<?= $query ?>">
-    <button type="submit">
-      <i class="material-icons icon-4x">search</i>
-    </button>
+    <div>
+      <input id="search-restaurant" type="text" name="search" placeholder="Search" value="<?= $query ?>">
+      <button type="submit">
+        <i class="material-icons icon-4x">search</i>
+      </button>
+    </div>
   </form>
 <?php
 }
 
 function output_search_filter()
 { ?>
-  <form id="search-filter" action="search_filter.php" method="post">
+  <form id="search-filter" class="card" action="search_filter.php" method="post">
     <label for="rating">Rating:<br></label>
     <label>
       <input type="number" name="number">

@@ -26,7 +26,7 @@ function output_restaurant_slide(array $restaurants, string $title)
   <section class="slide-category">
     <h2><?php echo $title?></h2>
     <div class="slide">
-      <div class="slide-box">
+      <div class="slide-box card">
       <?php
       foreach ($restaurants as $restaurant) { 
         output_restaurant_card_nano($restaurant); 
@@ -97,9 +97,22 @@ function output_dish(Dish $dish, $session)
       <h4><?php echo $dish->description ?></h4>
     </div>
     <p><?php echo $dish->price?>€</p>
-    <form action="" method="post">
-      <button class="add-to-cart">+</button>
-    </form>
+    <button class="open-add-card">
+      <i class="material-symbols-rounded">add</i>
+    </button>
+    <div class="add-card" style="display: none">
+      <div class="add-content card">
+        <button class="close-add">
+          <i class="material-symbols-rounded">close</i>
+        </button>
+        <h3><?php echo $dish->name ?></h3>
+        <h4><?php echo $dish->description ?></h4>
+        <input type="number" name="quantity" min="1" value="1">
+        <br>
+        <button class="add-to-cart">Add to Cart</button>
+        <input type="hidden" name="idDish" value="<?php echo $dish->idDish?>">
+      </div>
+    </div>
   </section>
 <?php } ?>
 
@@ -176,7 +189,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, $session)
   $reviews = Review::getRestaurantReviews($db, intval($restaurant->id));
   $average = Restaurant::getAverage($db, intval($restaurant->id));
   ?>
-  <article id="restaurant">
+  <article id="restaurant" class="card">
     <header>
       <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
       <div id="restaurant-header-text">

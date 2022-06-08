@@ -213,7 +213,7 @@ class User
         return (count($restaurant) > 0);
     }
 
-    static function setFavoriteRestaurant(PDO $db, int $idUser, int $idRestaurant) : string
+    static function setFavoriteRestaurant(PDO $db, int $idUser, int $idRestaurant): string
     {
         if (User::isFavoriteRestaurant($db, $idUser, $idRestaurant)) {
             $stmt = $db->prepare(
@@ -250,7 +250,7 @@ class User
         return (count($dish) > 0);
     }
 
-    static function setFavoriteDish(PDO $db, int $idUser, int $idDish) : string
+    static function setFavoriteDish(PDO $db, int $idUser, int $idDish): string
     {
         if (User::isFavoriteDish($db, $idUser, $idDish)) {
             $stmt = $db->prepare(
@@ -269,5 +269,136 @@ class User
             return "favorite-active";
         }
         return "error";
+    }
+
+    static function getOrdersByState(PDO $db, int $idUser, string $state): array
+    {
+        $stmt = $db->prepare(
+            "SELECT idRequest
+                 FROM Request
+                 WHERE idUser = ?
+                 AND state
+                 LIKE ?
+                 "
+        );
+        $stmt->execute(array($idUser, $state));
+
+        $orders = [];
+
+        while ($order = $stmt->fetch()) {
+            $orders[] = $order['idRequest'];
+        }
+        return $orders;
+    }
+
+    static function getOrderByRestaurant(PDO $db, int $idUser, int $idRestaurant): ?int
+    {
+        $stmt = $db->prepare("
+            SELECT idRequest
+            FROM Request
+            WHERE idUser = ?
+            AND idRestaurant = ?
+            AND state
+            LIKE 'Ordering'
+        ");
+        $stmt->execute(array($idUser, $idRestaurant));
+        $id = $stmt->fetch();
+        if ($id == FALSE) return null;
+        return intval($id['idRequest']);
+    }
+
+    static function deleteOrder(PDO $db, int $idUser, int $idOrder)
+    {
+        $stmt = $db->prepare("
+            DELETE
+            FROM Request
+            WHERE idUser = ?
+            AND idRequest = ?
+            AND state
+            LIKE 'Ordering'
+        ");
+        $count = $stmt->execute(array($idUser, $idOrder));
+        if ($count) {
+            $stmt = $db->prepare("
+                DELETE
+                FROM Request_Dish
+                WHERE idRequest = ?
+            ");
+            $stmt->execute(array($idOrder));
+            $stmt->fetchAll();
+        }
+    }
+
+    static function submitOrder(PDO $db, int $idUser, int $idOrder)
+    {
+        $stmt = $db->prepare("
+            UPDATE Request
+            SET state = 'Processing'
+            WHERE idUser = ?
+            AND idRequest = ?
+            AND state
+            LIKE 'Ordering'
+        ");
+        $stmt->execute(array($idUser, $idOrder));
+        $stmt->fetch();
+    }
+
+    static function deleteOrderDish(PDO $db, int $idUser, int $idOrder, int $idDish)
+    {
+        $stmt = $db->prepare("
+            SELECT idUser
+            FROM Request
+            WHERE idRequest = ?;
+            AND state
+            LIKE 'Ordering'
+        ");
+        $stmt->execute(array($idOrder));
+        if ($stmt->fetch()['idUser'] != $idUser) return;
+
+        $stmt = $db->prepare("
+            DELETE
+            FROM Request_Dish
+            WHERE idRequest = ?
+            AND idDish = ?
+        ");
+        $stmt->execute(array($idOrder, $idDish));
+        $stmt->fetch();
+    }
+
+    static function repeatOrder(PDO $db, int $idUser, int $idOrder)
+    {
+        $restaurant = Restaurant::getOrderRestaurant($db, $idOrder);
+        $dishes = Dish::getOrderDishes($db, $idOrder);
+        $id = User::getOrderByRestaurant($db, $idUser, $restaurant->id);
+        if ($id == null) {
+            $stmt = $db->prepare("
+                INSERT
+                INTO REQUEST
+                (idUser, idRestaurant, state)
+                VALUES (?, ?, 'Ordering')
+            ");
+            $stmt->execute(array($idUser, $restaurant->id));
+            $stmt->fetch();
+            $stmt = $db->prepare("
+                SELECT idRequest
+                FROM Request
+                WHERE idUser = ?
+                AND idRestaurant = ?
+                AND state
+                LIKE 'Ordering'
+            ");
+            $stmt->execute(array($idUser, $restaurant->id));
+            $id = intval($stmt->fetch()['idRequest']);
+        }
+        foreach($dishes as $dish){
+            $stmt = $db->prepare("
+                INSERT
+                INTO REQUEST_DISH
+                (idRequest, idDish)
+                VALUES (?, ?)
+            ");
+            $stmt->execute(array($id, $dish->idDish));
+            $stmt->fetch();
+        }
     }
 }
