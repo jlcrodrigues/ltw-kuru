@@ -9,8 +9,9 @@
         public string $closes;
         public string $category;
         public string $address;
+        public ?string $photo;
 
-        public function __construct(int $id, int $idUser, string $name, string $opens, string $closes, string $category,string $address){
+        public function __construct(int $id, int $idUser, string $name, string $opens, string $closes, string $category, string $address, ?string $photo){
             $this->id = $id;
             $this->idUser = $idUser;
             $this->name = $name;
@@ -18,11 +19,12 @@
             $this->closes = $closes;
             $this->category = $category;
             $this->address = $address;
+            $this->photo = $photo;
         }
 
         static function getRestaurants(PDO $db, int $count) : array {
             $stmt = $db->prepare(
-                'SELECT idRestaurant, idUser, name, opens, closes, category, address
+                'SELECT idRestaurant, idUser, name, opens, closes, category, address, photo
                  FROM Restaurant
                  LIMIT ?');
             $stmt->execute(array($count));
@@ -36,14 +38,15 @@
                     $restaurant['opens'],
                     $restaurant['closes'],
                     $restaurant['category'],
-                    $restaurant['address']);
+                    $restaurant['address'],
+                    $restaurant['photo']);
             }
             return $restaurants;
         }
 
         static function searchRestaurants(PDO $db, string $search, int $count) : array {
             $stmt = $db->prepare(
-                'SELECT idRestaurant, idUser, name, opens, closes, category, address
+                'SELECT idRestaurant, idUser, name, opens, closes, category, address, photo
                  FROM Restaurant
                  WHERE name 
                  LIKE ? 
@@ -59,7 +62,8 @@
                   $restaurant['opens'],
                   $restaurant['closes'],
                   $restaurant['category'],
-                  $restaurant['address']);
+                  $restaurant['address'],
+                  $restaurant['photo']);
             }
         
             return $restaurants;
@@ -68,7 +72,7 @@
 
         static function getRestaurant(PDO $db, int $id) : Restaurant {
             $stmt = $db->prepare(
-                'SELECT idRestaurant, idUser, name, opens, closes, category, address
+                'SELECT idRestaurant, idUser, name, opens, closes, category, address, photo
                  FROM Restaurant
                  WHERE idRestaurant = ?');
             $stmt->execute(array($id));
@@ -82,14 +86,15 @@
                 $restaurant['opens'],
                 $restaurant['closes'],
                 $restaurant['category'],
-                $restaurant['address']);
+                $restaurant['address'],
+                $restaurant['photo']);
         }  
 
 
 
         static function getOwnerRestaurants(PDO $db, int $idUser) {
             $stmt = $db->prepare(
-                'SELECT idRestaurant, idUser, name, opens, closes, category, address
+                'SELECT idRestaurant, idUser, name, opens, closes, category, address, photo
                 FROM RESTAURANT 
                 WHERE idUser = ?'
             );
@@ -105,7 +110,8 @@
                         $restaurant['opens'],
                         $restaurant['closes'],
                         $restaurant['category'],
-                        $restaurant['address']);
+                        $restaurant['address'],
+                        $restaurant['photo']);
                 }
                 return $restaurants;
         }
@@ -124,7 +130,7 @@
 
         static function getRestaurantsByCategory(PDO $db, string $category) : array {
             $stmt = $db->prepare(
-                'SELECT idRestaurant, idUser, name, opens, closes, category, address
+                'SELECT idRestaurant, idUser, name, opens, closes, category, address, photo
                  FROM Restaurant
                  WHERE category
                  LIKE ?');
@@ -139,7 +145,8 @@
                   $restaurant['opens'],
                   $restaurant['closes'],
                   $restaurant['category'],
-                  $restaurant['address']);
+                  $restaurant['address'],
+                  $restaurant['photo']);
             }
         
             return $restaurants;
@@ -205,7 +212,7 @@
 
         static function getDishRestaurant(PDO $db, $idDish) {
             $stmt = $db->prepare('
-            SELECT restaurant.idRestaurant, idUser, restaurant.name, opens, closes, restaurant.category, address 
+            SELECT restaurant.idRestaurant, idUser, restaurant.name, opens, closes, restaurant.category, address, restaurant.photo
             FROM dish, restaurant 
             WHERE idDish = ? and dish.idRestaurant = restaurant.idRestaurant;');
             
@@ -220,7 +227,8 @@
                 $restaurant['opens'],
                 $restaurant['closes'],
                 $restaurant['category'],
-                $restaurant['address']);
+                $restaurant['address'],
+                $restaurant['photo']);
           }
 
         
@@ -238,7 +246,7 @@
 
           static function getOrderRestaurant(PDO $db, int $idOrder) : Restaurant {
             $stmt = $db->prepare(
-                'SELECT DISTINCT Request.idRestaurant, restaurant.idUser, name, opens, closes, category, address
+                'SELECT DISTINCT Request.idRestaurant, restaurant.idUser, name, opens, closes, category, address, photo
                  FROM Restaurant, Request
                  WHERE Request.idRequest = ?
                  AND Restaurant.idRestaurant = Request.idRestaurant');
@@ -253,10 +261,23 @@
                 $restaurant['opens'],
                 $restaurant['closes'],
                 $restaurant['category'],
-                $restaurant['address']);
+                $restaurant['address'],
+                $restaurant['photo']);
         }  
 
 
+
+          function updateRestaurantPhoto(PDO $db, string $photo, int $id) {
+            $stmt = $db->prepare(
+                'UPDATE restaurant SET photo ? where idRestaurant = ?');
+    
+            try {
+                $stmt->execute(array($photo, $id));
+                return true;
+            } catch (PDOException $e) {
+                return false;
+              }
+        }
 
     }
 ?>

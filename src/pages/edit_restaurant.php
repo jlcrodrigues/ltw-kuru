@@ -11,11 +11,11 @@
 
     $session = new Session();
     $db = getDatabaseConnection();
-    $id = intval($_GET['id']);
+    $restaurant = Restaurant::getRestaurant($db, intval($_GET['id']));
 
-    if (!$session->isOwner($session->getId()) || !$session->isLoggedIn() || Restaurant::getRestaurantOwner($db, $id) != $session->getId()) {
-        die(header('Location: /')); 
-     }
+     if (!$session->isOwner($session->getId()) || !$session->isLoggedIn() || !$session->isOwnerRestaurant($restaurant->id)) {
+      die(header('Location: /')); 
+   }
 
 
   $id = $_GET['id'];

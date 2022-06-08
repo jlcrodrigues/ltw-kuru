@@ -203,4 +203,15 @@
       }
     }
   }
+  function updateDishPhoto(PDO $db, string $photo, int $id) {
+    $stmt = $db->prepare(
+        'UPDATE dish SET dish ? where idDish = ?');
+
+    try {
+        $stmt->execute(array($photo, $id));
+        return true;
+    } catch (PDOException $e) {
+        return false;
+      }
+}
 ?>

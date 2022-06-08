@@ -14,7 +14,10 @@ declare(strict_types = 1); ?>
 function output_restaurant_card_nano(Restaurant $restaurant)
 { ?>
   <a href="../pages/restaurant.php?id=<?=$restaurant->id?>" class="restaurant-nano">
-    <img src="https://picsum.photos/id/101/250/150" alt="">
+    <?php if (isset($restaurant->photo)) { ?>
+      <img src="/photos/grill.jpg" alt="grill" width="250" height="150">
+    <?php } 
+     else { ?> <img src="https://picsum.photos/id/101/250/150" alt=""> <?php } ?>
     <div class="nano-text">
       <h3><?php echo $restaurant->name ?></h3>
       <h4><?php echo $restaurant->address ?></h4>
@@ -305,7 +308,6 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
 ?>
 <article id="restaurant">
 <header>
-      <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
       <form action="../actions/action_edit_restaurant.php?id=<?=$restaurant->id?>" method="post" class="restaurant">
       <label for="name">Name:</label>
       <input id="name" type="text" name="name" value="<?=$restaurant->name?>">
@@ -353,7 +355,8 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
 { ?>
   <article id="restaurant">
     <header>
-      <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
+    <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
+
       <div id="restaurant-header-text">
         <h3><?php echo "$restaurant->name"?></h3>
         <h4>	&#183; <?php echo "$average"?></h4>
@@ -486,3 +489,4 @@ function output_edit_dish(Dish $dish)
     </header>
   </article>
     <?php } ?>
+
