@@ -1,3 +1,31 @@
+<?php 
+require_once("orders.php");
+?>
+<?php
+function output_profile_orders(PDO $db, Session $session) { 
+  ?>
+  <h3>Processing</h3>
+  <hr>
+  <?php
+  $orders_id = User::getOrdersByState($db, $session->getId(), 'Processing');
+  foreach ($orders_id as $id) {
+    $dishes = Dish::getOrderDishes($db, $id);
+    $restaurant = Restaurant::getOrderRestaurant($db, $id);
+    output_order_past($id, $restaurant, $dishes);
+  }
+  ?>
+  <h3>Completed</h3>
+  <hr>
+  <?php
+  $orders_id = User::getOrdersByState($db, $session->getId(), 'Completed');
+  foreach ($orders_id as $id) {
+    $dishes = Dish::getOrderDishes($db, $id);
+    $restaurant = Restaurant::getOrderRestaurant($db, $id);
+    output_order_past($id, $restaurant, $dishes);
+  }
+  ?>
+<?php } ?>
+
 <?php
 function output_profile(Session $session)
 { ?>
@@ -11,7 +39,7 @@ function output_profile(Session $session)
     $user = User::getUserById($db, $session->getId());
   ?>
 
-  <section id="profile">
+  <section id="profile" class="card">
     <img src="https://picsum.photos/200" alt="profile photo">
     <div id="profile-tabs">
       <button 
@@ -72,12 +100,13 @@ function output_profile(Session $session)
       <p><?php if ($user->city != null and $user->country != null) {echo $user->city . ", " . $user->country;} 
                else {echo $user->city . $user->country;}?></p>
     </section>
-    <section id="profile-reviews" class="profile-section">
+    <article id="profile-reviews" class="profile-section">
       <p>Review</p>
-    </section>
-    <section id="profile-orders" class="profile-section">
-      <p>Order</p>
-    </section>
+    </article>
+    <article id="profile-orders" class="profile-section">
+      <h2>Orders</h2>
+      <?php output_profile_orders($db, $session);?>
+    </article>
     <section id="profile-change_password" class="profile-section">
       <p>Change Password</p>
     </section>
@@ -109,7 +138,6 @@ function output_profile(Session $session)
     </section>
     <section id="profile-owner" class="profile-section">
       <h3>Restaurants</h3>
-
       <?php 
         $restaurants = Restaurant::getOwnerRestaurants($db, $session->getId());
         
@@ -117,8 +145,6 @@ function output_profile(Session $session)
           output_restaurant_card_nano($restaurant);
         }
       ?>
-
-
     </section>
     <section id="profile-not-owner" class="profile-section">
       <h3>Become a owner now!</h3> 
@@ -166,26 +192,32 @@ function output_profile(Session $session)
 <?php
 function output_login()
 { ?>
-  <form action="../actions/action_login.php" method="post">
-    <input type="email" name="email" placeholder="email">
-    <input type="password" name="password" placeholder="password">
-    <button type="submit" name="submit" class="login">Login</button>
-  </form>
-  <a href="register.php">Register</a>
+  <div class="account">
+    <form action="../actions/action_login.php" method="post">
+      <input type="email" name="email" placeholder="Email">
+      <input type="password" name="password" placeholder="Password">
+      <button type="submit" name="submit" class="login">Log In</button>
+    </form>
+    <hr>
+    <a href="register.php">Create an account</a>
+  </div>
 
 <?php } ?>
 
 <?php
 function output_register()
 { ?>
-  <form action="../actions/action_register.php" method="post">
-    <input type="text" name="first_name" placeholder="First Name">
-    <input type="text" name="last_name" placeholder="Last Name">
-    <input type="email" name="email"  placeholder="email">
-    <input type="password" name="password" placeholder="password">
-    <input type="password" name="confirm_password" placeholder="confirm password">
-    <button type="submit" name="submit" class="login">Register</button>
-  </form>
-  <a href="login.php">Login</a>
+  <div class="account">
+    <form id="register" action="../actions/action_register.php" method="post">
+      <input type="text" name="first_name" placeholder="First Name">
+      <input type="text" name="last_name" placeholder="Last Name">
+      <input type="email" name="email"  placeholder="Email">
+      <input type="password" name="password" placeholder="Password">
+      <input type="password" name="confirm_password" placeholder="Confirm Password">
+      <button type="submit" name="submit" class="login">Register</button>
+    </form>
+      <hr>
+      <a href="login.php">I have an account</a>
+  </div>
   <?php
   }

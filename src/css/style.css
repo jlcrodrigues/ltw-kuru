@@ -17,6 +17,21 @@ a {
   text-decoration: none;
 }
 
+hr {
+  border: 0;
+  border-top: 0.1em solid var(--shadow-color);
+}
+
+button {
+  background-color: var(--tertiary-color);
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-family: 'Nunito';
+  cursor: pointer;
+}
+
+
 /* header */
 
 body > header {
@@ -34,45 +49,108 @@ body > header a {
   font-size: 2em;
 }
 
+/* generic card */
+
+.card {
+  box-shadow: 0px 5px 15px var(--shadow-color);
+  border-radius: 0.5em;
+  background-color: var(--bg-secondary-color);
+}
+
 /* search box */
 
 #search-box {
-  margin: 3em;
-  text-align: center;
-  display: flex;
-  justify-content: center;
   border: 2em none var(--secondary-color);
+  margin: 3em;
+  white-space: nowrap;
+}
+
+#search-box > div {
+  width: 50%;
+  margin: 0 auto;
 }
 
 input[name=search] {
-  padding: 1em;
-  font-size: 1.2em;
+  padding: 0.7em;
+  font-size: large;
   border-radius: 2em;
   background-color: var(--bg-secondary-color);
-  width: 50%;
   border: none;
+  width: 100%;
   box-shadow: 0px 1px 12px var(--shadow-color);
+  display: inline;
 }
 
 input[name=search]:focus {
   outline: none;
 }
 
-#search-box>button {
-  border: none;
-  background: none;
+#search-box > div > button {
+  color: var(--tertiary-color);
+  background-color: transparent;
+  border-radius: 50%;
+  margin-left: 1em;
+  font-weight: bold;
+  font-size: large;
+  position: relative;
+  right: 4em;
+  top: 0.6em
 }
 
 /* sliders */
+
+.slide-category {
+  margin: 2em;
+}
 
 .slide {
   margin: 0 2em 2em 2em;
 }
 
-.slide-content {
-  box-shadow: 0px 5px 15px var(--shadow-color);
-  border-radius: 0.5em;
-  background-color: var(--bg-secondary-color);
+.slide-box {
+  overflow: hidden;
+  width: auto;
+}
+
+.slide-button {
+  height: 100%;
+  width: 5em;
+  text-align: center;
+  background-color: var(--primary-color);
+  background-color: rgba(0,0,0,0.2);
+  color: white;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+  animation: fadeOut 0.5s;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-button:hover {
+  animation: fadeIn 0.5s;
+  opacity: 1;
+}
+
+.slide-button > i {
+  font-size: xx-large;
+  opacity: 1;
+}
+
+.slide-left {
+  position: absolute;
+  left: 0px;
+  border-bottom-left-radius: 0.5em;
+  border-top-left-radius: 0.5em;
+}
+
+.slide-right {
+  position: absolute;
+  right: 0px;
+  border-bottom-right-radius: 0.5em;
+  border-top-right-radius: 0.5em;
 }
 
 .restaurant-nano {
@@ -96,9 +174,6 @@ input[name=search]:focus {
   font-weight: 400;
 }
 
-.slide .restaurant-nano img {
-  width: 100%;
-}
 
 /* footer */
 
@@ -118,11 +193,8 @@ body>footer p {
 }
 
 #search-filter {
-  background-color: var(--bg-secondary-color);
   padding: 1em;
-  box-shadow: 0px 5px 15px var(--shadow-color);
   margin-right: 1em;
-  border-radius: 0.5em;
 }
 
 .restaurants-search {
@@ -130,6 +202,7 @@ body>footer p {
   padding: 0.5em;
   box-shadow: 0px 2px 15px var(--shadow-color);
   border-radius: 0.5em;
+  min-height: 70em;
 }
 
 .restaurants-search * {
@@ -143,9 +216,6 @@ body>footer p {
 /* profile page */
 
 #profile {
-  background-color: var(--bg-secondary-color);
-  box-shadow: 0px 2px 15px var(--shadow-color);
-  border-radius: 0.5em;
   margin: 2em;
 }
 
@@ -156,7 +226,7 @@ body>footer p {
 
 .profile-section {
   margin: 1em;
-  animation: fadeEffect 0.5s;
+  animation: fadeIn 0.5s;
 }
 
 #profile-info {
@@ -184,7 +254,7 @@ body>footer p {
 
 .profile-section-button:hover {
   color: var(--tertiary-color);
-  background-color: transparent;
+  background-color: #f2f2f2;
 }
 
 .profile-section-button.active {
@@ -196,12 +266,41 @@ body>footer p {
   justify-self: flex-end;
 }
 
+#profile-orders > .cart {
+  margin: 1em 1em 3em 1em;
+  width: auto;
+  box-shadow: none;
+  border: 0.1em solid var(--shadow-color);
+  border-radius: 1em;
+}
+
+#profile-orders > .cart > a > h3,
+#profile-orders > .cart > a > i {
+  color: var(--accent-color);
+}
+
+#profile-orders .dish p:first-of-type {
+  display: none;
+}
+
+#profile-orders .cart > h3 {
+  position: absolute;
+  right: 1em;
+  top: 0;
+  padding: 0.7em;
+}
+
+.repeat-order {
+  position: absolute;
+  right: 1em;
+  padding: 0.5em;
+  border-radius: 1em;
+  font-size: large;
+}
+
 /* restaurant page */
 
 #restaurant {
-  background-color: var(--bg-secondary-color);
-  box-shadow: 0px 2px 15px var(--shadow-color);
-  border-radius: 0.5em;
   margin: 2em;
 }
 
@@ -209,7 +308,7 @@ body>footer p {
   display: none;
   border-top: 0.1em solid var(--shadow-color);
   padding: 0 1em;
-  animation: fadeEffect 0.5s;
+  animation: fadeIn 0.5s;
 }
 
 #restaurant > header > img {
@@ -232,8 +331,17 @@ body>footer p {
   padding-left: 0.3em;
 }
 
-#restaurant-header-text > p {
+#restaurant-header-text p:first-of-type {
   display: inline;
+}
+
+.category {
+  display: inline-block;
+  background-color: var(--shadow-color);
+  border-radius: 1em;
+  font-family: 'Nunito';
+  font-weight: 700;
+  padding: 0.5em;
 }
 
 #form-favorite {
@@ -280,13 +388,19 @@ body>footer p {
   color: white;
 }
 
-.add-to-cart {
+.open-add-card {
   border-radius: 50%;
   border: none;
-  height: 1.4em;
-  width: 1.4em;
-  font-size: x-large;
   background-color: var(--tertiary-color);
+  text-align: center;
+  height: 2.55em;
+  width: 2.65em;
+  cursor: pointer;
+}
+
+.open-add-card > i{
+  font-size: x-large;
+  font-weight: 700;
   color: white;
 }
 
@@ -296,6 +410,11 @@ body>footer p {
 
 .dish h3 {
   display: inline;
+}
+
+.category-section > hr{
+  border: 0;
+  border-top: 0.1em solid var(--shadow-color);
 }
 
 .fav-dish-form {
@@ -382,14 +501,226 @@ body>footer p {
   margin: 0.5em 0;
 }
 
+/* login & register */
+
+.account {
+  background-color: var(--secondary-color);
+  width: 20em;
+  padding: 2em;
+  box-shadow: 0px 5px 15px var(--shadow-color);
+  border-radius: 0.5em;
+}
+
+.account > form > *, .account > hr {
+  width: 15em;
+  margin: 1em;
+}
+
+.account > form {
+  text-align: center;
+}
+
+.account > form > input {
+  font-family: "Nunito";
+  padding: 1em;
+  border: 0.1em solid var(--shadow-color) ;
+  border-radius: 1em;
+  font-size: 1em;
+}
+
+.account > form > button {
+  font-family: "Nunito";
+  font-size: large;
+  font-weight: 700;
+  width: 9em;
+  color: white;
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 1em;
+  padding: 0.8em;
+}
+
+.account > a {
+  margin: 0;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.account > form > input:focus {
+  outline: var(--accent-color) solid 0.1em;
+}
+
+/* pop up messages */
+
+.message {
+  min-width: 13em;
+  color: white;
+  background-color: var(--accent-color);
+  border-radius: 0.5em;
+  padding: 0 1em;
+  margin: 1em 0;
+}
+
+.close-message {
+  border: 0;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+/* orders */
+
+.cart {
+  padding: 1em;
+}
+
+.cart > .dish {
+  padding-right: 2em;
+}
+
+.cart > .dish > div {
+  flex-grow: 2;
+}
+
+.cart > .dish > p:nth-of-type(2) {
+  font-weight: bold;
+  width: 5em;
+  text-align: right;
+}
+
+.cart > a > h2 {
+  margin: 0.7em 0 0.7em 0.7em;
+}
+
+.cart > a > i {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.cart > a:hover > i {
+  color: var(--accent-color);
+}
+
+.total {
+  text-align: right;
+}
+
+.total > h3 {
+  display: inline;
+}
+
+.total > h3:nth-of-type(2) {
+  font-weight: 700;
+  color: var(--accent-color);
+  padding: 0 1.7em;
+}
+
+.total > button {
+  margin: 1em;
+  border: none;
+  border-radius: 0.2em;
+  color: white;
+  background-color: var(--tertiary-color);
+  padding: 0.5em 1em;
+  font-weight: 700;
+  font-size: large;
+}
+
+.remove-order {
+  border: 0;
+  background-color: transparent;
+  font-size: large;
+  font-weight: 700;
+  color: var(--tertiary-color);
+  cursor: pointer;
+  height: 2em;
+  width: 2em;
+}
+
+.remove-order:hover {
+  background-color: var(--bg-color);
+  border-radius: 50%;
+}
+
+.add-card {
+  background-color: rgb(0,0,0,0.1);
+}
+
+.add-content {
+  box-shadow: none;
+  text-align: center;
+  background-color: white;
+}
+
+.add-content > * {
+  margin: 1em;
+  text-align: center;
+}
+
+.add-content > h3 {
+  position: relative;
+  top: 1em;
+}
+
+.add-content > h4 {
+  margin-top: 2.5em;
+}
+
+.close-add {
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  right: 0;
+  color: var(--accent-color);
+  top: 0.2em;
+}
+
+input[name=quantity] { 
+  font-size: large;
+  font-weight: bold;
+  font-family: "Nunito";
+  padding: 0.5em;
+  border-radius: 1em;
+  width: 3em;
+  border: 0.1em solid var(--shadow-color);
+  color: var(--primary-color);
+}
+
+.add-to-cart {
+  border: none;
+  font-size: large;
+  border-radius: 1em;
+  font-weight: bold;
+  color: white;
+  background-color: var(--tertiary-color);
+  padding: 0.6em;
+}
+
+.cart > .dish > button {
+  border: none;
+  background-color: transparent;
+  color: var(--accent-color);
+  margin: 0.5em;
+}
+
 /* animations */
 
-@keyframes fadeEffect {
+@keyframes fadeIn {
   from {
     opacity: 0;
   }
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
   }
 }

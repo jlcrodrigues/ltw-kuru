@@ -30,7 +30,7 @@
             $restaurants = array();
             while ($restaurant = $stmt->fetch()){
                 $restaurants[] = new Restaurant(
-                    $restaurant['idRestaurant'],
+                    intval($restaurant['idRestaurant']),
                     $restaurant['idUser'],
                     $restaurant['name'],
                     $restaurant['opens'],
@@ -53,7 +53,7 @@
             $restaurants = array();
             while ($restaurant = $stmt->fetch()) {
               $restaurants[] = new Restaurant(
-                  $restaurant['idRestaurant'],
+                  intval($restaurant['idRestaurant']),
                   $restaurant['idUser'],
                   $restaurant['name'],
                   $restaurant['opens'],
@@ -76,7 +76,7 @@
             $restaurant = $stmt->fetch();
         
             return new Restaurant(
-                $restaurant['idRestaurant'],
+                intval($restaurant['idRestaurant']),
                 $restaurant['idUser'],
                 $restaurant['name'],
                 $restaurant['opens'],
@@ -99,7 +99,7 @@
             $restaurants = array();
                 while ($restaurant = $stmt->fetch()){
                     $restaurants[] = new Restaurant(
-                        $restaurant['idRestaurant'],
+                        intval($restaurant['idRestaurant']),
                         $restaurant['idUser'],
                         $restaurant['name'],
                         $restaurant['opens'],
@@ -109,6 +109,43 @@
                 }
                 return $restaurants;
         }
+
+
+        static function getCategories(PDO $db) : array {
+            $stmt = $db->prepare(
+                'SELECT DISTINCT category
+                 FROM Restaurant');
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+            $categories = [];
+            foreach ($result as $r) {$categories[] = $r['category'];}
+            return $categories;
+        }
+
+        static function getRestaurantsByCategory(PDO $db, string $category) : array {
+            $stmt = $db->prepare(
+                'SELECT idRestaurant, idUser, name, opens, closes, category, address
+                 FROM Restaurant
+                 WHERE category
+                 LIKE ?');
+            $stmt->execute(array($category . '%'));
+        
+            $restaurants = array();
+            while ($restaurant = $stmt->fetch()) {
+              $restaurants[] = new Restaurant(
+                  intval($restaurant['idRestaurant']),
+                  $restaurant['idUser'],
+                  $restaurant['name'],
+                  $restaurant['opens'],
+                  $restaurant['closes'],
+                  $restaurant['category'],
+                  $restaurant['address']);
+            }
+        
+            return $restaurants;
+        }
+
+
 
         static function getRestaurantOwner(PDO $db, int $id) {
             $stmt = $db->prepare(
@@ -199,6 +236,28 @@
             }
           }
 
-    }
+          static function getOrderRestaurant(PDO $db, int $idOrder) : Restaurant {
+            $stmt = $db->prepare(
+                'SELECT DISTINCT Request.idRestaurant, restaurant.idUser, name, opens, closes, category, address
+                 FROM Restaurant, Request
+                 WHERE Request.idRequest = ?
+                 AND Restaurant.idRestaurant = Request.idRestaurant');
+            $stmt->execute(array($idOrder));
+        
+            $restaurant = $stmt->fetch();
+        
+            return new Restaurant(
+                intval($restaurant['idRestaurant']),
+                $restaurant['idUser'],
+                $restaurant['name'],
+                $restaurant['opens'],
+                $restaurant['closes'],
+                $restaurant['category'],
+                $restaurant['address']);
+        }  
 
+
+
+    }
 ?>
+

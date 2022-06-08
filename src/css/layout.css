@@ -1,11 +1,25 @@
 body {
   max-width: 120em;
   margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
 }
 
 body > footer {
-  padding: 1em;
-  margin-top: 1em; 
+  padding: 1em 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  clear: both;
+}
+
+#footer-prev {
+  padding: 5em;
+}
+
+.empty-page {
+  margin: 2em;
+  text-align: center
 }
 
 /* header */
@@ -13,13 +27,13 @@ body > footer {
 body > header {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 4;
   display: flex;
   align-items: baseline;
   margin-bottom: 1em;
 }
 
-body > header > a {
+body > header > a:first-of-type {
   margin-left: auto;
 }
 
@@ -29,23 +43,34 @@ body > header * {
 
 /* sliders */
 
-.slide-content {
+.slide {
+  position: relative;
+  margin: 0 auto;
+}
+
+.slide-box {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 1em;
+  align-items: center;
 }
 
 /* search page */
 
 #search {
   display: grid;
-  grid-template-columns: 20% auto;
+  grid-template-columns: 30% auto;
   margin: 0 auto;
   width: 70%;
+  padding-bottom: 5em;
 }
 
 .restaurant-mini {
   display: flex;
+}
+
+.no-restaurants{
+  text-align: center;
 }
 
 /* profile page */
@@ -56,7 +81,6 @@ body > header * {
   grid-template-rows: auto 1fr;
   margin: 0 auto;
   width: 70%;
-  min-height: 80vh;
 }
 
 #profile > img {
@@ -66,7 +90,8 @@ body > header * {
 }
 
 .profile-section {
-  grid-column: 2 3;
+  grid-column: 2 / 3;
+  grid-row: 1 / 3;
 }
 
 #profile-tabs {
@@ -137,10 +162,6 @@ body > header * {
 
 /* favorites page */
 
-#favorites {
-  min-height: 80vh;
-}
-
 #favorites > header > h1 {
   text-align: center;
 }
@@ -153,4 +174,69 @@ body > header * {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+/* login */
+
+.account {
+  margin: 3em auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* pop up messages */
+
+#messages {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  z-index: 7;
+}
+
+.message {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* orders */
+
+.cart {
+  width: 80%;
+  margin: 1em auto;
+  min-height: 10em;
+  position: relative;
+}
+
+.remove-order {
+  position: absolute;
+  right: 2em;
+  top: 2em;
+}
+
+.cart > a {
+  display: flex;
+  align-items: center;
+}
+
+.add-card {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.add-content {
+  position: absolute;
+  width: 40%;
+  margin: 0 auto;
+  min-height: 5em;
+  top: 20%;
+  right: 0;
+  left: 0;
 }

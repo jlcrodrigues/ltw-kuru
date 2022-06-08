@@ -14,15 +14,15 @@
 
   $db = getDatabaseConnection();
 
-  $restaurants = Restaurant::getRestaurants($db, 60);
+  $categories = Restaurant::getCategories($db);
 
   output_header($session);
   output_search_bar();
 
-  $offset = 0;
-  for ($i = 0; $i < 10; $i++) {
-   output_restaurant_slide(array_slice($restaurants, $offset, 6));
-   $offset += 6;
+  foreach ($categories as $category) {
+    $restaurants = Restaurant::getRestaurantsByCategory($db, $category);
+    if (sizeof($restaurants) < 5) continue;
+    output_restaurant_slide($restaurants, ucwords($category));
   }
   output_footer();
 ?>
