@@ -391,6 +391,7 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
     <section id="side-section">
     <a href="../pages/add_dish.php?id=<?=$restaurant->id?>"><button name=add class="add_meal"><i class="material-icons">add_circle</i></button></a>
     </section>
+    </article>
 <?php } ?>
 
 
@@ -490,3 +491,48 @@ function output_edit_dish(Dish $dish)
   </article>
     <?php } ?>
 
+
+    <?php
+  function output_register_restaurant_form(PDO $db, Session $session) {
+?>
+
+<form action="../actions/action_register_restaurant.php" method="post" class="profile">
+      <label for="name">Name:</label>
+      <input id="name" type="text" name="name">
+      
+      <label for="opens">Opens:</label>
+      <input id="opens" type="time" name="opens" min=00:00 max=23:59>  
+
+      <label for="closes">Closes:</label>
+      <input id="closes" type="time" name="closes" min=00:00 max=23:59>  
+      
+      <label for="category">Category:</label>
+      <select name="category" id="category">
+      <option value="" selected disabled hidden>Choose here</option>
+      <option value="Super market">Super Market</option>
+      <option value="grill">Grill</option>
+      <option value="Fast Food">Fast Food</option>
+      <option value="pretzels">Pretzels</option>
+      <option value="Ice cream">Ice Creams</option>
+      <option value="american">American</option>
+      <option value="pizza">Pizza</option>
+      <option value="Sea food">Sea Food</option>
+      <option value="italian">Italian</option>
+      <option value="donuts">Donuts</option>
+      <option value="caffee">Caffee House</option>
+      <option value="sandwiches">Sandwiches</option>
+      <option value="juice">Juices</option>
+      <option value="steakhouse">Steakhouse</option>
+      <option value="Fast casual">Fast Casual</option>
+      <option value="mexican">Mexican</option>
+      <option value="bar">Bar</option>
+      </select>
+
+      <label for="address">Address:</label>
+      <input id="address" type="text" name="address">  
+
+      <button type="submit">Register restaurant</button>
+    </form>
+
+
+    <?php } ?>

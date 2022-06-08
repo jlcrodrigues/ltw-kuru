@@ -24,7 +24,7 @@
       }
     else if (Restaurant::newRestaurant($db, $user_id, $name, $opens, $closes, $category, $address)) {
         $session->addMessage('success', 'Register successfull!');
-        die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+        die(header('Location: ../pages/profile.php'));
      }
      else {
         $session->addMessage('error', 'Failed!');

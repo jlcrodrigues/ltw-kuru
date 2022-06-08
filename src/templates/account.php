@@ -1,5 +1,6 @@
 <?php 
 require_once("orders.php");
+require_once("restaurants.php");
 ?>
 <?php
 function output_profile_orders(PDO $db, Session $session) { 
@@ -137,7 +138,7 @@ function output_profile(Session $session)
     </form>
     </section>
     <section id="profile-owner" class="profile-section">
-      <h3>Restaurants</h3>
+      <h3>Restaurants       <a href="../pages/register_restaurant.php"><button name=add class="add_restaurant"><i class="material-icons">add_circle</i></button></a></h3>
       <?php 
         $restaurants = Restaurant::getOwnerRestaurants($db, $session->getId());
         
@@ -148,43 +149,7 @@ function output_profile(Session $session)
     </section>
     <section id="profile-not-owner" class="profile-section">
       <h3>Become a owner now!</h3> 
-      <form action="../actions/action_register_restaurant.php" method="post" class="profile">
-      <label for="name">Name:</label>
-      <input id="name" type="text" name="name">
-      
-      <label for="opens">Opens:</label>
-      <input id="opens" type="time" name="opens" min=00:00 max=23:59>  
-
-      <label for="closes">Closes:</label>
-      <input id="closes" type="time" name="closes" min=00:00 max=23:59>  
-      
-      <label for="category">Category:</label>
-      <select name="category" id="category">
-      <option value="" selected disabled hidden>Choose here</option>
-      <option value="Super market">Super Market</option>
-      <option value="grill">Grill</option>
-      <option value="Fast Food">Fast Food</option>
-      <option value="pretzels">Pretzels</option>
-      <option value="Ice cream">Ice Creams</option>
-      <option value="american">American</option>
-      <option value="pizza">Pizza</option>
-      <option value="Sea food">Sea Food</option>
-      <option value="italian">Italian</option>
-      <option value="donuts">Donuts</option>
-      <option value="caffee">Caffee House</option>
-      <option value="sandwiches">Sandwiches</option>
-      <option value="juice">Juices</option>
-      <option value="steakhouse">Steakhouse</option>
-      <option value="Fast casual">Fast Casual</option>
-      <option value="mexican">Mexican</option>
-      <option value="bar">Bar</option>
-      </select>
-
-      <label for="address">Address:</label>
-      <input id="address" type="text" name="address">  
-
-      <button type="submit">Register restaurant</button>
-    </form>
+      <?php output_register_restaurant_form($db, $session) ?>
     </section>
   </section>
 <?php } ?>
@@ -221,3 +186,4 @@ function output_register()
   </div>
   <?php
   }
+
