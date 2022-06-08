@@ -45,14 +45,13 @@ function output_restaurant_slide(array $restaurants, string $title)
 } ?>
 
 <?php
-function output_restaurant_card_mini(int $id)
-{ ?>
-  <a href="../pages/restaurant.php" class="restaurant-mini">
-    <img src="https://picsum.photos/id/101<?php echo $id ?>/200/200" alt="">
+function output_restaurant_card_mini(Restaurant $restaurant)
+{  ?>
+  <a href="../pages/restaurant.php?id=<?php echo $restaurant->id?>" class="restaurant-mini">
+    <img src="https://picsum.photos/id/101<?php echo $restaurant->id ?>/200/200" alt="">
     <div class="mini-text">
-      <h3>Restaurant</h3>
-      <h4>Location</h4>
-      <p>Adress</p>
+      <h3><?php echo $restaurant->name?></h3>
+      <h4><?php echo $restaurant->address?></h4>
       <p>Rating</p>
       <p>Preço</p>
     </div>
@@ -60,12 +59,12 @@ function output_restaurant_card_mini(int $id)
 <?php } ?>
 
 <?php
-function output_restaurant_search()
+function output_restaurant_search($restaurants)
 { ?>
   <section class="restaurants-search">
     <?php
-    for ($i = 0; $i < 5; $i++) {
-      output_restaurant_card_mini($i);
+    foreach ($restaurants as $restaurant) {
+        output_restaurant_card_mini($restaurant);
     }
     ?>
   </section>
