@@ -361,8 +361,12 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
 { ?>
   <article id="restaurant">
     <header>
-    <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
-
+      <?php output_restaurant_medium_photo($db, $session, $restaurant); ?>
+      <form action="../actions/action_upload_photo.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id_restaurant" value="<?=$restaurant->id?>">
+        <input type="file" name="restaurant_image">
+        <input type="submit" value="Upload">
+      </form> 
       <div id="restaurant-header-text">
         <h3><?php echo "$restaurant->name"?></h3>
         <h4>	&#183; <?php echo "$average"?></h4>
@@ -542,3 +546,12 @@ function output_edit_dish(Dish $dish)
 
 
     <?php } ?>
+
+
+    <?php function output_restaurant_medium_photo(PDO $db, Session $session, Restaurant $restaurant) { 
+       if(isset($restaurant->photo)) { ?>
+        <img src="../photos/medium/<?=$restaurant->photo?>" alt="<?=$restaurant->name?> photo">
+      <?php } else { ?>
+          <img src="../photos/defaults/<?=$restaurant->category?>.jpg" alt="Restaurant's photo">
+      <?php  } ?>
+      <?php } ?>

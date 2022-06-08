@@ -267,9 +267,9 @@
 
 
 
-          function updateRestaurantPhoto(PDO $db, string $photo, int $id) {
+          static function updateRestaurantPhoto(PDO $db, string $photo, int $id) {
             $stmt = $db->prepare(
-                'UPDATE restaurant SET photo ? where idRestaurant = ?');
+                'UPDATE restaurant SET photo = ? where idRestaurant = ?');
     
             try {
                 $stmt->execute(array($photo, $id));
@@ -278,6 +278,7 @@
                 return false;
               }
         }
+
 
     }
 ?>

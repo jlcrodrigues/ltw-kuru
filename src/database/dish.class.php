@@ -202,10 +202,10 @@
         $stmt->execute(array($id, $dish->idDish));
       }
     }
-  }
-  function updateDishPhoto(PDO $db, string $photo, int $id) {
+
+  static function updateDishPhoto(PDO $db, string $photo, int $id) {
     $stmt = $db->prepare(
-        'UPDATE dish SET dish ? where idDish = ?');
+        'UPDATE dish SET photo = ? where idDish = ?');
 
     try {
         $stmt->execute(array($photo, $id));
@@ -213,5 +213,6 @@
     } catch (PDOException $e) {
         return false;
       }
+  }
 }
 ?>
