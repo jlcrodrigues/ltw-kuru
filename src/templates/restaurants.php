@@ -97,6 +97,7 @@ function output_dish(Dish $dish, $session)
       <h4><?php echo $dish->description ?></h4>
     </div>
     <p><?php echo $dish->price?>€</p>
+    <?php if ($session->isLoggedIn()) { ?>
     <button class="open-add-card">
       <i class="material-symbols-rounded">add</i>
     </button>
@@ -113,6 +114,11 @@ function output_dish(Dish $dish, $session)
         <input type="hidden" name="idDish" value="<?php echo $dish->idDish?>">
       </div>
     </div>
+    <?php } else { ?>
+    <button class="open-add-card login-redirect">
+      <i class="material-symbols-rounded">add</i>
+    </button>
+    <?php } ?>
   </section>
 <?php } ?>
 

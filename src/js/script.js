@@ -51,6 +51,15 @@ function openFavoritesTab(evt, tab_id) {
   evt.currentTarget.className += " active";
 }
 
+const redirect_login = document.querySelectorAll(".login-redirect")
+
+for (const r of redirect_login) {
+  r.addEventListener("click", function () {
+      location.href = "../pages/login.php";
+    }
+  )
+}
+
 function createMessage(text, type) {
   let message = document.createElement('section')
   message.className = 'message ' + type;
@@ -177,8 +186,10 @@ if (favorite_buttons) {
 const open_add_buttons = document.querySelectorAll(".open-add-card")
 
 for (const button of open_add_buttons) {
-  button.onclick = function() {
-    button.nextElementSibling.style.display = "block"
+  if (button.nextElementSibling) {
+    button.onclick = function() {
+      button.nextElementSibling.style.display = "block"
+    }
   }
 }
 
