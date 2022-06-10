@@ -501,6 +501,16 @@ body>footer p {
   margin: 0.5em 0;
 }
 
+.empty {
+  margin: 2em;
+}
+
+.empty > a{
+  text-decoration: underline;
+  color: var(--accent-color);
+  text-decoration-color: var(--accent-color);
+}
+
 /* login & register */
 
 .account {
