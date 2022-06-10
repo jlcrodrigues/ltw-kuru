@@ -17,6 +17,7 @@ function output_header(Session $session)
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/text.css" rel="stylesheet">
     <link href="../css/layout.css" rel="stylesheet">
+    <link href="../css/responsive.css" rel="stylesheet">
     <script src="../js/script.js" defer></script>
   </head>
 
