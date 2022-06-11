@@ -41,11 +41,28 @@ function output_profile_info(User $user)
 <?php } ?>
 
 <?php
-function output_profile_reviews()
+function output_profile_reviews(PDO $db, array $reviews)
 { ?>
   <h2>Reviews</h2>
   <hr>
-<?php } ?>
+  <?php
+  foreach($reviews as $review) { 
+    $restaurant = Restaurant::getReviewRestaurant($db, $review->idReview);
+    ?>
+  <section class="review">
+    <div class="review-title">
+      <a href="../pages/restaurant.php?id=<?=$restaurant->id?>">
+        <h3><?=$restaurant->name?></h3>
+      </a>
+      <h3>- <?php echo $review->rating?></h3>
+      <i class="material-symbols-rounded">star</i>
+    </div>
+    <p><?php echo $review->fullText ?></p>
+    <h4><?=$review->data?></h4>
+  </section>
+
+<?php  }
+} ?>
 
 <?php
 function output_profile_orders(PDO $db, Session $session)
@@ -152,10 +169,12 @@ function output_profile(Session $session)
   require_once(__DIR__ . '/../database/connection.db.php');
   require_once(__DIR__ . '/../database/user.class.php');
   require_once(__DIR__ . '/../database/restaurant.class.php');
+  require_once(__DIR__ . '/../database/review.class.php');
   require_once('restaurants.php');
 
   $db = getDataBaseConnection();
   $user = User::getUserById($db, $session->getId());
+  $reviews = Review::getUserReviews($db, $user->id);
   ?>
 
   <section id="profile" class="card">
@@ -193,7 +212,7 @@ function output_profile(Session $session)
       <?php output_profile_info($user); ?>
     </section>
     <article id="profile-reviews" class="profile-section">
-      <?php output_profile_reviews(); ?>
+      <?php output_profile_reviews($db, $reviews); ?>
     </article>
     <article id="profile-orders" class="profile-section">
       <?php output_profile_orders($db, $session); ?>
