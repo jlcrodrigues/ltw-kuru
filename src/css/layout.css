@@ -85,10 +85,11 @@ body > header * {
   width: 70%;
 }
 
-#profile > img {
+#profile > header {
   grid-column-start: 1;
   grid-row-start: 1;
   justify-self: center;
+  text-align: center;
 }
 
 .profile-section {

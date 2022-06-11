@@ -219,9 +219,9 @@ body>footer p {
   margin: 2em;
 }
 
-#profile > img {
+#profile > header > img {
   border-radius: 50%;
-  margin: 1em;
+  margin: 1em 1em 0 1em;
 }
 
 .profile-section {
@@ -231,6 +231,66 @@ body>footer p {
 
 #profile-info {
   display: block;
+}
+
+#profile-info > button,
+#profile-edit > button:first-of-type {
+  background-color: transparent;
+  color: var(--tertiary-color);
+  float: right;
+  position: relative;
+  right: 2em;
+  top: -3.3em;
+}
+
+#profile-info > button > i,
+#profile-edit > form > button > i {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+#profile-info > i, #profile-info > p {
+  display: inline-block;
+}
+
+#profile-info > i,
+#profile-edit label > i {
+  position: relative;
+  top: 0.2em;
+}
+
+#profile-info > p:nth-of-type(2n - 1),
+#profile-edit > form > label:nth-of-type(2n - 1) {
+  font-weight: bold;
+  font-size: large;
+  margin-bottom: 0;
+}
+
+#profile-edit > form > input {
+  margin-top: 1em;
+  font-weight: bold;
+  font-size: large;
+  font-family: 'Nunito';
+  background-color: var(--bg-color);
+  border-radius: 0.5em;
+  padding: 0.5em;
+  border:none
+}
+
+#profile-info > p:nth-of-type(2n),
+#profile-edit > form > label:nth-of-type(2n) {
+  color: var(--accent-color);
+  margin: 0 0 1em 1.7em;
+  font-style: italic;
+}
+
+#profile-edit > form > button {
+  float: right;
+  margin-right: 1em;
+  min-width: 5em;
+  font-size: large;
+  border-radius: 0.5em;
+  padding: 0.5em;
 }
 
 #profile-reviews {
