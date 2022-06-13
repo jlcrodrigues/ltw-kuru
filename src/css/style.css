@@ -219,9 +219,9 @@ body>footer p {
   margin: 2em;
 }
 
-#profile > img {
+#profile > header > img {
   border-radius: 50%;
-  margin: 1em;
+  margin: 1em 1em 0 1em;
 }
 
 .profile-section {
@@ -231,6 +231,66 @@ body>footer p {
 
 #profile-info {
   display: block;
+}
+
+#profile-info > button,
+#profile-edit > button:first-of-type {
+  background-color: transparent;
+  color: var(--tertiary-color);
+  float: right;
+  position: relative;
+  right: 2em;
+  top: -3.3em;
+}
+
+#profile-info > button > i,
+#profile-edit > form > button > i {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+#profile-info > i, #profile-info > p {
+  display: inline-block;
+}
+
+#profile-info > i,
+#profile-edit label > i {
+  position: relative;
+  top: 0.2em;
+}
+
+#profile-info > p:nth-of-type(2n - 1),
+#profile-edit > form > label:nth-of-type(2n - 1) {
+  font-weight: bold;
+  font-size: large;
+  margin-bottom: 0;
+}
+
+#profile-edit > form > input {
+  margin-top: 1em;
+  font-weight: bold;
+  font-size: large;
+  font-family: 'Nunito';
+  background-color: var(--bg-color);
+  border-radius: 0.5em;
+  padding: 0.5em;
+  border:none
+}
+
+#profile-info > p:nth-of-type(2n),
+#profile-edit > form > label:nth-of-type(2n) {
+  color: var(--accent-color);
+  margin: 0 0 1em 1.7em;
+  font-style: italic;
+}
+
+#profile-edit > form > button {
+  float: right;
+  margin-right: 1em;
+  min-width: 5em;
+  font-size: large;
+  border-radius: 0.5em;
+  padding: 0.5em;
 }
 
 #profile-reviews {
@@ -264,6 +324,41 @@ body>footer p {
 
 #logout-button {
   justify-self: flex-end;
+  width: 100%;
+}
+
+#profile-reviews > .review h3 {
+  margin-left: 0.3em;
+  font-size: large;
+}
+
+.review p::first-letter {
+  text-transform: uppercase;
+  margin-left: 1em;
+}
+
+#profile-reviews > .review {
+  margin: 1em;
+}
+
+#profile-reviews .review-title > a {
+  margin: 0;
+}
+
+#profile-reviews > .review h4 {
+  float: right;
+  position: relative;
+  right: -1em;
+  bottom: 1.7em;
+  color: var(--accent-color);
+  font-style: italic;
+  font-weight: 300;
+}
+
+#profile-reviews > .review i {
+  position: relative;
+  bottom: 0.1em;
+  color: var(--tertiary-color);
 }
 
 #profile-orders > .cart {
@@ -296,6 +391,16 @@ body>footer p {
   padding: 0.5em;
   border-radius: 1em;
   font-size: large;
+}
+
+#profile-owner .add_restaurant {
+  background-color: transparent;
+  color: var(--tertiary-color);
+  font-size: xx-large;
+}
+
+.add_restaurant > i {
+  font-size: xx-large;
 }
 
 /* restaurant page */
@@ -344,11 +449,13 @@ body>footer p {
   padding: 0.5em;
 }
 
-#form-favorite {
+#form-favorite,
+#restaurant-delete {
   margin: 2em;
 }
 
-.favorite-button {
+.favorite-button,
+#restaurant-delete button {
   cursor: pointer;
   background: none;
   border: none;
@@ -359,8 +466,14 @@ body>footer p {
   font-variation-settings: 'FILL' 1;
 }
 
-.favorite-button > i {
+.favorite-button > i,
+#restaurant-delete button > i {
   font-size: xx-large;
+}
+
+.delete_meal {
+  background-color: transparent;
+  color: var(--tertiary-color);
 }
 
 #restaurant-menu {
@@ -503,6 +616,7 @@ body>footer p {
 
 .empty {
   margin: 2em;
+  text-align: center;
 }
 
 .empty > a{
@@ -521,7 +635,8 @@ body>footer p {
   border-radius: 0.5em;
 }
 
-.account > form > *, .account > hr {
+.account > form > *, .account > hr,
+.account select {
   width: 15em;
   margin: 1em;
 }
@@ -530,7 +645,8 @@ body>footer p {
   text-align: center;
 }
 
-.account > form > input {
+.account > form > input,
+.account > form > select {
   font-family: "Nunito";
   padding: 1em;
   border: 0.1em solid var(--shadow-color) ;

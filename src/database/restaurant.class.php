@@ -221,8 +221,8 @@
             $restaurant = $stmt->fetch();
         
             return new Restaurant(
-                $restaurant['idRestaurant'],
-                $restaurant['idUser'],
+                intval($restaurant['idRestaurant']),
+                intval($restaurant['idUser']),
                 $restaurant['name'],
                 $restaurant['opens'],
                 $restaurant['closes'],
@@ -265,6 +265,27 @@
                 $restaurant['photo']);
         }  
 
+          static function getReviewRestaurant(PDO $db, int $idReview) : Restaurant {
+            $stmt = $db->prepare(
+                'SELECT DISTINCT Review.idRestaurant, restaurant.idUser, name, opens, closes, category, address, photo
+                 FROM Restaurant, Review
+                 WHERE Review.idReview = ?
+                 AND Restaurant.idRestaurant = Review.idRestaurant');
+            $stmt->execute(array($idReview));
+        
+            $restaurant = $stmt->fetch();
+        
+            return new Restaurant(
+                intval($restaurant['idRestaurant']),
+                intval($restaurant['idUser']),
+                $restaurant['name'],
+                $restaurant['opens'],
+                $restaurant['closes'],
+                $restaurant['category'],
+                $restaurant['address'],
+                $restaurant['photo']);
+        }  
+
 
 
           function updateRestaurantPhoto(PDO $db, string $photo, int $id) {
@@ -280,5 +301,3 @@
         }
 
     }
-?>
-
