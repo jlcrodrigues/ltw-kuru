@@ -324,6 +324,7 @@ body>footer p {
 
 #logout-button {
   justify-self: flex-end;
+  width: 100%;
 }
 
 #profile-reviews > .review h3 {

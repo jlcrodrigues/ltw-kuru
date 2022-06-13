@@ -156,8 +156,11 @@ function output_profile_edit(User $user)
     <br>
     <label for="country">Country</label>
     <br>
-
     <button type="submit">Save</button>
+    <button id="change_password-button" class="profile-section-button" onclick="openProfileTab(event, 'profile-change_password')">
+      Change Password
+    </button>
+
   </form>
 
 <?php } ?>
@@ -201,9 +204,6 @@ function output_profile(Session $session)
           Become an Owner
         </button>
       <?php } ?>
-      <button id="change_password-button" class="profile-section-button" onclick="openProfileTab(event, 'profile-change_password')">
-        Change Password
-      </button>
       <form action="../actions/action_logout.php" method="post">
         <button id="logout-button" class="profile-section-button">Logout</button>
       </form>
