@@ -221,8 +221,8 @@
             $restaurant = $stmt->fetch();
         
             return new Restaurant(
-                $restaurant['idRestaurant'],
-                $restaurant['idUser'],
+                intval($restaurant['idRestaurant']),
+                intval($restaurant['idUser']),
                 $restaurant['name'],
                 $restaurant['opens'],
                 $restaurant['closes'],

@@ -54,8 +54,7 @@ function output_favorites(array $restaurants, array $dishes, $session)
 
 <?php
 function output_empty_fav() { ?>
-  <h3 class="empty">
-    Nothing here. 
+  <h3 class="empty"> Nothing here. 
     <a href="search.php">Search </a>
     restaurants.
   </h3>

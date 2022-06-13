@@ -393,6 +393,16 @@ body>footer p {
   font-size: large;
 }
 
+#profile-owner .add_restaurant {
+  background-color: transparent;
+  color: var(--tertiary-color);
+  font-size: xx-large;
+}
+
+.add_restaurant > i {
+  font-size: xx-large;
+}
+
 /* restaurant page */
 
 #restaurant {
@@ -439,11 +449,13 @@ body>footer p {
   padding: 0.5em;
 }
 
-#form-favorite {
+#form-favorite,
+#restaurant-delete {
   margin: 2em;
 }
 
-.favorite-button {
+.favorite-button,
+#restaurant-delete button {
   cursor: pointer;
   background: none;
   border: none;
@@ -454,8 +466,14 @@ body>footer p {
   font-variation-settings: 'FILL' 1;
 }
 
-.favorite-button > i {
+.favorite-button > i,
+#restaurant-delete button > i {
   font-size: xx-large;
+}
+
+.delete_meal {
+  background-color: transparent;
+  color: var(--tertiary-color);
 }
 
 #restaurant-menu {
@@ -598,6 +616,7 @@ body>footer p {
 
 .empty {
   margin: 2em;
+  text-align: center;
 }
 
 .empty > a{
@@ -616,7 +635,8 @@ body>footer p {
   border-radius: 0.5em;
 }
 
-.account > form > *, .account > hr {
+.account > form > *, .account > hr,
+.account select {
   width: 15em;
   margin: 1em;
 }
@@ -625,7 +645,8 @@ body>footer p {
   text-align: center;
 }
 
-.account > form > input {
+.account > form > input,
+.account > form > select {
   font-family: "Nunito";
   padding: 1em;
   border: 0.1em solid var(--shadow-color) ;

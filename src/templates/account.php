@@ -21,15 +21,19 @@ function output_profile_info(User $user)
   <br>
   <p>Email</p>
   <br>
+  <?php if ($user->phone != null) {?>
   <i class="material-symbols-rounded">call</i>
   <p><?php echo $user->phone ?></p>
   <br>
   <p>Phone Number</p>
   <br>
+  <?php } ?>
+  <?php if ($user->address != null) {?>
   <i class="material-symbols-rounded">home_pin</i>
   <p><?php echo $user->address ?></p>
   <br>
   <p>Address</p>
+  <?php } ?>
   <?php if ($user->city != null and $user->country != null) { ?>
     <br>
     <i class="material-symbols-rounded">map</i>
@@ -46,6 +50,11 @@ function output_profile_reviews(PDO $db, array $reviews)
   <h2>Reviews</h2>
   <hr>
   <?php
+  if (count($reviews) == 0) { ?>
+    <h3 class="empty">No reviews yet!</h3>
+  <?php
+    return;
+  }
   foreach($reviews as $review) { 
     $restaurant = Restaurant::getReviewRestaurant($db, $review->idReview);
     ?>
@@ -74,6 +83,10 @@ function output_profile_orders(PDO $db, Session $session)
   <hr>
   <?php
   $orders_id = User::getOrdersByState($db, $session->getId(), 'Processing');
+  if (count($orders_id) == 0) { ?>
+    <h3 class="empty">No orders here yet!</h3>
+  <?php
+  }
   foreach ($orders_id as $id) {
     $dishes = Dish::getOrderDishes($db, $id);
     $restaurant = Restaurant::getOrderRestaurant($db, $id);
@@ -84,6 +97,10 @@ function output_profile_orders(PDO $db, Session $session)
   <hr>
   <?php
   $orders_id = User::getOrdersByState($db, $session->getId(), 'Completed');
+  if (count($orders_id) == 0) { ?>
+    <h3 class="empty">No orders here yet!</h3>
+  <?php
+  }
   foreach ($orders_id as $id) {
     $dishes = Dish::getOrderDishes($db, $id);
     $restaurant = Restaurant::getOrderRestaurant($db, $id);
@@ -224,17 +241,28 @@ function output_profile(Session $session)
       <?php output_profile_edit($user); ?>
     </section>
     <section id="profile-owner" class="profile-section">
-      <h3>Restaurants <a href="../pages/register_restaurant.php"><button name=add class="add_restaurant"><i class="material-icons">add_circle</i></button></a></h3>
-      <?php
+      <h2>
+        Restaurants
+      </h2>
+      <hr>
+      <a href="../pages/register_restaurant.php">
+        <button name=add class="add_restaurant">
+          <i class="material-icons">add_circle</i>
+        </button>
+      </a>
+    <?php
       $restaurants = Restaurant::getOwnerRestaurants($db, $session->getId());
-
+      ?>
+      <div><?php
       foreach ($restaurants as $restaurant) {
         output_restaurant_card_nano($restaurant);
       }
       ?>
+      </div>
     </section>
     <section id="profile-not-owner" class="profile-section">
-      <h3>Become a owner now!</h3>
+      <h2>Become an owner now!</h2>
+      <hr>
       <?php output_register_restaurant_form($db, $session) ?>
     </section>
   </section>
