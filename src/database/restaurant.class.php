@@ -244,6 +244,18 @@
             }
           }
 
+          static function deletePhoto(PDO $db, int $id) {
+            $stmt = $db->prepare('
+            UPDATE Restaurant SET photo = NULL where idRestaurant = ?');
+
+            try {
+                $stmt->execute(array($id));
+                return true;
+            } catch (PDOException $e) {
+                return false;
+            }
+          }
+
           static function getOrderRestaurant(PDO $db, int $idOrder) : Restaurant {
             $stmt = $db->prepare(
                 'SELECT DISTINCT Request.idRestaurant, restaurant.idUser, name, opens, closes, category, address, photo
