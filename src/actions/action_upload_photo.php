@@ -31,7 +31,6 @@
     if ($photo['size']) {
 
         // creating photo paths
-        // $extension = pathinfo($photo['name'], PATHINFO_EXTENSION);
         $original_photo_path = $originalDir . $id . '.jpg'; 
         $medium_photo_path = $mediumDir . $id . '.jpg';
         $mini_photo_path = $miniDir . $id . '.jpg';

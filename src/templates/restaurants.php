@@ -74,11 +74,12 @@ function output_restaurant_search(PDO $db, Session $session, array $restaurants)
 <?php } ?>
 
 <?php
-function output_dish(Dish $dish, $session)
+function output_dish(PDO $db, Session $session, Dish $dish)
 { ?>
   <section class="dish">
+     <?php output_dish_photo($db, $session, $dish, 'mini'); ?>
     <div>
-      <h3><?php echo $dish->name ?></h3>
+      <h3><?php echo $dish->name ?></h3> 
       <?php
       if ($session->isLoggedIn()) { ?>
         <div class="fav-dish-form">
@@ -135,7 +136,7 @@ function output_dish_category(PDO $db, $session, string $category, int $idRestau
   echo '<h2>' . ucwords($category) . '</h2><hr>';
 
   foreach ($dishes as $dish) {
-    output_dish($dish, $session);
+    output_dish($db, $session, $dish);
   }
   ?></section><?php
 }?>
@@ -395,7 +396,7 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
     <article id="restaurant-menu" class="restaurant-tab">
       <?php
       foreach ($dishes as $dish) {
-        output_edit_dish($dish);
+        output_edit_dish($db, $session, $dish);
       }
       ?>
     </article>
@@ -407,9 +408,18 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
 
 
 <?php
-function output_edit_dish(Dish $dish)
+function output_edit_dish(PDO $db, Session $session, Dish $dish)
 { ?>
+      <form action="../actions/action_upload_dish_photo.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id_dish" value="<?=$dish->idDish?>">
+        <input type="file" name="dish_image">
+        <input type="submit" value="Upload">
+      </form> 
+      <form action="../actions/action_delete_dish_photo.php?id=<?=$dish->idDish?>" method="post" class="dish">
+        <button name=delete class="delete_meal"><i class="material-icons">delete</i></button>
+    </form>
   <section class="meal">
+      <?php output_dish_photo($db, $session, $dish, 'mini'); ?>
     <div>
       <h3><?php echo $dish->name ?></h3>
       <h4><?php echo $dish->description ?></h4>
@@ -553,7 +563,15 @@ function output_edit_dish(Dish $dish)
        if(isset($restaurant->photo)) { ?>
         <img src="../photos/restaurants/<?=$size?>/<?=$restaurant->photo?>" alt="<?=$restaurant->name?> photo">
       <?php } else { ?>
-          <img src="../photos/defaults/<?=$size?>/<?=$restaurant->category?>.jpg" alt="Restaurant's photo">
+          <img src="../photos/defaults/restaurants/<?=$size?>/<?=$restaurant->category?>.jpg" alt="Restaurant's photo">
+      <?php  } ?>
+    <?php } ?>
+
+    <?php function output_dish_photo(PDO $db, Session $session, Dish $dish, string $size) { 
+       if(isset($dish->photo)) { ?>
+        <img src="../photos/dishes/<?=$size?>/<?=$dish->photo?>" alt="<?=$dish->name?> photo">
+      <?php } else { ?>
+          <img src="../photos/defaults/dishes/bread.jpg" alt="Dish photo">
       <?php  } ?>
     <?php } ?>
 
