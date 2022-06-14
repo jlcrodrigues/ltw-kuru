@@ -200,7 +200,8 @@ for (const button of close_add_buttons) {
 }
 
 window.onclick = function(event) {
-  if (event.target.className == "add-card") {
+  if (event.target.className == "add-card"
+      || event.target.className == "add-review-card") {
     event.target.style.display = "none";
   }
 }
@@ -218,6 +219,30 @@ if (cart_buttons) {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
         body: "idDish=" + id + "&action=add&quantity=" + quantity
+      })
+      .then(button.parentElement.parentElement.style.display = "none")
+      document.querySelector('#messages')
+        .appendChild(createMessage('Added to cart!', 'success'))
+    })
+  }
+}
+
+const review_buttons = document.querySelectorAll(".add-review")
+
+if (review_buttons) {
+  for (const button of review_buttons) {
+    const id = button.nextElementSibling.value;
+    button.addEventListener("click", function () {
+      const text = button.previousElementSibling.value;
+      const rating = button.previousElementSibling.previousElementSibling.value;
+      const restaurant = button.nextElementSibling.value;
+      console.log(text);
+      fetch("../api/api_review.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idRestaurant=" + restaurant + "&rating=" + rating + "&text=" + text
       })
       .then(button.parentElement.parentElement.style.display = "none")
       document.querySelector('#messages')

@@ -455,4 +455,5 @@ class User
             return false;
           }
     }
+
 }

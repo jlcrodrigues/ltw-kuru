@@ -60,5 +60,11 @@
             return $reviews;
         }
 
+        static function addReview(PDO $db, int $idUser, int $idRestaurant, int $rating, string $text) {
+            $stmt = $db->prepare(
+                'INSERT INTO Review(idUser, idRestaurant, rating, fullText, data)
+                 VALUES (?, ?, ?, ?, ?)');
+            $stmt->execute(array($idUser, $idRestaurant, $rating, $text, date("d/m/Y")));
+        }
     }
 ?>

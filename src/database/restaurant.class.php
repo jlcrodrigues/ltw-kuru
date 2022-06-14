@@ -230,7 +230,7 @@ class Restaurant
 
         $rating = $stmt->fetch();
 
-        return floatval($rating['average']);
+        return round(floatval($rating['average']));
     }
 
     static function getDishRestaurant(PDO $db, $idDish)
@@ -255,7 +255,6 @@ class Restaurant
             $restaurant['photo']
         );
     }
-
 
     static function deleteRestaurant(PDO $db, int $id)
     {

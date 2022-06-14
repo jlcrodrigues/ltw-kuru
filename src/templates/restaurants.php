@@ -272,7 +272,23 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
       ?>
     </article>
     <article id="restaurant-reviews" class="restaurant-tab">
-      <?php
+    <?php if ($session->isLoggedIn()) { ?>
+      <button class="open-add-card">
+        Add review
+      </button>
+      <div class="add-review-card" style="display: none">
+        <div class="add-content card">
+          <button class="close-add">
+            <i class="material-symbols-rounded">close</i>
+          </button>
+          <h2>Add a Review</h2>
+          <input type="number" name="rating" min="0" max="10">
+          <textarea name="text" rows="5" cols="60"></textarea>
+          <button class="add-review">Review</button>
+          <input type="hidden" name="idRestaurant" value="<?php echo $restaurant->id ?>">
+        </div>
+      </div>
+    <?php }
       if (count($reviews) == 0) { ?>
         <p>No reviews here yet!</p>
       <?php } else {
