@@ -9,8 +9,10 @@
     public float $price;
     public int $promotion;
     public string $category;
+    public ?string $photo;
+    
 
-    public function __construct(int $idDish, int $idRestaurant, string $name, string $description, float $price, string $category)
+    public function __construct(int $idDish, int $idRestaurant, string $name, string $description, float $price, string $category, ?string $photo)
     {
       $this->idDish = $idDish;
       $this->idRestaurant = $idRestaurant;
@@ -18,11 +20,12 @@
       $this->description = $description;
       $this->price = $price;
       $this->category = $category;
+      $this->photo = $photo;
     }
 
     static function getRestaurantDishes(PDO $db, int $idRestaurant) : array {
         $stmt = $db->prepare(
-          'SELECT idDish, idRestaurant, name, description, price, category 
+          'SELECT idDish, idRestaurant, name, description, price, category, photo
           FROM Dish 
           WHERE idRestaurant = ?');
         $stmt->execute(array($idRestaurant));
@@ -36,7 +39,8 @@
             $dish['name'],
             $dish['description'],
             floatval($dish['price']),
-            $dish['category']
+            $dish['category'],
+            $dish['photo']
           );
         }
         return $dishes;
@@ -44,7 +48,7 @@
 
     static function getDish(PDO $db, int $idDish) : Dish {
       $stmt = $db->prepare(
-        'SELECT idDish, idRestaurant, name, description, price, category 
+        'SELECT idDish, idRestaurant, name, description, price, category, photo 
         FROM Dish
         WHERE idDish = ?');
 
@@ -58,7 +62,8 @@
         $dish['name'],
         $dish['description'],
         floatval($dish['price']),
-        $dish['category']
+        $dish['category'],
+        $dish['photo']
       );
     }
 
@@ -79,7 +84,7 @@
 
     static function getRestaurantDishesByCategory(PDO $db, string $category, int $idRestaurant) : array {
         $stmt = $db->prepare(
-          'SELECT idDish, idRestaurant, name, description, price, category 
+          'SELECT idDish, idRestaurant, name, description, price, category, photo 
           FROM Dish 
           WHERE category
           LIKE ?
@@ -96,7 +101,8 @@
             $dish['name'],
             $dish['description'],
             floatval($dish['price']),
-            $dish['category']
+            $dish['category'],
+            $dish['photo']
           );
         }
         return $dishes;
@@ -157,7 +163,7 @@
 
     static function getOrderDishes(PDO $db, int $idOrder) : array {
         $stmt = $db->prepare(
-          'SELECT Dish.idDish, Dish.idRestaurant, name, description, price, category 
+          'SELECT Dish.idDish, Dish.idRestaurant, name, description, price, category, photo 
           FROM Dish, Request_Dish
           WHERE idRequest = ?
           AND Dish.idDish = Request_Dish.idDish');
@@ -172,7 +178,8 @@
             $dish['name'],
             $dish['description'],
             floatval($dish['price']),
-            $dish['category']
+            $dish['category'],
+            $dish['photo']
           );
         }
         return $dishes;
@@ -202,10 +209,10 @@
         $stmt->execute(array($id, $dish->idDish));
       }
     }
-  }
-  function updateDishPhoto(PDO $db, string $photo, int $id) {
+
+  static function updateDishPhoto(PDO $db, string $photo, int $id) {
     $stmt = $db->prepare(
-        'UPDATE dish SET dish ? where idDish = ?');
+        'UPDATE dish SET photo = ? where idDish = ?');
 
     try {
         $stmt->execute(array($photo, $id));
@@ -213,5 +220,18 @@
     } catch (PDOException $e) {
         return false;
       }
+  }
+
+  static function deletePhoto(PDO $db, int $id) {
+    $stmt = $db->prepare('
+    UPDATE Dish SET photo = NULL where idDish = ?');
+
+    try {
+        $stmt->execute(array($id));
+        return true;
+    } catch (PDOException $e) {
+        return false;
+    }
+  }
 }
 ?>

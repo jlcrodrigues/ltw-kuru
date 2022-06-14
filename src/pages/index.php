@@ -22,7 +22,7 @@
   foreach ($categories as $category) {
     $restaurants = Restaurant::getRestaurantsByCategory($db, $category);
     if (sizeof($restaurants) < 5) continue;
-    output_restaurant_slide($restaurants, ucwords($category));
+    output_restaurant_slide($db, $session, $restaurants, ucwords($category));
   }
   output_footer();
 ?>

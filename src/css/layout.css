@@ -260,7 +260,8 @@ body > header * {
   align-items: center;
 }
 
-.add-card {
+.add-card,
+.add-review-card {
   position: fixed;
   z-index: 10;
   left: 0;

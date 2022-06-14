@@ -163,11 +163,13 @@ input[name=search]:focus {
   position: absolute;
   bottom: 8px;
   left: 10px;
-  text-shadow: 0.3em 0.3em 0.8em black;
 }
 
 .nano-text * {
   margin: 0.2em;
+  text-shadow: 5px 5px 5px black,
+               -5px -5px 5px black,
+               5px 5px 5px black;
 }
 
 .nano-text > h4 {
@@ -524,6 +526,15 @@ body>footer p {
   color: var(--tertiary-color);
 }
 
+#restaurant-reviews .open-add-card {
+  border-radius: 0.5em;
+  padding: 0.5em;
+  width: auto;
+  height: auto;
+  margin: 1em auto;
+  font-size: large;
+}
+
 .open-add-card {
   border-radius: 50%;
   border: none;
@@ -538,6 +549,22 @@ body>footer p {
   font-size: x-large;
   font-weight: 700;
   color: white;
+}
+
+.add-review-card > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-review-card > div > * {
+  display: block;
+  margin: 1em;
+  font-family: 'Nunito';
+}
+
+.dish {
+  margin-bottom: 0.5em;
 }
 
 .dish h4 {
@@ -671,6 +698,43 @@ body>footer p {
   padding: 0.5em;
   border-radius: 0.5em;
   font-size: large;
+}
+
+.edit-photo {
+  display: flex;
+}
+
+.dish .edit-photo {
+  flex-direction: column;
+}
+
+.dish .edit-photo form > label {
+  display: block;
+}
+
+.input-photo > input,
+.upload input {
+  display: none;
+}
+
+.input-photo > i,
+.upload > i,
+.remove-photo {
+  font-size: 2em;
+  margin: 0.4em;
+  color: var(--tertiary-color);
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.remove-photo {
+  position: relative;
+  right: 0.2em;
+  bottom: 0.05em;
+}
+
+.remove-photo > i {
+  font-size: 1em;
 }
 
 /* favorites page */
@@ -866,7 +930,8 @@ body>footer p {
   border-radius: 50%;
 }
 
-.add-card {
+.add-card,
+.add-review-card {
   background-color: rgb(0,0,0,0.1);
 }
 
@@ -910,7 +975,8 @@ input[name=quantity] {
   color: var(--primary-color);
 }
 
-.add-to-cart {
+.add-to-cart,
+.add-review {
   border: none;
   font-size: large;
   border-radius: 1em;
@@ -947,4 +1013,42 @@ input[name=quantity] {
   to {
     opacity: 0;
   }
+}
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

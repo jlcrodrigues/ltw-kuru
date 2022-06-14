@@ -256,7 +256,7 @@ function output_profile(Session $session)
       ?>
       <div><?php
       foreach ($restaurants as $restaurant) {
-        output_restaurant_card_nano($restaurant);
+        output_restaurant_card_nano($db, $session, $restaurant);
       }
       ?>
       </div>

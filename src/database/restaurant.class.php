@@ -103,7 +103,6 @@ class Restaurant
     }
 
 
-
     static function getOwnerRestaurants(PDO $db, int $idUser)
     {
         $stmt = $db->prepare(
@@ -146,15 +145,16 @@ class Restaurant
         return $categories;
     }
 
-    static function getRestaurantsByCategory(PDO $db, string $category): array
+    static function searchRestaurantsByCategory(PDO $db, string $category,string $search): array
     {
         $stmt = $db->prepare(
             'SELECT idRestaurant, idUser, name, opens, closes, category, address, photo
                  FROM Restaurant
                  WHERE category
-                 LIKE ?'
+                 LIKE ?
+                 AND name LIKE ?'
         );
-        $stmt->execute(array($category . '%'));
+        $stmt->execute(array($category . '%',$search . '%'));
 
         $restaurants = array();
         while ($restaurant = $stmt->fetch()) {
@@ -172,6 +172,33 @@ class Restaurant
 
         return $restaurants;
     }
+
+    static function getRestaurantsByCategory(PDO $db, string $category): array
+        {
+            $stmt = $db->prepare(
+                'SELECT idRestaurant, idUser, name, opens, closes, category, address, photo
+                     FROM Restaurant
+                     WHERE category
+                     LIKE ?'
+            );
+            $stmt->execute(array($category . '%'));
+
+            $restaurants = array();
+            while ($restaurant = $stmt->fetch()) {
+                $restaurants[] = new Restaurant(
+                    intval($restaurant['idRestaurant']),
+                    intval($restaurant['idUser']),
+                    $restaurant['name'],
+                    $restaurant['opens'],
+                    $restaurant['closes'],
+                    $restaurant['category'],
+                    $restaurant['address'],
+                    $restaurant['photo']
+                );
+            }
+
+            return $restaurants;
+        }
 
 
 
@@ -231,7 +258,7 @@ class Restaurant
 
         $rating = $stmt->fetch();
 
-        return floatval($rating['average']);
+        return round(floatval($rating['average']));
     }
 
     static function getDishRestaurant(PDO $db, $idDish)
@@ -257,19 +284,30 @@ class Restaurant
         );
     }
 
-
     static function deleteRestaurant(PDO $db, int $id)
     {
         $stmt = $db->prepare('
             DELETE FROM Restaurant WHERE idRestaurant = ?');
+            
+            try {
+              $stmt->execute(array($id));
+              return true;
+            } catch (PDOException $e) {
+              return false;
+            }
+          }
 
-        try {
-            $stmt->execute(array($id));
-            return true;
-        } catch (PDOException $e) {
-            return false;
-        }
-    }
+          static function deletePhoto(PDO $db, int $id) {
+            $stmt = $db->prepare('
+            UPDATE Restaurant SET photo = NULL where idRestaurant = ?');
+
+            try {
+                $stmt->execute(array($id));
+                return true;
+            } catch (PDOException $e) {
+                return false;
+            }
+          }
 
     static function getOrderRestaurant(PDO $db, int $idOrder): ?Restaurant
     {
@@ -315,6 +353,7 @@ class Restaurant
         return $orders;
     }
 
+
     static function getReviewRestaurant(PDO $db, int $idReview): Restaurant
     {
         $stmt = $db->prepare(
@@ -341,10 +380,10 @@ class Restaurant
 
 
 
-    function updateRestaurantPhoto(PDO $db, string $photo, int $id)
+    static function updateRestaurantPhoto(PDO $db, string $photo, int $id)
     {
         $stmt = $db->prepare(
-            'UPDATE restaurant SET photo ? where idRestaurant = ?'
+            'UPDATE restaurant SET photo = ? where idRestaurant = ?'
         );
 
         try {

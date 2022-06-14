@@ -15,7 +15,27 @@ require_once(__DIR__ . '/../utils/security.php');
     die(header('Location: ' . $_SERVER['HTTP_REFERER']));
   }
 
-  $restaurants = Restaurant::searchRestaurants($db, $_GET['search'], 5);
+  $categories = explode(",",$_POST['selected_categories'][0]);
+  if (empty($categories)){
+    $categories = Restaurant::getCategories($db);
+  }
+  $restaurants = array();
+  foreach ($categories as $category){
+    $restaurants_by_category = Restaurant::searchRestaurantsByCategory($db,$category,$_POST['search']);
+    $restaurants = array_merge($restaurants,$restaurants_by_category);
+  }
 
-  echo json_encode($restaurants);
+  $averages = array();
+  $final_restaurants = array();
+  $i=0;
+  foreach ($restaurants as $restaurant){
+    if(($averages[$restaurant->id] = Restaurant::getAverage($db, $restaurant->id))>=$_POST['minimum_rating']){
+        array_push($final_restaurants,  $restaurant);
+    }
+    $i++;
+    if($i>4){
+        break;
+    }
+  }
+  echo json_encode(array('a'=>$final_restaurants,'b'=>$averages));
 ?>

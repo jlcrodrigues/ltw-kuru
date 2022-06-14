@@ -80,46 +80,101 @@ function createMessage(text, type) {
 const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()
 
-const searchRestaurant = document.querySelector('#search-restaurant');
+const searchRestaurant = document.querySelector('#search-restaurant')
+const filterRestaurantCategory = document.querySelectorAll('.filter-category');
 const isIndex = window.location.toString().includes('/pages/index.php');
+const filterRestaurantRating = document.querySelectorAll('.filter-rating');
+
 if (searchRestaurant && !isIndex) {
-  if (searchRestaurant.value) getRestaurants.call(searchRestaurant);
-  searchRestaurant.addEventListener('input',getRestaurants);
+  if (searchRestaurant.value) getRestaurants.call();
+  searchRestaurant.addEventListener('input',  getRestaurants);
+}
+
+if(filterRestaurantCategory){
+  for (category of filterRestaurantCategory){
+    category.addEventListener('input',getRestaurants);
+  }
+}
+
+if(filterRestaurantRating){
+  for (rating of filterRestaurantRating){
+    rating.addEventListener('input',getRestaurants);
+  }
 }
 
 async function getRestaurants() {
-    const response = await fetch('../api/api_restaurants.php?search=' + this.value);
-    const restaurants = await response.json();
-
-    const section = document.querySelector('.restaurants-search');
-    section.innerHTML = '';
-
-    if(restaurants.length===0){
-      const h = document.createElement('h3');
-      h.classList.add("no-restaurants");
-      h.textContent = "No matches found";
-      section.appendChild(h);
+  let categories = [];
+  filterRestaurantCategory.forEach(item=>{
+    if (item.checked){
+      categories.push(item.value);
     }
+  })
+  if(filterRestaurantRating[2].checked){
+    rating = 5.5;
+  }else if(filterRestaurantRating[1].checked){
+    rating = 3.5;
+  }else if(filterRestaurantRating[0].checked){
+    rating = 2.5;
+  }else{
+    rating = 0;
+  }
+  const response = await fetch('../api/api_restaurants.php?search=', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body: "search=" + searchRestaurant.value + "&selected_categories[]=" + categories + "&minimum_rating=" + rating
+  });
+  const response_array = await response.json();
+  const restaurants = response_array['a'];
+  const averages = response_array['b'];
+  const section = document.querySelector('.restaurants-search');
+  section.innerHTML = '';
 
-    for (const restaurant of restaurants) {
-      const link = document.createElement('a');
-      link.href = "../pages/restaurant.php?id=" + restaurant.id;
-      link.classList.add("restaurant-mini");
-      const img = document.createElement('img');
-      img.src = "https://picsum.photos/id/101/200/200";
-      img.alt = "";
-      const div = document.createElement('div');
-      div.classList.add("mini-text");
-      const h3 = document.createElement('h3');
-      h3.textContent = restaurant.name;
-      const h4 = document.createElement('h4');
-      h4.textContent = restaurant.address;
-      div.appendChild(h3);
-      div.appendChild(h4);
-      link.appendChild(img);
-      link.appendChild(div);
-      section.appendChild(link);
-    }
+  if(restaurants.length===0){
+    const h = document.createElement('h3');
+    h.classList.add("no-restaurants");
+    h.textContent = "No matches found";
+    section.appendChild(h);
+  }
+  for (const restaurant of restaurants) {
+    const link = document.createElement('a');
+    link.href = "../pages/restaurant.php?id=" + restaurant.id;
+    link.classList.add("restaurant-mini");
+    const img = document.createElement('img');
+    img.src = "https://picsum.photos/id/101/200/200";
+    img.alt = "";
+    const div = document.createElement('div');
+    div.classList.add("mini-text");
+    const h3 = document.createElement('h3');
+    h3.textContent = restaurant.name;
+    const h4 = document.createElement('h4');
+    h4.textContent = restaurant.address;
+    const categ = document.createElement('p');
+    categ.textContent = restaurant.category;
+    categ.classList.add("category");
+    const avg = document.createElement('p');
+    avg.textContent = averages[restaurant.id];
+    const open_time = document.createElement('p');
+    const close_time = document.createElement('p');
+    open_time.textContent = restaurant.opens.substring(0,5);
+    close_time.textContent = restaurant.closes.substring(0,5);
+    open_time.setAttribute("id","opening-time");
+    close_time.setAttribute("id","closing-time");
+    const icon = document.createElement('i');
+    icon.classList.add("material-symbols-rounded");
+    icon.textContent="star";
+    avg.appendChild(icon);
+    div.appendChild(h3);
+    div.appendChild(h4);
+    div.appendChild(categ);
+    div.appendChild(avg);
+    div.appendChild(open_time);
+    div.appendChild(close_time);
+    link.appendChild(img);
+    link.appendChild(div);
+    section.appendChild(link);
+  }
 }
 function closeMessage(event) {
   let message = event.currentTarget.parentNode
@@ -200,7 +255,8 @@ for (const button of close_add_buttons) {
 }
 
 window.onclick = function(event) {
-  if (event.target.className == "add-card") {
+  if (event.target.className == "add-card"
+      || event.target.className == "add-review-card") {
     event.target.style.display = "none";
   }
 }
@@ -218,6 +274,30 @@ if (cart_buttons) {
           "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         },
         body: "idDish=" + id + "&action=add&quantity=" + quantity
+      })
+      .then(button.parentElement.parentElement.style.display = "none")
+      document.querySelector('#messages')
+        .appendChild(createMessage('Added to cart!', 'success'))
+    })
+  }
+}
+
+const review_buttons = document.querySelectorAll(".add-review")
+
+if (review_buttons) {
+  for (const button of review_buttons) {
+    const id = button.nextElementSibling.value;
+    button.addEventListener("click", function () {
+      const text = button.previousElementSibling.value;
+      const rating = button.previousElementSibling.previousElementSibling.value;
+      const restaurant = button.nextElementSibling.value;
+      console.log(text);
+      fetch("../api/api_review.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idRestaurant=" + restaurant + "&rating=" + rating + "&text=" + text
       })
       .then(button.parentElement.parentElement.style.display = "none")
       document.querySelector('#messages')
