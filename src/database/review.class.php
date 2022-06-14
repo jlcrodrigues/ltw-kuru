@@ -20,7 +20,8 @@
 
         static function getRestaurantReviews(PDO $db, int $idRestaurant) : array {
             $stmt = $db->prepare(
-                'SELECT idReview, idUser, idRestaurant, rating, fullText, data FROM REVIEW WHERE idRestaurant = ?');
+                'SELECT idReview, idUser, idRestaurant, rating, fullText, data
+                 FROM REVIEW WHERE idRestaurant = ?');
             $stmt->execute(array($idRestaurant));
 
             $reviews = [];

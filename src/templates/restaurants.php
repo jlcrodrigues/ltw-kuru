@@ -132,16 +132,19 @@ function output_dish(Dish $dish, $session)
 
 function output_dish_category(PDO $db, $session, string $category, int $idRestaurant)
 {
-?><section class="category-section"><?php
-                                    $dishes = Dish::getRestaurantDishesByCategory($db, $category, $idRestaurant);
+?><section class="category-section">
+    <?php
+    $dishes = Dish::getRestaurantDishesByCategory($db, $category, $idRestaurant);
 
-                                    echo '<h2>' . ucwords($category) . '</h2><hr>';
+    echo '<h2>' . ucwords($category) . '</h2><hr>';
 
-                                    foreach ($dishes as $dish) {
-                                      output_dish($dish, $session);
-                                    }
-                                    ?></section><?php
-                                              } ?>
+    foreach ($dishes as $dish) {
+      output_dish($dish, $session);
+    }
+    ?>
+  </section>
+<?php
+} ?>
 
 <?php
 function output_favorite_dish(Dish $dish, $session)
@@ -283,12 +286,10 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
       ?>
     </section>
     <section id="side-section">
-      <div id="promotion">
-        <p>100% off today</p>
-      </div>
       <div id="ratings">
         <?php if ($average != null) { ?>
-          <h4><?php echo "$average" ?>/10</h4>
+          <h2><?php echo "$average" ?></h2>
+          <h4><?=count($reviews)?> reviews</h4>
         <?php } ?>
       </div>
     </section>

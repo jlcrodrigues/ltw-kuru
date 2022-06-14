@@ -581,6 +581,19 @@ body>footer p {
   text-align: center;
 }
 
+#ratings h2 {
+  color: var(--accent-color);
+  font-size: 2em;
+  border-bottom: var(--accent-color) solid 0.05em;
+  margin: 0 2em;
+  padding: 0.5em;
+}
+
+#ratings h2::after {
+  content: "/10";
+  color: var(--primary-color);
+}
+
 /* favorites page */
 
 #favorites-tabs {
