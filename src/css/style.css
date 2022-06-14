@@ -629,6 +629,18 @@ body>footer p {
   padding-bottom: 4em;
 }
 
+#restaurant-orders .card > i {
+  display: inline;
+  color: var(--accent-color);
+  position: relative;
+  bottom: -0.15em;
+}
+
+#restaurant-orders .card > h4 {
+  display: inline;
+  color: var(--accent-color);
+}
+
 .deliver-order {
   position: absolute;
   right: 1em;

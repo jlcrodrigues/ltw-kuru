@@ -418,6 +418,32 @@ class User
         }
     }
 
+    static function getOrderUser(PDO $db, int $idOrder): User
+    {
+        $stmt = $db->prepare(
+            'SELECT User.idUser, firstName, lastName, address, city, country, phone, email, password
+            FROM USER, REQUEST
+            WHERE User.idUser = Request.idUser
+            AND Request.idRequest = ?'
+        );
+        $stmt->execute(array($idOrder));
+
+        $user = $stmt->fetch();
+
+        return new User(
+            intval($user['idUser']),
+            $user['firstName'],
+            $user['lastName'],
+            $user['address'],
+            $user['city'],
+            $user['country'],
+            $user['phone'],
+            $user['email'],
+            $user['password']
+        );
+    }
+
+
     function updateUserPhoto(PDO $db, string $photo, int $id) {
         $stmt = $db->prepare(
             'UPDATE user SET photo ? where idUser = ?');

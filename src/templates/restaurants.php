@@ -420,7 +420,8 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
       <?php }
       foreach ($orders as $order) {
         $dishes = Dish::getOrderDishes($db, $order);
-        output_restaurant_order($order, $dishes);
+        $user = User::getOrderUser($db, $order);
+        output_restaurant_order($order, $dishes, $user);
       }
       ?>
     </article>

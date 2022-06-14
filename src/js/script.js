@@ -288,9 +288,10 @@ if (remove_dish_buttons) {
       })
       button.parentElement.style["animation"] = "fadeOut 0.5s"
       
-      console.log(button.parentElement.parentElement.lastElementChild)
       total = button.parentElement.parentElement.lastElementChild.children[1]
-      total.innerHTML = (parseInt(total.innerHTML) - price) + '€'
+      new_total = parseFloat(total.innerHTML.slice(0, -1)) - price
+      if (new_total < 0) new_total = 0
+      total.innerHTML = new_total.toFixed(2) + '€'
       setTimeout(function () {
         button.parentElement.remove()
       }, 500);
