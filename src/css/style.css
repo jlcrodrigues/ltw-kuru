@@ -600,8 +600,18 @@ body>footer p {
   padding: 1em;
 }
 
+#side-section {
+  height: 100%;
+}
+
+#side-section nav {
+  top: 8em;
+  position: sticky;
+}
+
 #ratings {
   text-align: center;
+  margin-bottom: 2em;
 }
 
 #ratings h2 {
@@ -616,6 +626,19 @@ body>footer p {
 #ratings h2::after {
   content: "/10";
   color: var(--primary-color);
+}
+
+#side-section nav {
+  border-top: var(--accent-color) solid 0.1em;
+  border-bottom: var(--accent-color) solid 0.1em;
+}
+
+#side-section a {
+  display: block;
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+  margin: 1em 0;
 }
 
 #restaurant-orders {

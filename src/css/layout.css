@@ -161,6 +161,7 @@ body > header * {
 
 #side-section {
   grid-column-start: 2;
+  align-self: start;
 }
 
 .dish {
