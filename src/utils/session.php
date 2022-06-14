@@ -21,6 +21,7 @@
     }
 
     public function isOwner(int $id) : bool {
+      if (!self::isLoggedIn()) return false;
       $db = getDatabaseConnection();
       $onwer_restaurants = Restaurant::getOwnerRestaurants($db, $id);
       if (empty($onwer_restaurants)) {
@@ -30,6 +31,7 @@
     }
 
     public function isOwnerRestaurant(int $idRestaurant) : bool {
+      if (!self::isLoggedIn()) return false;
       if (!self::isOwner(self::getId())) return false;
       $db = getDatabaseConnection();
       $restaurant = Restaurant::getRestaurant($db, $idRestaurant);

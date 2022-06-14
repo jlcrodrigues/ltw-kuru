@@ -1,0 +1,121 @@
+@media (max-width: 60em) {
+  /** search **/
+  #search-box > div {
+    width: 95%;
+    margin: 0;
+  }
+
+  #search {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  #search-filter {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 1em;
+  }
+
+  .restaurants-search {
+    min-height: 50em;
+  }
+  
+  .restaurant-mini > img {
+    max-width: 50%;
+    height: auto;
+  }
+
+
+  /* restaurant page */
+
+  #restaurant {
+    width: 95%;
+    display: block;
+  }
+
+  #restaurant > header {
+    position: relative;
+  }
+
+  #side-section {
+    display: none;
+  }
+
+  #restaurant > header > img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+  }
+
+  #form-favorite,
+  #restaurant-delete {
+    position: absolute;
+    bottom: 11em;
+    right: 0.5em;
+  }
+
+  #tabs {
+    margin: 0;
+  }
+
+  .add-content {
+    width: 60%;
+  }
+
+  /* profile page */
+
+  #profile {
+    display: block;
+    margin: 0 auto;
+    width: 95%;
+  }
+
+  .profile-section {
+    padding-bottom: 1em;
+  }
+}
+
+@media (max-width: 30em) {
+  body > header {
+    align-items: center;
+  }
+
+  body > header > a {
+    align-items: center;
+    padding: 0;
+  }
+
+  /** sliders **/
+
+  .slide-button {
+    display: none;
+  }
+
+  .slide-box {
+    overflow: auto hidden;
+  }
+
+  /* login & register */
+
+  .account {
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  /* restaurant */
+
+  .add-content {
+    width: 80%;
+  }
+
+  /* cart */
+  .cart > .dish > div > h4 {
+    display: none;
+  }
+  
+  .cart > .dish > div {
+    margin: 1em 0;
+  }
+}

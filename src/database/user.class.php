@@ -345,6 +345,20 @@ class User
         $stmt->fetch();
     }
 
+    static function deliverOrder(PDO $db, int $idUser, int $idOrder)
+    {
+        $stmt = $db->prepare("
+            UPDATE Request
+            SET state = 'Completed'
+            WHERE idUser = ?
+            AND idRequest = ?
+            AND state
+            LIKE 'Processing'
+        ");
+        $stmt->execute(array($idUser, $idOrder));
+        $stmt->fetch();
+    }
+
     static function deleteOrderDish(PDO $db, int $idUser, int $idOrder, int $idDish)
     {
         $stmt = $db->prepare("
@@ -404,7 +418,33 @@ class User
         }
     }
 
-    static function updateUserPhoto(PDO $db, string $photo, int $id) {
+    static function getOrderUser(PDO $db, int $idOrder): User
+    {
+        $stmt = $db->prepare(
+            'SELECT User.idUser, firstName, lastName, address, city, country, phone, email, password
+            FROM USER, REQUEST
+            WHERE User.idUser = Request.idUser
+            AND Request.idRequest = ?'
+        );
+        $stmt->execute(array($idOrder));
+
+        $user = $stmt->fetch();
+
+        return new User(
+            intval($user['idUser']),
+            $user['firstName'],
+            $user['lastName'],
+            $user['address'],
+            $user['city'],
+            $user['country'],
+            $user['phone'],
+            $user['email'],
+            $user['password']
+        );
+    }
+
+
+    function updateUserPhoto(PDO $db, string $photo, int $id) {
         $stmt = $db->prepare(
             'UPDATE user SET photo = ? where idUser = ?');
 

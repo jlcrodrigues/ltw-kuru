@@ -26,6 +26,13 @@
     $idOrder = intval($_POST["idOrder"]);
     User::submitOrder($db, $session->getId(), $idOrder);
   }
+  if ($action == "deliver-order") {
+    $idOrder = intval($_POST["idOrder"]);
+    $restaurant = Restaurant::getOrderRestaurant($db, $idOrder);
+    if ($session->isOwnerRestaurant($restaurant->id)) {
+      User::deliverOrder($db, $session->getId(), $idOrder);
+    }
+  }
   if ($action == "remove-dish") {
     $idOrder = intval($_POST["idOrder"]);
     $idDish = intval($_POST["idDish"]);

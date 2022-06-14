@@ -30,6 +30,9 @@ function output_favorites(array $restaurants, array $dishes, $session)
       <article class="favorites-section" id="favorite-restaurants">
         <div>
           <?php 
+          if (count($restaurants) == 0) { 
+            output_empty_fav();
+          }
           foreach ($restaurants as $restaurant) {
             output_restaurant_card_nano($restaurant);
           } ?>
@@ -37,6 +40,9 @@ function output_favorites(array $restaurants, array $dishes, $session)
       </article>
       <article class="favorites-section" id="favorite-meals">
       <?php
+        if (count($dishes) == 0) { 
+          output_empty_fav();
+        }
         foreach ($dishes as $dish) {
           output_favorite_dish($dish, $session);
         } ?>
@@ -44,4 +50,12 @@ function output_favorites(array $restaurants, array $dishes, $session)
     </body>
   </section>
 
+<?php } ?>
+
+<?php
+function output_empty_fav() { ?>
+  <h3 class="empty"> Nothing here. 
+    <a href="search.php">Search </a>
+    restaurants.
+  </h3>
 <?php } ?>

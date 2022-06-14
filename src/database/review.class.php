@@ -20,8 +20,30 @@
 
         static function getRestaurantReviews(PDO $db, int $idRestaurant) : array {
             $stmt = $db->prepare(
-                'SELECT idReview, idUser, idRestaurant, rating, fullText, data FROM REVIEW WHERE idRestaurant = ?');
+                'SELECT idReview, idUser, idRestaurant, rating, fullText, data
+                 FROM REVIEW WHERE idRestaurant = ?');
             $stmt->execute(array($idRestaurant));
+
+            $reviews = [];
+
+            while ($review = $stmt->fetch()) {
+                $reviews[] = new Review(
+                    intval($review['idReview']),
+                    intval($review['idUser']),
+                    intval($review['idRestaurant']),
+                    intval($review['rating']),
+                    $review['fullText'],
+                    $review['data']
+                );
+            }
+            return $reviews;
+        }
+
+        static function getUserReviews(PDO $db, int $idUser) : array {
+            $stmt = $db->prepare(
+                'SELECT idReview, idUser, idRestaurant, rating, fullText, data
+                 FROM REVIEW WHERE idUser = ?');
+            $stmt->execute(array($idUser));
 
             $reviews = [];
 

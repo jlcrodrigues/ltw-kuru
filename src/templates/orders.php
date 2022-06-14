@@ -97,3 +97,35 @@ function output_order_past(int $idOrder, Restaurant $restaurant, array $dishes)
   </article>
 
 <?php } ?>
+
+<?php 
+function output_restaurant_order(int $idOrder, array $dishes, User $user)
+{ 
+  $total = 0;
+  $dish_count = [];
+  foreach ($dishes as $dish) {
+    $total += $dish->price;
+    if (!isset($dish_count[$dish->idDish])) $dish_count[$dish->idDish] = 0;
+    $dish_count[$dish->idDish]++;
+  }
+  ?>
+  <article class="card">
+    <input type="hidden" name="idOrder" value="<?=$idOrder?>">
+    <h3><?php echo $user->first_name . " " . $user->last_name ?></h3>
+    <i class="material-icons">place</i>
+    <h4><?=$user->address?></h4>
+    <hr>
+    <?php
+    foreach ($dishes as $dish) { 
+      if ($dish_count[$dish->idDish] > 0) {
+        output_cart_dish($dish, $dish_count[$dish->idDish], false);
+        $dish_count[$dish->idDish] = 0;
+      }
+     }
+    ?>
+    <button class="deliver-order">
+      Deliver
+    </button>
+  </article>
+
+<?php } ?>

@@ -1,8 +1,10 @@
 body {
   max-width: 120em;
+  min-width: 20em;
   margin: 0 auto;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 body > footer {
@@ -53,6 +55,7 @@ body > header * {
   justify-content: flex-start;
   margin-bottom: 1em;
   align-items: center;
+  scroll-behavior: smooth;
 }
 
 /* search page */
@@ -83,10 +86,11 @@ body > header * {
   width: 70%;
 }
 
-#profile > img {
+#profile > header {
   grid-column-start: 1;
   grid-row-start: 1;
   justify-self: center;
+  text-align: center;
 }
 
 .profile-section {
@@ -103,6 +107,22 @@ body > header * {
   align-content: flex-start;
 }
 
+#profile-owner > div {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#profile-owner {
+  position: relative;
+}
+
+#profile-owner > a {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
+
 #logout-button {
   justify-self: flex-end;
 }
@@ -114,6 +134,8 @@ body > header * {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 75% 25%;
+  grid-template-areas: "header header"
+                       "tab side";
 }
 
 .restaurant-tab {
@@ -125,13 +147,14 @@ body > header * {
 }
 
 #restaurant > header {
-  grid-column-start: 1;
+  grid-area: header;
   display: flex;
   margin-bottom: 1em;
   flex-wrap: wrap;
 }
 
-#form-favorite {
+#form-favorite,
+#restaurant-delete {
   grid-column-start: 2;
   grid-row-start: 1;
   text-align: right;
@@ -139,6 +162,7 @@ body > header * {
 
 #side-section {
   grid-column-start: 2;
+  align-self: start;
 }
 
 .dish {
@@ -149,6 +173,21 @@ body > header * {
 
 .dish > p {
   margin-left: auto;
+}
+
+#add-meal {
+  width: 100%;
+  text-align: center;
+}
+
+#add-meal button {
+  margin: 1em;
+  background-color: transparent;
+  color: var(--tertiary-color);
+}
+
+#add-meal i {
+  font-size: 4em;
 }
 
 .review-title {
@@ -189,7 +228,7 @@ body > header * {
 
 #messages {
   position: fixed;
-  bottom: 1em;
+  bottom: 4em;
   right: 1em;
   z-index: 7;
 }

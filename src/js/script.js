@@ -129,31 +129,29 @@ function closeMessage(event) {
   }, 500);
 }
 
-let scroll_amount = 0;
-
 function sliderScrollLeft(event) {
   slider = event.currentTarget.parentNode.children[0]
   slider.scrollTo({
     top: 0,
-    left: (scroll_amount -= scroll_offset),
+    left: (slider.scrollLeft -= scroll_offset),
     behavior: "smooth"
   })
-  if (scroll_amount < 0) {
-    scroll_amount = 0;
+  if (slider.scrollLeft < 0) {
+    slider.scrollLeft = 0;
   }
 }
 
 function sliderScrollRight(event) {
   slider = event.currentTarget.parentNode.children[0]
-  if (scroll_amount <= slider.scrollWidth - slider.clientWidth) {
+  if (slider.scrollLeft <= slider.scrollWidth - slider.clientWidth) {
     slider.scrollTo({
       top: 0,
-      left: (scroll_amount += scroll_offset),
+      left: (slider.scrollLeft += scroll_offset),
       behavior: "smooth"
     })
   }
   else {
-    scroll_amount = 0
+    slider.scrollLeft = 0
   }
 }
 
@@ -288,9 +286,10 @@ if (remove_dish_buttons) {
       })
       button.parentElement.style["animation"] = "fadeOut 0.5s"
       
-      console.log(button.parentElement.parentElement.lastElementChild)
       total = button.parentElement.parentElement.lastElementChild.children[1]
-      total.innerHTML = (parseInt(total.innerHTML) - price) + '€'
+      new_total = parseFloat(total.innerHTML.slice(0, -1)) - price
+      if (new_total < 0) new_total = 0
+      total.innerHTML = new_total.toFixed(2) + '€'
       setTimeout(function () {
         button.parentElement.remove()
       }, 500);
@@ -313,6 +312,27 @@ if (repeat_order_buttons) {
       })
       document.querySelector('#messages')
         .appendChild(createMessage('Added to cart!', 'success'))
+    })
+  }
+}
+
+const deliver_order_buttons = document.querySelectorAll(".deliver-order")
+
+if (deliver_order_buttons) {
+  for (const button of deliver_order_buttons) {
+    const id = button.parentElement.children[0].value;
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idOrder=" + id + "&action=deliver-order"
+      })
+      button.parentElement.style["animation"] = "fadeOut 0.5s"
+      setTimeout(function () {
+        button.parentElement.remove()
+      }, 500);
     })
   }
 }
