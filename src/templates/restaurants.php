@@ -14,12 +14,11 @@ require_once(__DIR__ . '/../database/dish.class.php');
 
 require_once(__DIR__ . '/../templates/orders.php');
 
-function output_restaurant_card_nano(Restaurant $restaurant)
-{ ?>
+function output_restaurant_card_nano(PDO $db, Session $session, Restaurant $restaurant)
+{
+?>
   <a href="../pages/restaurant.php?id=<?= $restaurant->id ?>" class="restaurant-nano">
-    <?php if (isset($restaurant->photo)) { ?>
-      <img src="/photos/grill.jpg" alt="grill" width="250" height="150">
-    <?php } else { ?> <img src="https://picsum.photos/id/101/250/150" alt=""> <?php } ?>
+    <?php output_restaurant_photo($db, $session, $restaurant, 'thumbnails'); ?>
     <div class="nano-text">
       <h3><?php echo $restaurant->name ?></h3>
       <h4><?php echo $restaurant->address ?></h4>
@@ -27,7 +26,7 @@ function output_restaurant_card_nano(Restaurant $restaurant)
   </a>
 <?php }
 
-function output_restaurant_slide(array $restaurants, string $title)
+function output_restaurant_slide(PDO $db, Session $session, array $restaurants, string $title)
 {
 ?>
   <section class="slide-category">
@@ -36,7 +35,7 @@ function output_restaurant_slide(array $restaurants, string $title)
       <div class="slide-box card">
         <?php
         foreach ($restaurants as $restaurant) {
-          output_restaurant_card_nano($restaurant);
+          output_restaurant_card_nano($db, $session, $restaurant);
         }
         ?>
       </div>
@@ -52,10 +51,11 @@ function output_restaurant_slide(array $restaurants, string $title)
 } ?>
 
 <?php
-function output_restaurant_card_mini(PDO $db, Restaurant $restaurant)
+
+function output_restaurant_card_mini(PDO $db, Session $session, Restaurant $restaurant)
 {  ?>
-  <a href="../pages/restaurant.php?id=<?php echo $restaurant->id?>" class="restaurant-mini">
-    <img src="https://picsum.photos/id/101<?php echo $restaurant->id ?>/200/200" alt="">
+  <a href="../pages/restaurant.php?id=<?php echo $restaurant->id ?>" class="restaurant-mini">
+    <?php output_restaurant_photo($db, $session, $restaurant, 'mini'); ?>
     <div class="mini-text">
       <h3><?php echo $restaurant->name?></h3>
       <h4><?php echo $restaurant->address?></h4>
@@ -70,12 +70,12 @@ function output_restaurant_card_mini(PDO $db, Restaurant $restaurant)
 <?php } ?>
 
 <?php
-function output_restaurant_search(PDO $db, array $restaurants)
+function output_restaurant_search(PDO $db, Session $session, array $restaurants)
 { ?>
   <section class="restaurants-search">
     <?php
     foreach ($restaurants as $restaurant) {
-        output_restaurant_card_mini($db, $restaurant);
+      output_restaurant_card_mini($db, $session, $restaurant);
     }
     ?>
   </section>
@@ -83,9 +83,10 @@ function output_restaurant_search(PDO $db, array $restaurants)
 
 
 <?php
-function output_dish(Dish $dish, $session)
+function output_dish(PDO $db, Session $session, Dish $dish)
 { ?>
   <section class="dish">
+    <?php output_dish_photo($db, $session, $dish, 'mini'); ?>
     <div>
       <h3><?php echo $dish->name ?></h3>
       <?php
@@ -139,19 +140,17 @@ function output_dish(Dish $dish, $session)
 
 function output_dish_category(PDO $db, $session, string $category, int $idRestaurant)
 {
-?><section class="category-section" id=<?=rawurlencode($category)?>>
+?><section class="category-section" id=<?= rawurlencode($category) ?>>
     <?php
     $dishes = Dish::getRestaurantDishesByCategory($db, $category, $idRestaurant);
 
     echo '<h2>' . ucwords($category) . '</h2><hr>';
 
     foreach ($dishes as $dish) {
-      output_dish($dish, $session);
+      output_dish($db, $session, $dish);
     }
-    ?>
-  </section>
-<?php
-} ?>
+    ?></section><?php
+              } ?>
 
 <?php
 function output_favorite_dish(Dish $dish, $session)
@@ -221,7 +220,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
 ?>
   <article id="restaurant" class="card">
     <header>
-      <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
+      <?php output_restaurant_photo($db, $session, $restaurant, 'medium'); ?>
       <div id="restaurant-header-text">
         <h3><?php echo "$restaurant->name" ?></h3>
         <h4> &#183; <?php echo "$average" ?></h4>
@@ -303,9 +302,9 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
         <?php } ?>
       </div>
       <nav>
-        <?php 
-        foreach($categories as $category) { ?>
-        <a href="#<?=rawurlencode($category)?>"><?=ucwords($category)?></a>
+        <?php
+        foreach ($categories as $category) { ?>
+          <a href="#<?= rawurlencode($category) ?>"><?= ucwords($category) ?></a>
         <?php } ?>
       </nav>
     </section>
@@ -371,8 +370,7 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
 { ?>
   <article id="restaurant" class="card">
     <header>
-      <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
-
+      <?php output_restaurant_photo($db, $session, $restaurant, 'medium'); ?>
       <div id="restaurant-header-text">
         <h3><?php echo "$restaurant->name" ?></h3>
         <h4> &#183; <?php echo "$average" ?></h4>
@@ -401,6 +399,24 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
         </button>
       </form>
     </header>
+    <section class="edit-photo">
+      <form action="../actions/action_upload_photo.php" method="post" enctype="multipart/form-data">
+        <label class="input-photo">
+          <i class="material-icons">add_photo_alternate</i>
+          <input type="hidden" name="id_restaurant" value="<?= $restaurant->id ?>">
+          <input type="file" name="restaurant_image">
+        </label>
+        <label class="upload">
+          <input type="submit" value="Upload">
+          <i class="material-icons">upload_file</i>
+        </label>
+      </form>
+      <form action="../actions/action_delete_restaurant_photo.php?id=<?= $restaurant->id ?>" method="post">
+        <button name="delete" class="remove-photo">
+          <i class="material-icons">delete</i>
+        </button>
+      </form>
+    </section>
     <div id="tabs">
       <button id="menu-button" class="restaurant-button" onclick="openRestaurantTab(event, 'restaurant-menu')">
         Menu
@@ -419,7 +435,7 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
       </div>
       <?php
       foreach ($dishes as $dish) {
-        output_edit_dish($dish);
+        output_edit_dish($db, $session, $dish);
       }
       ?>
     </article>
@@ -441,9 +457,28 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
 
 
 <?php
-function output_edit_dish(Dish $dish)
+function output_edit_dish(PDO $db, Session $session, Dish $dish)
 { ?>
   <section class="dish">
+    <div class="edit-photo">
+      <form action="../actions/action_upload_dish_photo.php" method="post" enctype="multipart/form-data">
+        <label class="input-photo">
+          <i class="material-icons">add_photo_alternate</i>
+          <input type="hidden" name="id_dish" value="<?= $dish->idDish ?>">
+          <input type="file" name="dish_image">
+        </label>
+        <label class="upload">
+          <input type="submit" value="Upload">
+          <i class="material-icons">upload_file</i>
+        </label>
+      </form>
+      <form action="../actions/action_delete_dish_photo.php?id=<?= $dish->idDish ?>" method="post">
+        <button name=delete class="remove-photo">
+          <i class="material-icons">delete</i>
+        </button>
+      </form>
+    </div>
+    <?php output_dish_photo($db, $session, $dish, 'mini'); ?>
     <div>
       <h3><?php echo $dish->name ?></h3>
       <h4><?php echo $dish->description ?></h4>
@@ -581,4 +616,23 @@ function output_register_restaurant_form(PDO $db, Session $session)
   </div>
 
 
+<?php } ?>
+
+
+<?php function output_restaurant_photo(PDO $db, Session $session, Restaurant $restaurant, string $size)
+{
+  if (isset($restaurant->photo)) { ?>
+    <img src="../photos/restaurants/<?= $size ?>/<?= $restaurant->photo ?>" alt="<?= $restaurant->name ?> photo">
+  <?php } else { ?>
+    <img src="../photos/defaults/restaurants/<?= $size ?>/<?= $restaurant->category ?>.jpg" alt="Restaurant's photo">
+  <?php  } ?>
+<?php } ?>
+
+<?php function output_dish_photo(PDO $db, Session $session, Dish $dish, string $size)
+{
+  if (isset($dish->photo)) { ?>
+    <img src="../photos/dishes/<?= $size ?>/<?= $dish->photo ?>" alt="<?= $dish->name ?> photo">
+  <?php } else { ?>
+    <img src="../photos/defaults/dishes/bread.jpg" alt="Dish photo">
+  <?php  } ?>
 <?php } ?>

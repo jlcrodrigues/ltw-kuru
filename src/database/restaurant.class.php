@@ -103,7 +103,6 @@ class Restaurant
     }
 
 
-
     static function getOwnerRestaurants(PDO $db, int $idUser)
     {
         $stmt = $db->prepare(
@@ -290,14 +289,26 @@ class Restaurant
     {
         $stmt = $db->prepare('
             DELETE FROM Restaurant WHERE idRestaurant = ?');
+            
+            try {
+              $stmt->execute(array($id));
+              return true;
+            } catch (PDOException $e) {
+              return false;
+            }
+          }
 
-        try {
-            $stmt->execute(array($id));
-            return true;
-        } catch (PDOException $e) {
-            return false;
-        }
-    }
+          static function deletePhoto(PDO $db, int $id) {
+            $stmt = $db->prepare('
+            UPDATE Restaurant SET photo = NULL where idRestaurant = ?');
+
+            try {
+                $stmt->execute(array($id));
+                return true;
+            } catch (PDOException $e) {
+                return false;
+            }
+          }
 
     static function getOrderRestaurant(PDO $db, int $idOrder): ?Restaurant
     {
@@ -343,6 +354,7 @@ class Restaurant
         return $orders;
     }
 
+
     static function getReviewRestaurant(PDO $db, int $idReview): Restaurant
     {
         $stmt = $db->prepare(
@@ -369,10 +381,10 @@ class Restaurant
 
 
 
-    function updateRestaurantPhoto(PDO $db, string $photo, int $id)
+    static function updateRestaurantPhoto(PDO $db, string $photo, int $id)
     {
         $stmt = $db->prepare(
-            'UPDATE restaurant SET photo ? where idRestaurant = ?'
+            'UPDATE restaurant SET photo = ? where idRestaurant = ?'
         );
 
         try {
