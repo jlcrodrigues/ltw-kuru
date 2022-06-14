@@ -55,6 +55,7 @@ body > header * {
   justify-content: flex-start;
   margin-bottom: 1em;
   align-items: center;
+  scroll-behavior: smooth;
 }
 
 /* search page */

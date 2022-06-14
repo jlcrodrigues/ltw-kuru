@@ -129,31 +129,29 @@ function closeMessage(event) {
   }, 500);
 }
 
-let scroll_amount = 0;
-
 function sliderScrollLeft(event) {
   slider = event.currentTarget.parentNode.children[0]
   slider.scrollTo({
     top: 0,
-    left: (scroll_amount -= scroll_offset),
+    left: (slider.scrollLeft -= scroll_offset),
     behavior: "smooth"
   })
-  if (scroll_amount < 0) {
-    scroll_amount = 0;
+  if (slider.scrollLeft < 0) {
+    slider.scrollLeft = 0;
   }
 }
 
 function sliderScrollRight(event) {
   slider = event.currentTarget.parentNode.children[0]
-  if (scroll_amount <= slider.scrollWidth - slider.clientWidth) {
+  if (slider.scrollLeft <= slider.scrollWidth - slider.clientWidth) {
     slider.scrollTo({
       top: 0,
-      left: (scroll_amount += scroll_offset),
+      left: (slider.scrollLeft += scroll_offset),
       behavior: "smooth"
     })
   }
   else {
-    scroll_amount = 0
+    slider.scrollLeft = 0
   }
 }
 
