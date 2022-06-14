@@ -29,14 +29,6 @@ if (!valid_input($_GET['id'])) {
   die(header('Location: ' . $_SERVER['HTTP_REFERER']));
 }
 
-
-$session = new Session();
-$db = getDatabaseConnection();
-$restaurant = Restaurant::getRestaurant($db, intval($_GET['id']));
-if (!$session->isOwner($session->getId()) || !$session->isLoggedIn() || !$session->isOwnerRestaurant($restaurant->id)) {
-  die(header('Location: /'));
-}
-
 output_header($session);
 output_add_dish_form($db, $session, $restaurant);
 output_footer();

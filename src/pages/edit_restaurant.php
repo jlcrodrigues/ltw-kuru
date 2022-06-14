@@ -22,7 +22,6 @@
     die(header('Location: ' . $_SERVER['HTTP_REFERER']));
   }
 
-$session = new Session();
 $db = getDatabaseConnection();
 $restaurant = Restaurant::getRestaurant($db, intval($_GET['id']));
 

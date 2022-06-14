@@ -16,7 +16,7 @@ require_once(__DIR__ . '/../templates/orders.php');
 
 function output_restaurant_card_nano(Restaurant $restaurant)
 { ?>
-  <a href="../pages/restaurant.php?id=<?= $restaurant->id ?>" class="restaurant-nano">
+  <a href="../pages/restaurant.php?id=<?=urlencode(strval($restaurant->id))?>" class="restaurant-nano">
     <?php if (isset($restaurant->photo)) { ?>
       <img src="/photos/grill.jpg" alt="grill" width="250" height="150">
     <?php } else { ?> <img src="https://picsum.photos/id/101/250/150" alt=""> <?php } ?>
@@ -54,7 +54,7 @@ function output_restaurant_slide(array $restaurants, string $title)
 <?php
 function output_restaurant_card_mini(Restaurant $restaurant)
 {  ?>
-  <a href="../pages/restaurant.php?id=<?php echo $restaurant->id ?>" class="restaurant-mini">
+  <a href="../pages/restaurant.php?id=<?=urlencode(strval($restaurant->id))?>" class="restaurant-mini">
     <img src="https://picsum.photos/id/101<?php echo $restaurant->id ?>/200/200" alt="">
     <div class="mini-text">
       <h3><?php echo $restaurant->name ?></h3>
@@ -218,12 +218,12 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
     <header>
       <img src="https://picsum.photos/500/300" alt="Restaurant's photo">
       <div id="restaurant-header-text">
-        <h3><?php echo "$restaurant->name" ?></h3>
+        <h3><?=htmlspecialchars($restaurant->name)?></h3>
         <h4> &#183; <?php echo "$average" ?></h4>
         <i class="material-symbols-rounded">star</i>
         <?php if (Restaurant::getRestaurantOwner($db, $restaurant->id) == $session->getId()) { ?>
           <span title="owner view">
-            <a href="../pages/owner_view.php?id=<?= $restaurant->id ?>">
+            <a href="../pages/owner_view.php?id=<?=urlencode(strval($restaurant->id))?>">
               <i class="material-icons">work</i>
             </a>
           </span>
@@ -320,7 +320,7 @@ function output_edit_restaurant_form(PDO $db, Session $session, Restaurant $rest
 {
 ?>
   <div class="account">
-    <form action="../actions/action_edit_restaurant.php?id=<?= $restaurant->id ?>" method="post">
+    <form action="../actions/action_edit_restaurant.php?id=<?=urlencode(strval($restaurant->id))?>" method="post">
       <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
       <label for="name">Name:</label>
       <input id="name" type="text" name="name" value="<?= $restaurant->name ?>">
@@ -374,11 +374,11 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
         <h4> &#183; <?php echo "$average" ?></h4>
         <i class="material-symbols-rounded">star</i>
         <span title="user view">
-          <a href="../pages/restaurant.php?id=<?= $restaurant->id ?>">
+          <a href="../pages/restaurant.php?id=<?=urlencode(strval($restaurant->id))?>">
             <i class="material-icons">person</i>
           </a></span>
         <span title="edit details">
-          <a href="../pages/edit_restaurant.php?id=<?= $restaurant->id ?>">
+          <a href="../pages/edit_restaurant.php?id=<?=urlencode(strval($restaurant->id))?>">
             <i class="material-icons">edit</i>
           </a>
         </span>
@@ -391,7 +391,7 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
         <p id="opening-time"><?php echo substr($restaurant->opens, 0, 5) ?></p>
         <p id="closing-time"><?php echo substr($restaurant->closes, 0, 5) ?></p>
       </div>
-      <form action="../actions/action_delete_restaurant.php?id=<?= $restaurant->id ?>" method="post" class="restaurant" id="restaurant-delete">
+      <form action="../actions/action_delete_restaurant.php?id=<?=urlencode(strval($restaurant->id))?>" method="post" class="restaurant" id="restaurant-delete">
         <button name=delete class="restaurant">
           <i class="material-icons">delete</i>
         </button>
@@ -407,7 +407,7 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
     </div>
     <article id="restaurant-menu" class="restaurant-tab">
       <div id="add-meal">
-        <a href="../pages/add_dish.php?id=<?= $restaurant->id ?>">
+        <a href="../pages/add_dish.php?id=<?=urlencode(strval($restaurant->id))?>">
           <button name="add" class="add_meal">
             <i class="material-icons">add_circle</i>
           </button>
@@ -445,12 +445,12 @@ function output_edit_dish(Dish $dish)
       <h4><?php echo $dish->description ?></h4>
     </div>
     <p><?php echo $dish->price ?>€</p>
-    <a href="../pages/edit_dish.php?id=<?= $dish->idDish ?>">
+    <a href="../pages/edit_dish.php?id=<?=urlencode(strval($dish->idDish))?>"
       <button name=delete class="delete_meal">
         <i class="material-icons">edit</i>
       </button>
     </a>
-    <form action="../actions/action_delete_dish.php?id=<?= $dish->idDish ?>" method="post" class="dish">
+    <form action="../actions/action_delete_dish.php?id=<?=urlencode(strval($dish->idDish))?>" method="post" class="dish">
       <button name=delete class="delete_meal">
         <i class="material-icons">delete</i>
       </button>
@@ -465,7 +465,7 @@ function output_edit_dish_form(PDO $db, Session $session, Dish $dish)
 {
 ?>
   <div class="account">
-    <form action="../actions/action_edit_dish.php?id=<?= $dish->idDish ?>" method="post">
+    <form action="../actions/action_edit_dish.php?id=<?=urlencode(strval($dish->idDish))?>" method="post">
       <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
       <label for="name">Name:</label>
       <input id="name" type="text" name="name" value="<?= $dish->name ?>">
