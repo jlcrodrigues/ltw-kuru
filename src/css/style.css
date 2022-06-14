@@ -618,6 +618,26 @@ body>footer p {
   color: var(--primary-color);
 }
 
+#restaurant-orders {
+  padding-bottom: 3em;
+}
+
+#restaurant-orders .card {
+  margin: 1em;
+  padding: 1em;
+  position: relative;
+  padding-bottom: 4em;
+}
+
+.deliver-order {
+  position: absolute;
+  right: 1em;
+  background-color: var(--accent-color);
+  padding: 0.5em;
+  border-radius: 0.5em;
+  font-size: large;
+}
+
 /* favorites page */
 
 #favorites-tabs {
@@ -745,13 +765,15 @@ body>footer p {
   padding-right: 2em;
 }
 
-.cart > .dish > div {
+.cart > .dish > div,
+#restaurant-orders .dish > div {
   flex-grow: 2;
 }
 
-.cart > .dish > p:nth-of-type(2) {
+.cart > .dish > p:nth-of-type(2),
+#restaurant-orders .dish > p:nth-of-type(2) {
   font-weight: bold;
-  width: 5em;
+  width: 4em;
   text-align: right;
 }
 

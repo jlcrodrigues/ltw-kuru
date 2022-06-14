@@ -316,3 +316,24 @@ if (repeat_order_buttons) {
     })
   }
 }
+
+const deliver_order_buttons = document.querySelectorAll(".deliver-order")
+
+if (deliver_order_buttons) {
+  for (const button of deliver_order_buttons) {
+    const id = button.parentElement.children[0].value;
+    button.addEventListener("click", function () {
+      fetch("../api/api_cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        },
+        body: "idOrder=" + id + "&action=deliver-order"
+      })
+      button.parentElement.style["animation"] = "fadeOut 0.5s"
+      setTimeout(function () {
+        button.parentElement.remove()
+      }, 500);
+    })
+  }
+}

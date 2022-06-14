@@ -345,6 +345,20 @@ class User
         $stmt->fetch();
     }
 
+    static function deliverOrder(PDO $db, int $idUser, int $idOrder)
+    {
+        $stmt = $db->prepare("
+            UPDATE Request
+            SET state = 'Completed'
+            WHERE idUser = ?
+            AND idRequest = ?
+            AND state
+            LIKE 'Processing'
+        ");
+        $stmt->execute(array($idUser, $idOrder));
+        $stmt->fetch();
+    }
+
     static function deleteOrderDish(PDO $db, int $idUser, int $idOrder, int $idDish)
     {
         $stmt = $db->prepare("

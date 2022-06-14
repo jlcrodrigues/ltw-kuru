@@ -26,11 +26,6 @@
     height: auto;
   }
 
-  /** sliders **/
-
-  .slide-box {
-    overflow: auto hidden;
-  }
 
   /* restaurant page */
 
@@ -96,6 +91,10 @@
 
   .slide-button {
     display: none;
+  }
+
+  .slide-box {
+    overflow: auto hidden;
   }
 
   /* login & register */

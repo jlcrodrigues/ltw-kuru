@@ -12,6 +12,8 @@ require_once(__DIR__ . '/../database/restaurant.class.php');
 require_once(__DIR__ . '/../database/review.class.php');
 require_once(__DIR__ . '/../database/dish.class.php');
 
+require_once(__DIR__ . '/../templates/orders.php');
+
 function output_restaurant_card_nano(Restaurant $restaurant)
 { ?>
   <a href="../pages/restaurant.php?id=<?= $restaurant->id ?>" class="restaurant-nano">
@@ -235,23 +237,23 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
         <p id="opening-time"><?php echo substr($restaurant->opens, 0, 5) ?></p>
         <p id="closing-time"><?php echo substr($restaurant->closes, 0, 5) ?></p>
       </div>
-    <?php
-    if ($session->isLoggedIn()) { ?>
-      <div id="form-favorite">
-        <?php
-        $db = getDatabaseConnection();
-        if (User::isFavoriteRestaurant($db, $session->getId(), $restaurant->id)) {
-        ?>
-          <button class="favorite-button favorite-active">
-          <?php } else { ?>
-            <button class="favorite-button">
-            <?php } ?>
-            <i class="material-symbols-rounded">favorite</i>
-            </button>
-            <input type="hidden" name="idRestaurant" value="<?php echo $restaurant->id ?>">
-            <input type="hidden" name="type" value="restaurant">
-      </div>
-    <?php } ?>
+      <?php
+      if ($session->isLoggedIn()) { ?>
+        <div id="form-favorite">
+          <?php
+          $db = getDatabaseConnection();
+          if (User::isFavoriteRestaurant($db, $session->getId(), $restaurant->id)) {
+          ?>
+            <button class="favorite-button favorite-active">
+            <?php } else { ?>
+              <button class="favorite-button">
+              <?php } ?>
+              <i class="material-symbols-rounded">favorite</i>
+              </button>
+              <input type="hidden" name="idRestaurant" value="<?php echo $restaurant->id ?>">
+              <input type="hidden" name="type" value="restaurant">
+        </div>
+      <?php } ?>
     </header>
     <div id="tabs">
       <button id="menu-button" class="restaurant-button" onclick="openRestaurantTab(event, 'restaurant-menu')">
@@ -292,7 +294,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
       <div id="ratings">
         <?php if ($average != null) { ?>
           <h2><?php echo "$average" ?></h2>
-          <h4><?=count($reviews)?> reviews</h4>
+          <h4><?= count($reviews) ?> reviews</h4>
         <?php } ?>
       </div>
     </section>
@@ -378,16 +380,22 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
         <p><?php echo $restaurant->address ?></p>
         <br>
         <p class="category"><?php echo $restaurant->category ?></p>
+        <br>
+        <p id="opening-time"><?php echo substr($restaurant->opens, 0, 5) ?></p>
+        <p id="closing-time"><?php echo substr($restaurant->closes, 0, 5) ?></p>
       </div>
+      <form action="../actions/action_delete_restaurant.php?id=<?= $restaurant->id ?>" method="post" class="restaurant" id="restaurant-delete">
+        <button name=delete class="restaurant">
+          <i class="material-icons">delete</i>
+        </button>
+      </form>
     </header>
-    <form action="../actions/action_delete_restaurant.php?id=<?= $restaurant->id ?>" method="post" class="restaurant" id="restaurant-delete">
-      <button name=delete class="restaurant">
-        <i class="material-icons">delete</i>
-      </button>
-    </form>
     <div id="tabs">
       <button id="menu-button" class="restaurant-button" onclick="openRestaurantTab(event, 'restaurant-menu')">
         Menu
+      </button>
+      <button class="restaurant-button" onclick="openRestaurantTab(event, 'restaurant-orders')">
+        Orders
       </button>
     </div>
     <article id="restaurant-menu" class="restaurant-tab">
@@ -404,8 +412,18 @@ function output_owner_restaurant_card(PDO $db, Session $session, Restaurant $res
       }
       ?>
     </article>
-    <section id="side-section">
-    </section>
+    <article id="restaurant-orders" class="restaurant-tab">
+      <?php
+      $orders = Restaurant::getRestaurantOrders($db, $restaurant->id);
+      if (count($orders) == 0) { ?>
+        <h3 class="empty">Nothing here!</h3>
+      <?php }
+      foreach ($orders as $order) {
+        $dishes = Dish::getOrderDishes($db, $order);
+        output_restaurant_order($order, $dishes);
+      }
+      ?>
+    </article>
   </article>
 <?php } ?>
 
