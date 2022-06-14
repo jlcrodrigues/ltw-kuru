@@ -10,10 +10,6 @@ require_once(__DIR__ . '/../utils/security.php');
 
   $db = getDatabaseConnection();
 
-  if (!valid_input($_GET['search'])) {
-    $session->addMessage('error', 'Invalid input!');
-    die(header('Location: ' . $_SERVER['HTTP_REFERER']));
-  }
 
   $categories = explode(",",$_POST['selected_categories'][0]);
   if (empty($categories)){
