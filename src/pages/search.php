@@ -22,8 +22,8 @@ $restaurants = Restaurant::getRestaurants($db, 5);
 output_header($session);
 output_search_bar($query);
 echo '<div id="search">';
-output_search_filter();
-output_restaurant_search($restaurants);
+output_search_filter($db);
+output_restaurant_search($db,$restaurants);
 echo '</div>';
 output_footer();
 

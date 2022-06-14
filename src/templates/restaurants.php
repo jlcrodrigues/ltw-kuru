@@ -52,30 +52,33 @@ function output_restaurant_slide(array $restaurants, string $title)
 } ?>
 
 <?php
-function output_restaurant_card_mini(Restaurant $restaurant)
+function output_restaurant_card_mini(PDO $db, Restaurant $restaurant)
 {  ?>
-  <a href="../pages/restaurant.php?id=<?php echo $restaurant->id ?>" class="restaurant-mini">
+  <a href="../pages/restaurant.php?id=<?php echo $restaurant->id?>" class="restaurant-mini">
     <img src="https://picsum.photos/id/101<?php echo $restaurant->id ?>/200/200" alt="">
     <div class="mini-text">
-      <h3><?php echo $restaurant->name ?></h3>
-      <h4><?php echo $restaurant->address ?></h4>
-      <p>Rating</p>
-      <p>Preço</p>
+      <h3><?php echo $restaurant->name?></h3>
+      <h4><?php echo $restaurant->address?></h4>
+      <p><?php echo $restaurant->category?></p>
+      <p><?php echo Restaurant::getAverage($db, $restaurant->id)?>
+        <i class="material-symbols-rounded">star</i>
+      </p>
     </div>
   </a>
 <?php } ?>
 
 <?php
-function output_restaurant_search($restaurants)
+function output_restaurant_search(PDO $db, array $restaurants)
 { ?>
   <section class="restaurants-search">
     <?php
     foreach ($restaurants as $restaurant) {
-      output_restaurant_card_mini($restaurant);
+        output_restaurant_card_mini($db, $restaurant);
     }
     ?>
   </section>
 <?php } ?>
+
 
 <?php
 function output_dish(Dish $dish, $session)

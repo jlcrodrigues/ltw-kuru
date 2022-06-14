@@ -18,22 +18,28 @@ function output_search_bar($query = NULL)
 <?php
 }
 
-function output_search_filter()
+function output_search_filter(PDO $db)
 { ?>
-  <form id="search-filter" class="card" action="search_filter.php" method="post">
+  <form id="search-filter" class="card" action="search.php" method="post">
     <label for="rating">Rating:<br></label>
     <label>
-      <input type="number" name="number">
-    </label>
-    <br>
+      <input class="filter_rating" type="checkbox" value="low-rating">
+      5.0 or more
+    </label><br>
+    <label>
+      <input class="filter_rating" type="checkbox" value="mid-rating">
+      7.5 or more
+    </label><br>
+    <label>
+      <input class="filter_rating" type="checkbox" value="high-rating">
+      9.0 or more
+    </label><br><br>
+    <?php $categories = Restaurant::getCategories($db);?>
     <label for="category">Category:<br></label>
-    <label>
-      <input type="checkbox" name="category">
+    <?php     foreach ($categories as $category){ ?>
+      <input class="filter-category" type="checkbox" name='selected_categories[]' value=<?=$category?> >
+      <?=$category?> <br>
 
-    </label>
-    <label>
-      <input type="checkbox" name="diet">
-      Vegetarian
-    </label>
-  </form>
-<?php } ?>
+   <?php }
+   ?></form>
+<?php }?>

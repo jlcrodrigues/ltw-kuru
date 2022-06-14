@@ -80,46 +80,78 @@ function createMessage(text, type) {
 const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()
 
-const searchRestaurant = document.querySelector('#search-restaurant');
+const searchRestaurant = document.querySelector('#search-restaurant')
+//const filterRestaurant = document.querySelectorAll('.filter-category');
 const isIndex = window.location.toString().includes('/pages/index.php');
+
 if (searchRestaurant && !isIndex) {
-  if (searchRestaurant.value) getRestaurants.call(searchRestaurant);
-  searchRestaurant.addEventListener('input',getRestaurants);
+  if (searchRestaurant.value) getRestaurants.call();
+  searchRestaurant.addEventListener('input',  getRestaurants);
 }
 
+/*if(filterRestaurant){
+  for (filt of filterRestaurant){
+    filt.addEventListener('input',getRestaurants);
+  }
+}*/
+
 async function getRestaurants() {
-    const response = await fetch('../api/api_restaurants.php?search=' + this.value);
-    const restaurants = await response.json();
-
-    const section = document.querySelector('.restaurants-search');
-    section.innerHTML = '';
-
-    if(restaurants.length===0){
-      const h = document.createElement('h3');
-      h.classList.add("no-restaurants");
-      h.textContent = "No matches found";
-      section.appendChild(h);
+  /*let result = [];
+  filterRestaurant.forEach(item=>{
+    if (item.checked){
+      console.log(item.value);
+      result.push(item.value);
     }
+  })*/
+  const response = await fetch('../api/api_restaurants.php?search=', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    },
+    body: "search=" + searchRestaurant.value //+ "&selected_categories[]=" + result
+  });
+  const response_array = await response.json();
+  const restaurants = response_array['a'];
+  const averages = response_array['b'];
 
-    for (const restaurant of restaurants) {
-      const link = document.createElement('a');
-      link.href = "../pages/restaurant.php?id=" + restaurant.id;
-      link.classList.add("restaurant-mini");
-      const img = document.createElement('img');
-      img.src = "https://picsum.photos/id/101/200/200";
-      img.alt = "";
-      const div = document.createElement('div');
-      div.classList.add("mini-text");
-      const h3 = document.createElement('h3');
-      h3.textContent = restaurant.name;
-      const h4 = document.createElement('h4');
-      h4.textContent = restaurant.address;
-      div.appendChild(h3);
-      div.appendChild(h4);
-      link.appendChild(img);
-      link.appendChild(div);
-      section.appendChild(link);
-    }
+  const section = document.querySelector('.restaurants-search');
+  section.innerHTML = '';
+
+  if(restaurants.length===0){
+    const h = document.createElement('h3');
+    h.classList.add("no-restaurants");
+    h.textContent = "No matches found";
+    section.appendChild(h);
+  }
+  for (const restaurant of restaurants) {
+    const link = document.createElement('a');
+    link.href = "../pages/restaurant.php?id=" + restaurant.id;
+    link.classList.add("restaurant-mini");
+    const img = document.createElement('img');
+    img.src = "https://picsum.photos/id/101/200/200";
+    img.alt = "";
+    const div = document.createElement('div');
+    div.classList.add("mini-text");
+    const h3 = document.createElement('h3');
+    h3.textContent = restaurant.name;
+    const h4 = document.createElement('h4');
+    h4.textContent = restaurant.address;
+    const categ = document.createElement('p');
+    categ.textContent = restaurant.category;
+    const avg = document.createElement('p');
+    avg.textContent = averages[restaurant.id];
+    const icon = document.createElement('i');
+    icon.classList.add("material-symbols-rounded");
+    icon.textContent="star";
+    avg.appendChild(icon);
+    div.appendChild(h3);
+    div.appendChild(h4);
+    div.appendChild(categ);
+    div.appendChild(avg);
+    link.appendChild(img);
+    link.appendChild(div);
+    section.appendChild(link);
+  }
 }
 function closeMessage(event) {
   let message = event.currentTarget.parentNode

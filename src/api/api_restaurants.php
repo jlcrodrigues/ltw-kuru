@@ -9,7 +9,20 @@
 
   $db = getDatabaseConnection();
 
-  $restaurants = Restaurant::searchRestaurants($db, $_GET['search'], 5);
-
-  echo json_encode($restaurants);
+  $restaurants = Restaurant::searchRestaurants($db, $_POST['search'], 5);
+  /*$categories = $_POST['selected_categories'];
+  if (empty($categories)){
+    $categories = Restaurant::getCategories($db);
+  }
+  $restaurants = array();
+  foreach ($categories as $category){
+    $restaurants_by_category = Restaurant::getRestaurantsByCategory($db,$category);
+    $restaurants = array_merge($restaurants,$restaurants_by_category);
+  }
+  */
+  $averages = array();
+  foreach ($restaurants as $restaurant){
+    $averages[$restaurant->id] = Restaurant::getAverage($db, $restaurant->id);
+  }
+  echo json_encode(array('a'=>$restaurants,'b'=>$averages));
 ?>
