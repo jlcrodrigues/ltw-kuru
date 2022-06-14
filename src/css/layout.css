@@ -133,6 +133,8 @@ body > header * {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 75% 25%;
+  grid-template-areas: "header header"
+                       "tab side";
 }
 
 .restaurant-tab {
@@ -144,7 +146,7 @@ body > header * {
 }
 
 #restaurant > header {
-  grid-column-start: 1;
+  grid-area: header;
   display: flex;
   margin-bottom: 1em;
   flex-wrap: wrap;

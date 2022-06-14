@@ -50,10 +50,11 @@
     border-top-right-radius: 0.5em;
   }
 
-  #form-favorite {
+  #form-favorite,
+  #restaurant-delete {
     position: relative;
     right: -0.5em;
-    bottom: 12.3em;
+    bottom: 14.3em;
   }
 
   .add-content {

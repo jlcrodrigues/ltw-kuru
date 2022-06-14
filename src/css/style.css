@@ -440,6 +440,24 @@ body>footer p {
   display: inline;
 }
 
+#opening-time {
+  color: var(--accent-color);
+}
+
+#opening-time::before {
+  content: "From ";
+  color: var(--primary-color);
+}
+
+#closing-time {
+  color: var(--accent-color);
+}
+
+#closing-time::before {
+  content: "Until ";
+  color: var(--primary-color);
+}
+
 .category {
   display: inline-block;
   background-color: var(--shadow-color);

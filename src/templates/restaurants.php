@@ -231,6 +231,9 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
         <p><?php echo $restaurant->address ?></p>
         <br>
         <p class="category"><?php echo $restaurant->category ?></p>
+        <br>
+        <p id="opening-time"><?php echo substr($restaurant->opens, 0, 5) ?></p>
+        <p id="closing-time"><?php echo substr($restaurant->closes, 0, 5) ?></p>
       </div>
     </header>
     <?php
