@@ -137,7 +137,7 @@ function output_dish(Dish $dish, $session)
 
 function output_dish_category(PDO $db, $session, string $category, int $idRestaurant)
 {
-?><section class="category-section">
+?><section class="category-section" id=<?=rawurlencode($category)?>>
     <?php
     $dishes = Dish::getRestaurantDishesByCategory($db, $category, $idRestaurant);
 
@@ -300,6 +300,12 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
           <h4><?= count($reviews) ?> reviews</h4>
         <?php } ?>
       </div>
+      <nav>
+        <?php 
+        foreach($categories as $category) { ?>
+        <a href="#<?=rawurlencode($category)?>"><?=ucwords($category)?></a>
+        <?php } ?>
+      </nav>
     </section>
   </article>
 <?php } ?>

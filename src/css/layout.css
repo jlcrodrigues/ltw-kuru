@@ -55,6 +55,7 @@ body > header * {
   justify-content: flex-start;
   margin-bottom: 1em;
   align-items: center;
+  scroll-behavior: smooth;
 }
 
 /* search page */
@@ -161,6 +162,7 @@ body > header * {
 
 #side-section {
   grid-column-start: 2;
+  align-self: start;
 }
 
 .dish {
