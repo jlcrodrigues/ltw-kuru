@@ -2,6 +2,7 @@
   declare(strict_types = 1);
 
     require_once(__DIR__ . '/../utils/session.php');
+    require_once(__DIR__ . '/../utils/security.php');
 
     require_once(__DIR__ . '/../database/connection.db.php');
     require_once(__DIR__ . '/../database/user.class.php');
@@ -18,6 +19,10 @@
     }
     else if ($user == NULL) {
       $session->addMessage('error', 'Wrong email or password');
+      die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+    }
+    else if (!valid_input_list(array($_POST['email']))) {
+      $session->addMessage('error', 'Invalid input!');
       die(header('Location: ' . $_SERVER['HTTP_REFERER']));
     }
     else {

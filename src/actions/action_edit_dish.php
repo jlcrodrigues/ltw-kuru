@@ -3,6 +3,7 @@
 declare(strict_types = 1);
 
 require_once(__DIR__ . '/../utils/session.php');
+require_once(__DIR__ . '/../utils/security.php');
 
 require_once(__DIR__ . '/../database/restaurant.class.php');
 require_once(__DIR__ . '/../database/dish.class.php');
@@ -23,11 +24,10 @@ $session = new Session();
         die(header('Location: ' . $_SERVER['HTTP_REFERER']));
     }
 
-    if ( !preg_match ("/^[a-zA-Z0-9\-\' ]+$/", $_POST['name'])) {
-        $session->addMessage('error', 'Invalid name!');
+    if (!valid_input_list(array($_POST["name"], $_POST["description"], $_POST["price"], $_POST["category"]))) {
+        $session->addMessage('error', 'Invalid input!');
         die(header('Location: ' . $_SERVER['HTTP_REFERER']));
         }
-
 
         $name = $_POST["name"];
         $description = $_POST["description"];
