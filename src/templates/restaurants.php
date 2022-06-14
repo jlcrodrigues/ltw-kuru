@@ -321,6 +321,7 @@ function output_edit_restaurant_form(PDO $db, Session $session, Restaurant $rest
 ?>
   <div class="account">
     <form action="../actions/action_edit_restaurant.php?id=<?= $restaurant->id ?>" method="post">
+      <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
       <label for="name">Name:</label>
       <input id="name" type="text" name="name" value="<?= $restaurant->name ?>">
 
@@ -465,6 +466,7 @@ function output_edit_dish_form(PDO $db, Session $session, Dish $dish)
 ?>
   <div class="account">
     <form action="../actions/action_edit_dish.php?id=<?= $dish->idDish ?>" method="post">
+      <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
       <label for="name">Name:</label>
       <input id="name" type="text" name="name" value="<?= $dish->name ?>">
 
@@ -504,10 +506,9 @@ function output_add_dish_form(PDO $db, Session $session, Restaurant $restaurant)
 ?>
   <div class="account">
     <form action="../actions/action_add_dish.php?id=<?= $restaurant->id ?>" method="post">
+      <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
       <input id="name" type="text" name="name" placeholder="Name">
-
       <input id="description" type="text" name="description" placeholder="Description">
-
       <input id="price" type="number" name="price" placeholder="Price" min="0.00" max="100000.00" step="0.01">
 
       <label for="category">Category:</label>
@@ -540,6 +541,8 @@ function output_register_restaurant_form(PDO $db, Session $session)
 
   <div class="account">
     <form action="../actions/action_register_restaurant.php" method="post" class="profile">
+      <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
+
       <input id="name" type="text" name="name" placeholder="Name">
 
       <label for="opens">Opens:</label>

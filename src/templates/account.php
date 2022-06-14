@@ -269,10 +269,11 @@ function output_profile(Session $session)
 <?php } ?>
 
 <?php
-function output_login()
+function output_login(Session $session)
 { ?>
   <div class="account">
     <form action="../actions/action_login.php" method="post">
+      <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
       <input type="email" name="email" placeholder="Email">
       <input type="password" name="password" placeholder="Password">
       <button type="submit" name="submit" class="login">Log In</button>
@@ -284,10 +285,11 @@ function output_login()
 <?php } ?>
 
 <?php
-function output_register()
+function output_register(Session $session)
 { ?>
   <div class="account">
     <form id="register" action="../actions/action_register.php" method="post">
+      <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
       <input type="text" name="first_name" placeholder="First Name">
       <input type="text" name="last_name" placeholder="Last Name">
       <input type="email" name="email" placeholder="Email">

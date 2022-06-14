@@ -10,6 +10,7 @@ require_once(__DIR__ . '/../database/connection.db.php');
 
 
 $session = new Session();
+
     $db = getDatabaseConnection();
     $id_dish = $_GET['id'];
      $restaurant = Restaurant::getDishRestaurant($db, $id_dish);

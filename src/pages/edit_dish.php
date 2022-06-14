@@ -2,6 +2,7 @@
   declare(strict_types = 1);
 
   require_once(__DIR__ . '/../utils/session.php');
+  require_once(__DIR__ . '/../utils/security.php');
   
   require_once(__DIR__ . '/../templates/common.php');
   require_once(__DIR__ . '/../templates/restaurants.php');
@@ -10,10 +11,14 @@
   require_once(__DIR__ . '/../database/dish.class.php');
 
 
-    $session = new Session();
-    $db = getDatabaseConnection();
-    $id_dish = intval($_GET['id']);
-    $restaurant = Restaurant::getDishRestaurant($db, $id_dish);
+  $session = new Session();
+  if (!$session->getCSRF()) {
+    $session->setCSRF(generate_random_token());
+  }
+
+  $db = getDatabaseConnection();
+  $id_dish = intval($_GET['id']);
+  $restaurant = Restaurant::getDishRestaurant($db, $id_dish);
 
     if (!$session->isOwner($session->getId()) || !$session->isLoggedIn() || !$session->isOwnerRestaurant($restaurant->id)) {
         die(header('Location: /')); 
