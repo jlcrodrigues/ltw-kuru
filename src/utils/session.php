@@ -63,5 +63,14 @@
     public function getMessages() {
       return $this->messages;
     }
+
+    public function getCSRF() : ?string {
+      return isset($_SESSION['csrf']) ? $_SESSION['csrf'] : null;
+    }
+
+    public function setCSRF(string $token) {
+      $_SESSION['csrf'] = $token;
+    }
+
   }
 ?>

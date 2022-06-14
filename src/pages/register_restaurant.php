@@ -7,8 +7,12 @@
   require_once(__DIR__ . '/../templates/restaurants.php');
 
 
-    $session = new Session();
-    $db = getDatabaseConnection();
+  $session = new Session();
+  if (!$session->getCSRF()) {
+    $session->setCSRF(generate_random_token());
+  }
+  
+  $db = getDatabaseConnection();
 
      if (!$session->isOwner($session->getId()) || !$session->isLoggedIn()) {
       die(header('Location: /')); 

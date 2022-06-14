@@ -110,13 +110,14 @@ function output_profile_orders(PDO $db, Session $session)
 <?php } ?>
 
 <?php
-function output_profile_edit(User $user)
+function output_profile_edit(Session $session, User $user)
 { ?>
   <h2>Profile</h2>
   <button onclick="openProfileTab(event, 'profile-info')">
     <i class="material-symbols-rounded">edit</i>
   </button>
   <form action="../actions/action_edit_profile.php" method="post" class="profile">
+  <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
     <hr>
     <label for="first_name">
       <i class="material-symbols-rounded">person</i>
@@ -238,7 +239,7 @@ function output_profile(Session $session)
       <p>Change Password</p>
     </section>
     <section id="profile-edit" class="profile-section">
-      <?php output_profile_edit($user); ?>
+      <?php output_profile_edit($session, $user); ?>
     </section>
     <section id="profile-owner" class="profile-section">
       <h2>
@@ -269,10 +270,11 @@ function output_profile(Session $session)
 <?php } ?>
 
 <?php
-function output_login()
+function output_login(Session $session)
 { ?>
   <div class="account">
     <form action="../actions/action_login.php" method="post">
+      <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
       <input type="email" name="email" placeholder="Email">
       <input type="password" name="password" placeholder="Password">
       <button type="submit" name="submit" class="login">Log In</button>
@@ -284,10 +286,11 @@ function output_login()
 <?php } ?>
 
 <?php
-function output_register()
+function output_register(Session $session)
 { ?>
   <div class="account">
     <form id="register" action="../actions/action_register.php" method="post">
+      <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
       <input type="text" name="first_name" placeholder="First Name">
       <input type="text" name="last_name" placeholder="Last Name">
       <input type="email" name="email" placeholder="Email">
