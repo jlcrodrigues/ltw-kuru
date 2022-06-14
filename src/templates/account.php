@@ -110,13 +110,14 @@ function output_profile_orders(PDO $db, Session $session)
 <?php } ?>
 
 <?php
-function output_profile_edit(User $user)
+function output_profile_edit(Session $session, User $user)
 { ?>
   <h2>Profile</h2>
   <button onclick="openProfileTab(event, 'profile-info')">
     <i class="material-symbols-rounded">edit</i>
   </button>
   <form action="../actions/action_edit_profile.php" method="post" class="profile">
+  <input type="hidden" name="csrf" value="<?=$session->getCSRF()?>">
     <hr>
     <label for="first_name">
       <i class="material-symbols-rounded">person</i>
@@ -238,7 +239,7 @@ function output_profile(Session $session)
       <p>Change Password</p>
     </section>
     <section id="profile-edit" class="profile-section">
-      <?php output_profile_edit($user); ?>
+      <?php output_profile_edit($session, $user); ?>
     </section>
     <section id="profile-owner" class="profile-section">
       <h2>

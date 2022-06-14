@@ -31,11 +31,10 @@ if ($session->getCSRF() !== $_POST['csrf']) {
         die(header('Location: ' . $_SERVER['HTTP_REFERER']));
     }
 
-    if ( !preg_match ("/^[a-zA-Z0-9\-\' ]+$/", $_POST['name'])) {
-        $session->addMessage('error', 'Invalid name!');
+    if (!valid_input_list(array($_POST["name"], $_POST["description"], $_POST["price"], $_POST["category"]))) {
+        $session->addMessage('error', 'Invalid input!');
         die(header('Location: ' . $_SERVER['HTTP_REFERER']));
         }
-
 
         $name = $_POST["name"];
         $description = $_POST["description"];

@@ -27,6 +27,10 @@
       $session->addMessage('error', 'Wrong email or password');
       die(header('Location: ' . $_SERVER['HTTP_REFERER']));
     }
+    else if (!valid_input_list(array($_POST['email']))) {
+      $session->addMessage('error', 'Invalid input!');
+      die(header('Location: ' . $_SERVER['HTTP_REFERER']));
+    }
     else {
       $session->setId($user->id);
       $session->setName($user->first_name);
