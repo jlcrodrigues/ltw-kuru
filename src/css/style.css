@@ -163,11 +163,13 @@ input[name=search]:focus {
   position: absolute;
   bottom: 8px;
   left: 10px;
-  text-shadow: 0.3em 0.3em 0.8em black;
 }
 
 .nano-text * {
   margin: 0.2em;
+  text-shadow: 5px 5px 5px black,
+               -5px -5px 5px black,
+               5px 5px 5px black;
 }
 
 .nano-text > h4 {
@@ -540,6 +542,10 @@ body>footer p {
   color: white;
 }
 
+.dish {
+  margin-bottom: 0.5em;
+}
+
 .dish h4 {
   font-weight: 400;
 }
@@ -671,6 +677,43 @@ body>footer p {
   padding: 0.5em;
   border-radius: 0.5em;
   font-size: large;
+}
+
+.edit-photo {
+  display: flex;
+}
+
+.dish .edit-photo {
+  flex-direction: column;
+}
+
+.dish .edit-photo form > label {
+  display: block;
+}
+
+.input-photo > input,
+.upload input {
+  display: none;
+}
+
+.input-photo > i,
+.upload > i,
+.remove-photo {
+  font-size: 2em;
+  margin: 0.4em;
+  color: var(--tertiary-color);
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.remove-photo {
+  position: relative;
+  right: 0.2em;
+  bottom: 0.05em;
+}
+
+.remove-photo > i {
+  font-size: 1em;
 }
 
 /* favorites page */
