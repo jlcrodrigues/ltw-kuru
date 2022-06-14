@@ -23,6 +23,9 @@
   $orders_id = User::getOrdersByState($db, $session->getId(), 'Ordering');
   foreach ($orders_id as $id) {
     $restaurant = Restaurant::getOrderRestaurant($db, intval($id));
+    if (!isset($restaurant)) {
+      continue;
+    }
     $dishes = Dish::getOrderDishes($db, intval($id));
     output_order_cart(intval($id), $restaurant, $dishes);
   }

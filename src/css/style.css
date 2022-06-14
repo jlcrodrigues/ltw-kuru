@@ -499,12 +499,13 @@ body>footer p {
 }
 
 #tabs {
+  margin-top: 2em;
   padding-left: 1em;
 }
 
 .restaurant-button {
-  background-color: rgb(247, 209, 148);
-  color: white;
+  background-color: transparent;
+  color: var(--primary-color);
   border: none;
   font-size: large;
   border-top-right-radius: 0.4em;
@@ -514,9 +515,13 @@ body>footer p {
   font-family: 'Nunito';
 }
 
+.restaurant-button:hover {
+  background-color: var(--bg-color);
+}
+
 .restaurant-button.active {
-  background-color: var(--tertiary-color);
-  color: white;
+  background-color: var(--bg-color);
+  color: var(--tertiary-color);
 }
 
 .open-add-card {
@@ -603,7 +608,8 @@ body>footer p {
   color: var(--accent-color);
   font-size: 2em;
   border-bottom: var(--accent-color) solid 0.05em;
-  margin: 0 2em;
+  margin: 0 auto;
+  width: 3em;
   padding: 0.5em;
 }
 

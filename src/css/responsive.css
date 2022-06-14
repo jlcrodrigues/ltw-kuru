@@ -39,6 +39,10 @@
     display: block;
   }
 
+  #restaurant > header {
+    position: relative;
+  }
+
   #side-section {
     display: none;
   }
@@ -52,9 +56,13 @@
 
   #form-favorite,
   #restaurant-delete {
-    position: relative;
-    right: -0.5em;
-    bottom: 14.3em;
+    position: absolute;
+    bottom: 11em;
+    right: 0.5em;
+  }
+
+  #tabs {
+    margin: 0;
   }
 
   .add-content {

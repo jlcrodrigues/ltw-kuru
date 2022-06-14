@@ -244,7 +244,7 @@
             }
           }
 
-          static function getOrderRestaurant(PDO $db, int $idOrder) : Restaurant {
+          static function getOrderRestaurant(PDO $db, int $idOrder) : ?Restaurant {
             $stmt = $db->prepare(
                 'SELECT DISTINCT Request.idRestaurant, restaurant.idUser, name, opens, closes, category, address, photo
                  FROM Restaurant, Request
@@ -253,6 +253,7 @@
             $stmt->execute(array($idOrder));
         
             $restaurant = $stmt->fetch();
+            if (!isset($restaurant['idRestaurant'])) return null;
         
             return new Restaurant(
                 intval($restaurant['idRestaurant']),

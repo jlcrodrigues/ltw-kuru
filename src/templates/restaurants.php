@@ -235,7 +235,6 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
         <p id="opening-time"><?php echo substr($restaurant->opens, 0, 5) ?></p>
         <p id="closing-time"><?php echo substr($restaurant->closes, 0, 5) ?></p>
       </div>
-    </header>
     <?php
     if ($session->isLoggedIn()) { ?>
       <div id="form-favorite">
@@ -253,6 +252,7 @@ function output_restaurant_card(PDO $db, Restaurant $restaurant, Session $sessio
             <input type="hidden" name="type" value="restaurant">
       </div>
     <?php } ?>
+    </header>
     <div id="tabs">
       <button id="menu-button" class="restaurant-button" onclick="openRestaurantTab(event, 'restaurant-menu')">
         Menu
