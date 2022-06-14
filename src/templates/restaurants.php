@@ -59,10 +59,12 @@ function output_restaurant_card_mini(PDO $db, Restaurant $restaurant)
     <div class="mini-text">
       <h3><?php echo $restaurant->name?></h3>
       <h4><?php echo $restaurant->address?></h4>
-      <p><?php echo $restaurant->category?></p>
+      <p class="category"><?php echo $restaurant->category?></p>
       <p><?php echo Restaurant::getAverage($db, $restaurant->id)?>
         <i class="material-symbols-rounded">star</i>
       </p>
+      <p id="opening-time"><?php echo substr($restaurant->opens, 0, 5) ?></p>
+      <p id="closing-time"><?php echo substr($restaurant->closes, 0, 5) ?></p>
     </div>
   </a>
 <?php } ?>

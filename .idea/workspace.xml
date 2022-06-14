@@ -7,9 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba596c2f-7bf1-408d-9451-bca46f09a55a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/api_restaurants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/api_restaurants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/restaurant.class.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/restaurant.class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/search.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/search.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/restaurants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/restaurants.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/templates/search.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/templates/search.php" afterDir="false" />
     </list>
@@ -54,7 +55,7 @@
       <workItem from="1654072764808" duration="4270000" />
       <workItem from="1654267536598" duration="27865000" />
       <workItem from="1654526674616" duration="2895000" />
-      <workItem from="1654676702266" duration="37662000" />
+      <workItem from="1654676702266" duration="45661000" />
     </task>
     <servers />
   </component>

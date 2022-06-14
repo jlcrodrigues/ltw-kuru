@@ -81,39 +81,53 @@ const favorite_button = document.getElementById("favorite-button-tab");
 if (favorite_button) favorite_button.click()
 
 const searchRestaurant = document.querySelector('#search-restaurant')
-//const filterRestaurant = document.querySelectorAll('.filter-category');
+const filterRestaurantCategory = document.querySelectorAll('.filter-category');
 const isIndex = window.location.toString().includes('/pages/index.php');
+const filterRestaurantRating = document.querySelectorAll('.filter-rating');
 
 if (searchRestaurant && !isIndex) {
   if (searchRestaurant.value) getRestaurants.call();
   searchRestaurant.addEventListener('input',  getRestaurants);
 }
 
-/*if(filterRestaurant){
-  for (filt of filterRestaurant){
-    filt.addEventListener('input',getRestaurants);
+if(filterRestaurantCategory){
+  for (category of filterRestaurantCategory){
+    category.addEventListener('input',getRestaurants);
   }
-}*/
+}
+
+if(filterRestaurantRating){
+  for (rating of filterRestaurantRating){
+    rating.addEventListener('input',getRestaurants);
+  }
+}
 
 async function getRestaurants() {
-  /*let result = [];
-  filterRestaurant.forEach(item=>{
+  let categories = [];
+  filterRestaurantCategory.forEach(item=>{
     if (item.checked){
-      console.log(item.value);
-      result.push(item.value);
+      categories.push(item.value);
     }
-  })*/
+  })
+  if(filterRestaurantRating[2].checked){
+    rating = 5.5;
+  }else if(filterRestaurantRating[1].checked){
+    rating = 3.5;
+  }else if(filterRestaurantRating[0].checked){
+    rating = 2.5;
+  }else{
+    rating = 0;
+  }
   const response = await fetch('../api/api_restaurants.php?search=', {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
     },
-    body: "search=" + searchRestaurant.value //+ "&selected_categories[]=" + result
+    body: "search=" + searchRestaurant.value + "&selected_categories[]=" + categories + "&minimum_rating=" + rating
   });
   const response_array = await response.json();
   const restaurants = response_array['a'];
   const averages = response_array['b'];
-
   const section = document.querySelector('.restaurants-search');
   section.innerHTML = '';
 
@@ -138,8 +152,15 @@ async function getRestaurants() {
     h4.textContent = restaurant.address;
     const categ = document.createElement('p');
     categ.textContent = restaurant.category;
+    categ.classList.add("category");
     const avg = document.createElement('p');
     avg.textContent = averages[restaurant.id];
+    const open_time = document.createElement('p');
+    const close_time = document.createElement('p');
+    open_time.textContent = restaurant.opens.substring(0,5);
+    close_time.textContent = restaurant.closes.substring(0,5);
+    open_time.setAttribute("id","opening-time");
+    close_time.setAttribute("id","closing-time");
     const icon = document.createElement('i');
     icon.classList.add("material-symbols-rounded");
     icon.textContent="star";
@@ -148,6 +169,8 @@ async function getRestaurants() {
     div.appendChild(h4);
     div.appendChild(categ);
     div.appendChild(avg);
+    div.appendChild(open_time);
+    div.appendChild(close_time);
     link.appendChild(img);
     link.appendChild(div);
     section.appendChild(link);
