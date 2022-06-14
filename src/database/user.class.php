@@ -446,7 +446,7 @@ class User
 
     function updateUserPhoto(PDO $db, string $photo, int $id) {
         $stmt = $db->prepare(
-            'UPDATE user SET photo ? where idUser = ?');
+            'UPDATE user SET photo = ? where idUser = ?');
 
         try {
             $stmt->execute(array($photo, $id));
