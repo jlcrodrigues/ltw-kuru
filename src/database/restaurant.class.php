@@ -145,15 +145,16 @@ class Restaurant
         return $categories;
     }
 
-    static function getRestaurantsByCategory(PDO $db, string $category): array
+    static function searchRestaurantsByCategory(PDO $db, string $category,string $search): array
     {
         $stmt = $db->prepare(
             'SELECT idRestaurant, idUser, name, opens, closes, category, address, photo
                  FROM Restaurant
                  WHERE category
-                 LIKE ?'
+                 LIKE ?
+                 AND name LIKE ?'
         );
-        $stmt->execute(array($category . '%'));
+        $stmt->execute(array($category . '%',$search . '%'));
 
         $restaurants = array();
         while ($restaurant = $stmt->fetch()) {
@@ -171,6 +172,33 @@ class Restaurant
 
         return $restaurants;
     }
+
+    static function getRestaurantsByCategory(PDO $db, string $category): array
+        {
+            $stmt = $db->prepare(
+                'SELECT idRestaurant, idUser, name, opens, closes, category, address, photo
+                     FROM Restaurant
+                     WHERE category
+                     LIKE ?'
+            );
+            $stmt->execute(array($category . '%'));
+
+            $restaurants = array();
+            while ($restaurant = $stmt->fetch()) {
+                $restaurants[] = new Restaurant(
+                    intval($restaurant['idRestaurant']),
+                    intval($restaurant['idUser']),
+                    $restaurant['name'],
+                    $restaurant['opens'],
+                    $restaurant['closes'],
+                    $restaurant['category'],
+                    $restaurant['address'],
+                    $restaurant['photo']
+                );
+            }
+
+            return $restaurants;
+        }
 
 
 

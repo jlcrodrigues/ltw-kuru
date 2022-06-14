@@ -51,15 +51,20 @@ function output_restaurant_slide(PDO $db, Session $session, array $restaurants, 
 } ?>
 
 <?php
+
 function output_restaurant_card_mini(PDO $db, Session $session, Restaurant $restaurant)
 {  ?>
   <a href="../pages/restaurant.php?id=<?php echo $restaurant->id ?>" class="restaurant-mini">
     <?php output_restaurant_photo($db, $session, $restaurant, 'mini'); ?>
     <div class="mini-text">
-      <h3><?php echo $restaurant->name ?></h3>
-      <h4><?php echo $restaurant->address ?></h4>
-      <p>Rating</p>
-      <p>Preço</p>
+      <h3><?php echo $restaurant->name?></h3>
+      <h4><?php echo $restaurant->address?></h4>
+      <p class="category"><?php echo $restaurant->category?></p>
+      <p><?php echo Restaurant::getAverage($db, $restaurant->id)?>
+        <i class="material-symbols-rounded">star</i>
+      </p>
+      <p id="opening-time"><?php echo substr($restaurant->opens, 0, 5) ?></p>
+      <p id="closing-time"><?php echo substr($restaurant->closes, 0, 5) ?></p>
     </div>
   </a>
 <?php } ?>
@@ -75,6 +80,7 @@ function output_restaurant_search(PDO $db, Session $session, array $restaurants)
     ?>
   </section>
 <?php } ?>
+
 
 <?php
 function output_dish(PDO $db, Session $session, Dish $dish)
