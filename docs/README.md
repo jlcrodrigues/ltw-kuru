@@ -1,13 +1,15 @@
 # Kuru
 
 Kuru is a food delivery website. Users can look for restaurants and order food online.
-This project was part of the Web Languages and Technologies at FEUP. This was our first contact with web development. To create it we used different languages and technologies: HTML & CSS, PHP, SQLite & Javascript.
+This project was part of the Web Languages and Technologies course unit at FEUP. This was our first contact with web development. To create it we used different languages and technologies: HTML & CSS, PHP, SQLite & Javascript.
 
-| [<img src="docs/ui/index.png" width="256" heigth="256">]()                                                                   | [<img src="docs/ui/profile.png" width="256" heigth="256">]()                                                             | [<img src="docs/ui/restaurant.png" width="256" heigth="256">]() |
+## UI
+
+| [<img src="ui/index.png" width="256" heigth="256">]()                                                                   | [<img src="ui/profile.png" width="256" heigth="256">]()                                                             | [<img src="ui/restaurant.png" width="256" heigth="256">]() |
 |:---:|:---:|:---:|
 | Home Page | User Profile | Restaurant Page |
 
-| [<img src="docs/ui/search.png" width="256" heigth="12">]()                                                        | [<img src="docs/ui/cart.png" width="256" heigth="256">](/res/discoverPage.png)                                               | [<img src="docs/ui/favorites.png" width="256" heigth="256">]() |
+| [<img src="ui/search.png" width="256" heigth="12">]()                                                        | [<img src="ui/cart.png" width="256" heigth="256">](/res/discoverPage.png)                                               | [<img src="ui/favorites.png" width="256" heigth="256">]() |
 |:---:|:---:|:---:|
 | Search Page | Cart Page | Favorites Page |
 
@@ -38,3 +40,13 @@ Restaurant Owner
 Email: f.pessoa@gmail.com 
 Password: amocamoes
 ```
+
+## Steps to run
+
+Assuming PHP and sqlite are properly set up:
+
+```
+cd src
+php -S localhost:9000
+``` 
+
