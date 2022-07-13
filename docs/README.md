@@ -1,15 +1,15 @@
 # Kuru
 
 Kuru is a food delivery website. Users can look for restaurants and order food online.
-This project was part of the Web Languages and Technologies at FEUP. This was our first contact with web development. To create it we used different languages and technologies: HTML & CSS, PHP & Javascript.
+This project was part of the Web Languages and Technologies at FEUP. This was our first contact with web development. To create it we used different languages and technologies: HTML & CSS, PHP, SQLite & Javascript.
 
-| [<img src="" width="256" heigth="256">]()                                                                   | [<img src="" width="256" heigth="256">]()                                                             | [<img src="" width="256" heigth="256">]() |
+| [<img src="docs/ui/index.png" width="256" heigth="256">]()                                                                   | [<img src="docs/ui/profile.png" width="256" heigth="256">]()                                                             | [<img src="docs/ui/restaurant.png" width="256" heigth="256">]() |
 |:---:|:---:|:---:|
-| Home Page | User Profile | Page |
+| Home Page | User Profile | Restaurant Page |
 
-| [<img src="" width="256" heigth="12">]()                                                        | [<img src="" width="256" heigth="256">](/res/discoverPage.png)                                               | [<img src="" width="256" heigth="256">]() |
+| [<img src="docs/ui/search.png" width="256" heigth="12">]()                                                        | [<img src="docs/ui/cart.png" width="256" heigth="256">](/res/discoverPage.png)                                               | [<img src="docs/ui/favorites.png" width="256" heigth="256">]() |
 |:---:|:---:|:---:|
-| Page |  Page | Page |
+| Search Page | Cart Page | Favorites Page |
 
 
 ## Features
