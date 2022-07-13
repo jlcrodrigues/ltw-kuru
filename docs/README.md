@@ -50,3 +50,15 @@ cd src
 php -S localhost:9000
 ``` 
 
+## About the project
+
+### Made by
+
+ - [André Barbosa](https://github.com/andrebarbosa02)
+ - [Guilherme Almeida](https://github.com/theguilhermealmeida)
+ - [José Rodrigues](https://github.com/jlcrodrigues)
+
+<br>
+
+*June of 2022*
+
